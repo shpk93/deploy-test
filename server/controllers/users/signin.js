@@ -13,15 +13,11 @@ module.exports = (req, res) => {
         },
       })
         .then((data) => {
-            console.log(data)
           if (!data) {
             return res.status(404).send('invalid user');
           }
-          
-
           delete data.dataValues.password;
-          const accessToken = generateAccessToken(data.dataValues);
-    
+          const accessToken = generateAccessToken(data.dataValues); 
           sendAccessToken(res, accessToken);
         })
         .catch((err) => {
