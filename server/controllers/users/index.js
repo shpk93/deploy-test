@@ -17,7 +17,7 @@ module.exports ={
             if (!data) {
                return res.status(200).json({message:'ok'});
             }
-            return res.status(404).json({message:'요청하신 정보는 이미 사용중입니다.'})
+            return res.status(409).json({message:'요청하신 정보는 이미 사용중입니다.'})
           })
       }
 
@@ -31,10 +31,34 @@ module.exports ={
       }
       
     },
-    put: (req, res) => {
-
+    put: (req, res) => {              // 이부분 api설명서 살짝 수정해야함 (상현)
+      let userInfo = isAuthorized(req)
+      let {id} =userInfo
+      let changeUsername = req.body.username
+      user.findOne({
+        where: {
+          username:changeUsername
+        },
+      })
+        .then((data) => {
+          if(!data) {
+            user.update({username: changeUsername}, {where: {id}})
+            return res.status(200).json({'message':"ok"})
+          }
+          else return res.status(409).json({message:'요청하신 정보는 이미 사용중입니다.'})
+        }) 
     },
-    delete: (req, res) => {
 
+    delete: (req, res) => {
+      let userInfo = isAuthorized(req)
+      if(userInfo) {
+        let {id} = userInfo
+        user.destroy({where: {id}})
+            .then(del => {
+              res.cookie("jwt", '', {httpOnly: true,maxAge :1});
+              return res.status(200).json({'message':"ok"})})
+            .catch(err => console.error(err));
+      }
+      else return res.status(401).json({"message": "Unauthorized request"})
     }
   };
