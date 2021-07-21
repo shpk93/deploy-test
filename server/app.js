@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.get('/posts/auth', controllers.auth);
 app.post('/users/signup', controllers.signup);
 app.post('/users/signin', controllers.signin);
-app.post('/users/signout', controllers.signout);
+app.get('/users/signout', controllers.signout);
 app.get('/users', controllers.users.get);
 app.delete('/users', controllers.users.delete);
 app.put('/users', controllers.users.put);
