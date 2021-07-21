@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const controllers = require('./controllers');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(express.json());
@@ -35,8 +36,8 @@ app.delete('/posts/:id', controllers.posts.delete);
 app.get('/menu', controllers.menu);
 
 //likes router
-app.post('/likes', controllers.likes);
-app.delete('/likes', controller.likes);
+app.post('/likes', controllers.likes.post);
+app.delete('/likes', controllers.likes.delete);
 
 app.get('/', (req, res) => {
   res.status(201).send('Welcome to My Subway API Server!');
