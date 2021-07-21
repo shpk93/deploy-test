@@ -27,7 +27,7 @@ module.exports ={
           let {email,username} = userInfo
           return res.json({"data":{email,username},"message":'ok'})
         }
-        else return res.json({"message": "Server is currently not available"})
+        else return res.json({"message": "User not found"})
       }
       
     },
