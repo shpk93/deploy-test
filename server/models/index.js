@@ -36,17 +36,41 @@ db.Sequelize = Sequelize;
 
 //Associations
 const {user,post,posts_ingredient,like,ingredient,ingredientType} = sequelize.models;
-like.belongsTo(user);
-user.hasMany(like);
-post.hasMany(like);
-like.belongsTo(post);
-user.hasMany(post);
-post.belongsTo(user);
-post.hasMany(posts_ingredient);
-posts_ingredient.belongsTo(post);
-posts_ingredient.belongsTo(ingredient);
-ingredient.hasMany(posts_ingredient);
-ingredientType.hasMany(ingredient);
-ingredient.belongsTo(ingredientType);
+like.belongsTo(user,{
+  foreignKey: 'user_id'
+});
+user.hasMany(like,{
+  foreignKey: 'user_id'
+});
+post.hasMany(like,{
+  foreignKey: 'post_id'
+});
+like.belongsTo(post,{
+  foreignKey: 'post_id'
+});
+user.hasMany(post,{
+  foreignKey: 'user_id'
+});
+post.belongsTo(user,{
+  foreignKey: 'user_id'
+});
+post.hasMany(posts_ingredient,{
+  foreignKey: 'post_id'
+});
+posts_ingredient.belongsTo(post,{
+  foreignKey: 'post_id'
+});
+posts_ingredient.belongsTo(ingredient,{
+  foreignKey: 'ingredient_id'
+});
+ingredient.hasMany(posts_ingredient,{
+  foreignKey: 'ingredient_id'
+});
+ingredientType.hasMany(ingredient,{
+  foreignKey: 'type_id'
+});
+ingredient.belongsTo(ingredientType,{
+  foreignKey: 'type_id'
+});
 
 module.exports = db;
