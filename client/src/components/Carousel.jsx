@@ -1,86 +1,49 @@
-import './Carousel.css';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
+import CarouselBoot from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components';
 
-const Carousel = (props) => {
+const Image = styled.img`
+  width: 300px;
+  height: 150px;
+  object-fit: contain;
+`;
+
+const RankImg = styled.img`
+  z-index: 1;
+  position: absolute;
+  top: 60px;
+  left: 80px;
+  width: 100px;
+  height: 80px;
+`;
+
+function Carousel(props) {
   const { images } = props;
-  const len = images.length;
-  const [activeIndex, setActive] = useState(0);
+  console.log(images);
+  const [index, setIndex] = useState(0);
 
-  const useInterval = (callback, delay) => {
-    const savedCallback = useRef();
-
-    useEffect(() => {
-      savedCallback.current = callback;
-    });
-
-    useEffect(() => {
-      function tick() {
-        savedCallback.current();
-      }
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
-    }, [delay]);
-  };
-
-  //Autoplay
-  useInterval(() => {
-    setActive((activeIndex + 1) % len);
-  }, 5000);
-
-  //Return style according to index
-  const getStyle = (idx) => {
-    //Counting from the left, the distance between idx and currentKey
-    const distance_left = idx - activeIndex;
-    //Counting from the right, the distance between idx and currentKey
-    const distance_right = distance_left > 0 ? distance_left - len : distance_left + len;
-    //Select the distance with the smallest absolute value
-    const distance = Math.abs(distance_left) > Math.abs(distance_right) ? distance_right : distance_left;
-
-    const styleObj = {};
-
-    if (distance === 0) {
-      //activeIndex
-      styleObj.left = '33.3%';
-      styleObj.zIndex = 200;
-      styleObj.opacity = 1;
-      styleObj.transform = 'scale(1.5)';
-    } else {
-      styleObj.left = distance > 0 ? `${16.7 + distance * 40}%` : `${50 + distance * 40}%`;
-    }
-
-    //The distance is not less than 2, hide
-    if (Math.abs(distance) >= 2) {
-      styleObj.opacity = 0;
-      styleObj.transform = 'scale(0)';
-    }
-
-    return styleObj;
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
   };
 
   return (
-    <div className="carouselArea">
-      <div className="carousel">
-        <div className="card-container">
-          {images.map(({ imgUrl }, index) => (
-            <div className="card" key={index} onClick={() => setActive(index)} style={getStyle(index)}>
-              <img src={imgUrl} />
-            </div>
-          ))}
-        </div>
-        <div className="rects">
-          {images.map((value, index) => (
-            <div
-              key={index}
-              className={activeIndex === index ? 'rect active' : 'rect'}
-              onClick={() => setActive(index)}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    <CarouselBoot activeIndex={index} onSelect={handleSelect}>
+      {images.map((el, idx) => {
+        console.log(el, idx);
+        return (
+          <CarouselBoot.Item>
+            <Image className="d-block w-100" src={el.imgUrl} alt="" />
+            <CarouselBoot.Caption>
+              <h3>{idx + 1}등</h3>
+              <p>{idx + 1}번째로 맛있는 맛!</p>
+              <RankImg src={`../imageFile/${idx + 1}등.png`} />
+            </CarouselBoot.Caption>
+          </CarouselBoot.Item>
+        );
+      })}
+    </CarouselBoot>
   );
-};
+}
 
 export default Carousel;
