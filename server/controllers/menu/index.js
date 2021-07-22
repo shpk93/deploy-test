@@ -1,4 +1,4 @@
-const {ingredient, ingredientType, sequelize} = require('../../models')
+const {ingredient, ingredientType} = require('../../models')
 module.exports = async (req, res) => {
     //데이터베이스에서 모든 메뉴 목록 받아오기
     let menuInfo = await ingredient.findAll({include:[ingredientType]});
