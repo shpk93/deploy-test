@@ -3,9 +3,11 @@ const { isAuthorized } = require('../tokenFunctions');
 module.exports = {
   post: (req, res) => {
     let post_id = req.body.post_id;
-    // let userInfo = isAuthorized(req);
-    let userInfo = { id: 1 };
+    let userInfo = isAuthorized(req);
+
+    //로그인 상태일때
     if (userInfo) {
+      //post_id와 user_id로 likes table에 레코드 추가
       like.create({ post_id, user_id: userInfo.id });
       res.status(201).json({ message: 'ok' });
     } else {
@@ -14,10 +16,10 @@ module.exports = {
   },
   delete: (req, res) => {
     let post_id = Number(req.params.id);
-    // let userInfo = isAuthorized(req)
-    let userInfo = { id: 1 };
-
+    let userInfo = isAuthorized(req);
+    //로그인 상태일 때
     if (userInfo) {
+      //post id에 해당하는 포스트에 대한 user의 좋아요를 취소
       like.destroy({
         where: {
           user_id: userInfo.id,
