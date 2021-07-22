@@ -134,7 +134,7 @@ const SignUpText = styled.div`
   font-weight: bold;
 `;
 
-function SignUp({ changeForm, closeLogInModal }) {
+function SignUp({ changeForm, closeModal }) {
   return (
     <ModalArea>
       <SignUpArea>
@@ -168,7 +168,7 @@ function SignUp({ changeForm, closeLogInModal }) {
           </div>
         </Form>
       </SignUpArea>
-      <Modalback onClick={() => closeLogInModal()}></Modalback>
+      <Modalback onClick={() => closeModal()}></Modalback>
     </ModalArea>
   );
 }

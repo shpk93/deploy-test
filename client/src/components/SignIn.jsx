@@ -146,7 +146,7 @@ const MarginDiv = styled.div`
   display: flex;
 `;
 
-function SignIn({ isLogIn, openLogInModal, changeModal, setUserInfo, closeLogInModal, changeForm }) {
+function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, changeForm }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -171,8 +171,8 @@ function SignIn({ isLogIn, openLogInModal, changeModal, setUserInfo, closeLogInM
         // console.log(result);
         // console.log(result);
         if (result.data.message === 'ok') {
-          changeModal();
-          openLogInModal();
+          openModal();
+          openLogInIcon();
           axios.get(`${url}users`).then((data) => setUserInfo(data.data.data));
           // setUserInfo(userInfo);
         }
@@ -185,8 +185,8 @@ function SignIn({ isLogIn, openLogInModal, changeModal, setUserInfo, closeLogInM
   //소셜 로그인 요청하는 곳
   const socialLoginHandler = () => {
     // window.location.assign(this.GITHUB_LOGIN_URL)
-    changeModal();
-    openLogInModal();
+    openModal();
+    closeModal();
   };
 
   return (
@@ -220,7 +220,7 @@ function SignIn({ isLogIn, openLogInModal, changeModal, setUserInfo, closeLogInM
               </div>
             </form>
           </ModalView>
-          <Modalback onClick={() => closeLogInModal()}></Modalback>
+          <Modalback onClick={() => closeModal()}></Modalback>
         </MarginDiv>
       )}
     </ModalArea>
