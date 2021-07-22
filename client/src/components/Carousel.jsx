@@ -20,7 +20,6 @@ const RankImg = styled.img`
 
 function Carousel(props) {
   const { images } = props;
-  console.log(images);
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -30,7 +29,6 @@ function Carousel(props) {
   return (
     <CarouselBoot activeIndex={index} onSelect={handleSelect}>
       {images.map((el, idx) => {
-        console.log(el, idx);
         return (
           <CarouselBoot.Item>
             <Image className="d-block w-100" src={el.imgUrl} alt="" />
