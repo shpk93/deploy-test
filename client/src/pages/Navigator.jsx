@@ -71,30 +71,27 @@ const SearchArea = styled.input`
 `;
 
 // 네이게이션바 구현 목록
-function Navigator({ changeSideBar, setUserInfo }) {
+function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn }) {
   const [hide, setHide] = useState(false);
   const [pageY, setPageY] = useState(0);
   const documentRef = useRef(document);
-  const [isLogIn, setIsLogIn] = useState(false);
-  const [openModal, setModal] = useState(false);
+  const [isModal, setModal] = useState(false);
   const [isOpenSignUp, SetIsOpenSignUp] = useState(false);
 
   // functions
-  const openLogInModal = () => {
-    setIsLogIn(true);
-  };
-  const closeLogInModal = () => {
+
+  const closeModal = () => {
     setModal(false);
   };
 
-  const changeModal = () => {
+  const openModal = () => {
     setModal(true);
   };
 
   //회원가입 모달폼 오픈
   const changeForm = () => {
     SetIsOpenSignUp(!isOpenSignUp);
-    changeModal();
+    openModal();
   };
 
   // 스크롤
@@ -149,22 +146,22 @@ function Navigator({ changeSideBar, setUserInfo }) {
             </LogInButton>
           ) : (
             //로그인 폼
-            <LogInButton type="button" onClick={changeModal}>
+            <LogInButton type="button" onClick={openModal}>
               <LockOpenOutlinedIcon style={{ color: 'white' }} />
             </LogInButton>
           )}
         </Mypage>
       </HeaderWrap>
-      {openModal ? (
+      {isModal ? (
         isOpenSignUp ? (
-          <SignUp changeForm={changeForm} closeLogInModal={closeLogInModal} />
+          <SignUp changeForm={changeForm} closeModal={closeModal} />
         ) : (
           <SignIn
             isLogIn={isLogIn}
-            openLogInModal={openLogInModal}
-            changeModal={changeModal}
+            openLogInIcon={openLogInIcon}
+            openModal={openModal}
             setUserInfo={setUserInfo}
-            closeLogInModal={closeLogInModal}
+            closeModal={closeModal}
             changeForm={changeForm}
           />
         )
