@@ -6,24 +6,24 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       post_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       ingredient_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
 
     await queryInterface.addConstraint('posts_ingredients', {
@@ -32,10 +32,10 @@ module.exports = {
       name: 'fk_pi_post',
       references: {
         table: 'posts',
-        field: 'id'
+        field: 'id',
       },
       onDelete: 'cascade',
-      onUpdate: 'cascade'
+      onUpdate: 'cascade',
     });
 
     await queryInterface.addConstraint('posts_ingredients', {
@@ -44,15 +44,15 @@ module.exports = {
       name: 'fk_pi_ingredient',
       references: {
         table: 'ingredients',
-        field: 'id'
+        field: 'id',
       },
       onDelete: 'cascade',
-      onUpdate: 'cascade'
+      onUpdate: 'cascade',
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeConstraint('posts_ingredients', 'fk_pi_post');
     await queryInterface.removeConstraint('posts_ingredients', 'fk_pi_ingredient');
     await queryInterface.dropTable('posts_ingredients');
-  }
+  },
 };
