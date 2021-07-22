@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Feed from '../components/Feed';
 import Carousel from '../components/Carousel';
 
+import SignUp from '../components/SignUp';
+
 const postMokdata = [
   {
     id: 1,
@@ -73,6 +75,7 @@ function Mainpage() {
       {postMokdata.map((el) => (
         <Feed data={el} key={el.id} />
       ))}
+      {/* <SignUp /> */}
     </div>
   );
 }

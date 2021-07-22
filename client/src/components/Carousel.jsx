@@ -43,9 +43,9 @@ const Carousel = (props) => {
     if (distance === 0) {
       //activeIndex
       styleObj.left = '33.3%';
-      styleObj.zIndex = 999;
+      styleObj.zIndex = 200;
       styleObj.opacity = 1;
-      styleObj.transform = 'scale(1)';
+      styleObj.transform = 'scale(1.5)';
     } else {
       styleObj.left = distance > 0 ? `${16.7 + distance * 40}%` : `${50 + distance * 40}%`;
     }
@@ -60,22 +60,24 @@ const Carousel = (props) => {
   };
 
   return (
-    <div className="carousel">
-      <div className="card-container">
-        {images.map(({ imgUrl }, index) => (
-          <div className="card" key={index} onClick={() => setActive(index)} style={getStyle(index)}>
-            <img src={imgUrl} />
-          </div>
-        ))}
-      </div>
-      <div className="rects">
-        {images.map((value, index) => (
-          <div
-            key={index}
-            className={activeIndex === index ? 'rect active' : 'rect'}
-            onClick={() => setActive(index)}
-          />
-        ))}
+    <div className="carouselArea">
+      <div className="carousel">
+        <div className="card-container">
+          {images.map(({ imgUrl }, index) => (
+            <div className="card" key={index} onClick={() => setActive(index)} style={getStyle(index)}>
+              <img src={imgUrl} />
+            </div>
+          ))}
+        </div>
+        <div className="rects">
+          {images.map((value, index) => (
+            <div
+              key={index}
+              className={activeIndex === index ? 'rect active' : 'rect'}
+              onClick={() => setActive(index)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
