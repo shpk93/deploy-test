@@ -7,11 +7,10 @@ module.exports = {
   },
 
   isAuthorized: (req) => {
-    let tokenCookie = req.headers.cookie;
+    let tokenCookie = req.cookies.jwt.accessToken;
     if (!tokenCookie) return null;
-    let token = tokenCookie.split(';')[0].slice(4);
     try {
-      return verify(token, process.env.ACCESS_SECRET);
+      return verify(tokenCookie, process.env.ACCESS_SECRET);
     } catch (err) {
       return null;
     }
