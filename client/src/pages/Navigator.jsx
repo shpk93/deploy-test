@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import SignUp from '../components/SignUp';
 
 import SignIn from '../components/SignIn';
 
@@ -22,7 +23,7 @@ const HeaderWrap = styled.div`
   /* justify-content: space-between; */
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 950;
   width: 100%;
   height: 150px;
   transition: 1.5s ease;
@@ -76,19 +77,24 @@ function Navigator({ changeSideBar, setUserInfo }) {
   const documentRef = useRef(document);
   const [isLogIn, setIsLogIn] = useState(false);
   const [openModal, setModal] = useState(false);
+  const [isOpenSignUp, SetIsOpenSignUp] = useState(false);
 
   // functions
   const openLogInModal = () => {
     setIsLogIn(true);
   };
   const closeLogInModal = () => {
-    setIsLogIn(false);
+    setModal(false);
   };
 
   const changeModal = () => {
-    console.log('열려라');
     setModal(true);
-    console.log(openModal);
+  };
+
+  //회원가입 모달폼 오픈
+  const changeForm = () => {
+    SetIsOpenSignUp(!isOpenSignUp);
+    changeModal();
   };
 
   // 스크롤
@@ -150,7 +156,18 @@ function Navigator({ changeSideBar, setUserInfo }) {
         </Mypage>
       </HeaderWrap>
       {openModal ? (
-        <SignIn isLogIn={isLogIn} openLogInModal={openLogInModal} changeModal={changeModal} setUserInfo={setUserInfo} />
+        isOpenSignUp ? (
+          <SignUp changeForm={changeForm} closeLogInModal={closeLogInModal} />
+        ) : (
+          <SignIn
+            isLogIn={isLogIn}
+            openLogInModal={openLogInModal}
+            changeModal={changeModal}
+            setUserInfo={setUserInfo}
+            closeLogInModal={closeLogInModal}
+            changeForm={changeForm}
+          />
+        )
       ) : null}
     </HeaderArea>
   );
