@@ -6,24 +6,26 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       post_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      },
     });
 
     await queryInterface.addConstraint('likes', {
@@ -32,10 +34,10 @@ module.exports = {
       name: 'fk_like_user',
       references: {
         table: 'users',
-        field: 'id'
+        field: 'id',
       },
       onDelete: 'cascade',
-      onUpdate: 'cascade'
+      onUpdate: 'cascade',
     });
 
     await queryInterface.addConstraint('likes', {
@@ -44,15 +46,15 @@ module.exports = {
       name: 'fk_like_post',
       references: {
         table: 'posts',
-        field: 'id'
+        field: 'id',
       },
       onDelete: 'cascade',
-      onUpdate: 'cascade'
+      onUpdate: 'cascade',
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeConstraint('likes', 'fk_like_user');
     await queryInterface.removeConstraint('likes', 'fk_like_post');
     await queryInterface.dropTable('likes');
-  }
+  },
 };

@@ -1,6 +1,6 @@
 const {
   user
-} = require('../../models')
+} = require('../../models');
 const {
   generateAccessToken,
   isAuthorized
@@ -8,19 +8,21 @@ const {
 
 module.exports = {
   get: (req, res) => {
-    if (req.query.email || req.query.username) { //파라미터가 있을때(상현)
-      let findKey, findname
+    if (req.query.email || req.query.username) {
+      //파라미터가 있을때(상현)
+      let findKey, findname;
       if (req.query.email) {
         findkey = 'email';
-        findname = req.query.email
+        findname = req.query.email;
       }
       if (req.query.username) {
         findkey = 'username';
-        findname = req.query.username
+        findname = req.query.username;
       }
-      user.findOne({
+      user
+        .findOne({
           where: {
-            [findkey]: findname
+            [findkey]: findname,
           },
         })
         .then((data) => {
@@ -31,38 +33,39 @@ module.exports = {
           }
           return res.status(409).json({
             message: '요청하신 정보는 이미 사용중입니다.'
-          })
-        })
+          });
+        });
     } else {
-      // console.log(req) //파라미터가 없을때 (상현)
-      let userInfo = isAuthorized(req)
+      //파라미터가 없을때 (상현)
+      let userInfo = isAuthorized(req);
       if (userInfo) {
         let {
           email,
           username
-        } = userInfo
+        } = userInfo;
         return res.json({
-          "data": {
+          data: {
             email,
             username
           },
-          "message": 'ok'
-        })
+          message: 'ok'
+        });
       } else return res.json({
-        "message": "User not found"
-      })
+        message: 'User not found'
+      });
     }
-
   },
-  put: (req, res) => { // 이부분 api설명서 살짝 수정해야함 (상현)
-    let userInfo = isAuthorized(req)
+  put: (req, res) => {
+    // 이부분 api설명서 살짝 수정해야함 (상현)
+    let userInfo = isAuthorized(req);
     let {
       id
-    } = userInfo
-    let changeUsername = req.body.username
-    user.findOne({
+    } = userInfo;
+    let changeUsername = req.body.username;
+    user
+      .findOne({
         where: {
-          username: changeUsername
+          username: changeUsername,
         },
       })
       .then((data) => {
@@ -73,39 +76,40 @@ module.exports = {
             where: {
               id
             }
-          })
+          });
           return res.status(200).json({
-            'message': "ok"
-          })
+            message: 'ok'
+          });
         } else return res.status(409).json({
           message: '요청하신 정보는 이미 사용중입니다.'
-        })
-      })
+        });
+      });
   },
 
   delete: (req, res) => {
-    let userInfo = isAuthorized(req)
+    let userInfo = isAuthorized(req);
     if (userInfo) {
       let {
         id
-      } = userInfo
-      user.destroy({
+      } = userInfo;
+      user
+        .destroy({
           where: {
             id
           }
         })
-        .then(del => {
-          res.cookie("jwt", '', {
+        .then((del) => {
+          res.cookie('jwt', '', {
             httpOnly: true,
             maxAge: 1
           });
           return res.status(200).json({
-            'message': "ok"
-          })
+            message: 'ok'
+          });
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
     } else return res.status(401).json({
-      "message": "Unauthorized request"
-    })
-  }
+      message: 'Unauthorized request'
+    });
+  },
 };

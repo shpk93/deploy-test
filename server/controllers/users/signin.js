@@ -1,20 +1,20 @@
 const {
   user
-} = require('../../models')
+} = require('../../models');
 const {
   generateAccessToken,
   sendAccessToken
 } = require('../tokenFunctions');
 
-
 module.exports = (req, res) => {
-  let loginInfo = req.body
+  let loginInfo = req.body;
   let {
     email,
     password
-  } = loginInfo
+  } = loginInfo;
 
-  user.findOne({
+  user
+    .findOne({
       where: {
         email,
         password,
@@ -26,7 +26,6 @@ module.exports = (req, res) => {
       }
       delete data.dataValues.password;
       const accessToken = generateAccessToken(data.dataValues);
-
       sendAccessToken(res, accessToken);
     })
     .catch((err) => {

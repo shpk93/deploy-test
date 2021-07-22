@@ -3,5 +3,5 @@ module.exports = (req, res) => {
         httpOnly: true,
         maxAge :1
       });
-      res.status(200).send({"message": "ok"});
+    res.status(200).send({"message": "ok"});
 };
