@@ -6,13 +6,12 @@ const {
 
 module.exports = {
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET)
+    return sign(data, process.env.ACCESS_SECRET);
   },
 
   isAuthorized: (req) => {
-    let tokenCookie = req.cookies.jwt.accessToken;
-    if (!tokenCookie) return null
-    let token = tokenCookie.split(';')[0].slice(4)
+    let tokenCookie = req.cookies.jwt;
+    if (!tokenCookie) return null;
     try {
       return verify(tokenCookie, process.env.ACCESS_SECRET);
     } catch (err) {
@@ -20,10 +19,9 @@ module.exports = {
     }
   },
   sendAccessToken: async (res, accessToken) => {
-    res.cookie("jwt",
-      accessToken, {
-        httpOnly: true
-      });
+    res.cookie('jwt', accessToken, {
+      httpOnly: true
+    });
     res.json({
       message: 'ok'
     });
