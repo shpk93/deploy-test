@@ -37,7 +37,7 @@ app.get('/menu', controllers.menu);
 
 //likes router
 app.post('/likes', controllers.likes.post);
-app.delete('/likes', controllers.likes.delete);
+app.delete('/likes/:id', controllers.likes.delete);
 
 app.get('/', (req, res) => {
   res.status(201).send('Welcome to My Subway API Server!');
