@@ -34,7 +34,14 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Associations
-const { user, post, posts_ingredient, like, ingredient, ingredientType } = sequelize.models;
+const {
+  user,
+  post,
+  posts_ingredient,
+  like,
+  ingredient,
+  ingredientType
+} = sequelize.models;
 like.belongsTo(user, {
   foreignKey: 'user_id',
 });
@@ -71,5 +78,6 @@ ingredientType.hasMany(ingredient, {
 ingredient.belongsTo(ingredientType, {
   foreignKey: 'type_id',
 });
+
 
 module.exports = db;

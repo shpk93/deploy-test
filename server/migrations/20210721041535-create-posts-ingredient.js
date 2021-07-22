@@ -35,6 +35,7 @@ module.exports = {
       references: {
         table: 'posts',
         field: 'id',
+
       },
       onDelete: 'cascade',
       onUpdate: 'cascade',
