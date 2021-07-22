@@ -6,24 +6,38 @@ const likes = require('../likes');
 module.exports = {
   get: async (req, res) => {
     //전체 포스트 정보를 api형식에 맞춰서 받아올 쿼리
+
+    let userInfo = isAuthorized(req);
+    let isLoginSELECTQuery = 0;
+    let isLoginHAVINGQuery = '';
+    if (userInfo) {
+      isLoginSELECTQuery = 'IFNULL(is_liked.likes, 0)';
+      isLoginHAVINGQuery = 'HAVING user_id =' + userInfo.id;
+    }
     const postInfo = await sequelize.query(
       `SELECT 
-        posts.id, users.username, posts.title, ingredients.name as mainmenu, ingredients.img_url, IFNULL(like_count.likes,0) as likes
+        posts.id, users.username, posts.title, ingredients.name as mainmenu, ingredients.img_url, IFNULL(like_count.likes, 0) as likes, ${isLoginSELECTQuery} as liked
         FROM users 
         JOIN posts on users.id = posts.user_id 
         RIGHT JOIN posts_ingredients as pi on posts.id =  pi.post_id 
         JOIN ingredients on pi.ingredient_id = ingredients.id 
         JOIN ingredientTypes on ingredientTypes.id = ingredients.type_id
         LEFT JOIN (SELECT posts.id as post_id, COUNT(*) as likes FROM likes JOIN posts on likes.post_id = posts.id GROUP BY posts.id) as like_count on posts.id = like_count.post_id
+        LEFT JOIN (SELECT post_id, user_id, COUNT(*) as likes FROM likes GROUP BY user_id ${isLoginHAVINGQuery}) as is_liked on (users.id = is_liked.user_id AND posts.id = is_liked.post_id)
         WHERE ingredientTypes.name = 'main'`,
       { type: QueryTypes.SELECT },
     );
+    //얘가 좋아요를 했냐 안했냐 이포스트에
+    //좋아요 테이블을 찾을때
+    //
+    // IFNULL(liked.likes,false) as liked
 
     //쿼리 결과 데이터와 함께 response 전송
     res.status(200).json({ data: postInfo, message: 'ok' });
   },
   getId: async (req, res) => {
     let id = Number(req.params.id);
+    let userInfo = isAuthorized(req);
     //id에 해당하는 포스트 세부정보, 재료 세부정보 요청 쿼리
     const postInfo = await sequelize.query(
       `SELECT 
@@ -108,6 +122,11 @@ module.exports = {
     //좋아요 수에 대한 쿼리 값을 responseData의 likes 항목에 추가
     responseData.likes = likesInfo;
 
+    let likedInfo = 0;
+    if (userInfo) {
+      likedInfo = await like.count({ where: { post_id: id, user_id: userInfo.id } });
+    }
+    responseData.liked = likedInfo;
     //결과 데이터와 함께 response 전송
     res.status(200).json({ data: responseData, message: 'ok' });
   },

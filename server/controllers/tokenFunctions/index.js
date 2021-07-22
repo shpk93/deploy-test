@@ -7,7 +7,7 @@ module.exports = {
   },
 
   isAuthorized: (req) => {
-    let tokenCookie = req.cookies.jwt.accessToken;
+    let tokenCookie = req.cookies.jwt;
     if (!tokenCookie) return null;
     try {
       return verify(tokenCookie, process.env.ACCESS_SECRET);
