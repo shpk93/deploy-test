@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'posts_ingredient',
+      timestamps: true,
     },
   );
   return posts_ingredient;
