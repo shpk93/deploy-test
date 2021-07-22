@@ -1,4 +1,4 @@
-const { post,like,user,posts_ingredient,sequelize} = require('../../models')
+const { post,like,posts_ingredient,sequelize} = require('../../models')
 const { QueryTypes } = require('sequelize');
 const { isAuthorized } = require('../tokenFunctions');
 const likes = require('../likes');
@@ -141,8 +141,7 @@ module.exports ={
           where: {
             id,
           },
-        })
-          .then((data) => {
+        }).then((data) => {
             if(userInfo.id === data.dataValues.user_id) {
               post.destroy({
                 where: {
@@ -152,7 +151,6 @@ module.exports ={
               .then(del => res.status(200).json({"message": "ok"}))
             }
             else return res.status(401).json({"message": "Unauthorized request"})
-
           })
       }
       else return res.status(401).json({"message": "Unauthorized request"})
