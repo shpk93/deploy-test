@@ -24,7 +24,7 @@ const SideArea = styled.div`
   height: 100vh;
 `;
 
-function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
+function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPosts }) {
   const [isEditMode, setEditMode] = useState(false);
   const [errMessage, SetErrMessage] = useState('');
   const [username, setUsername] = useState(userInfo.username);
@@ -59,19 +59,16 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
     setUsername(e.target.value);
   };
   const modifyUserHandle3 = () => {
-    setUsername(userInfo.username);
     setEditMode(false);
   };
   const putRequest = (e) => {
     axios
       .put(`${process.env.REACT_APP_API_URL}users/`, { username })
       .then((el) => {
-        axios.get();
         setEditMode(false);
       })
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));
   };
-
   return (
     <SideArea>
       <SideBar
@@ -83,16 +80,16 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
         <div>{userInfo.email}</div>
         <div>
           {isEditMode ? (
-            <input
-              type="text"
-              value={username}
-              ref={inputEl}
-              onBlur={modifyUserHandle3}
-              onChange={modifyUserHandle2}></input>
+            <input type="text" value={username} ref={inputEl} onChange={modifyUserHandle2}></input>
           ) : (
             <div>{username}</div>
           )}
-          {isEditMode ? <button onClick={putRequest}>수정하기</button> : <div onClick={modifyUserHandle1}>edit</div>}
+          {isEditMode ? (
+            <button onClick={putRequest}>수정하기</button>
+          ) : (
+            <button onClick={modifyUserHandle1}>닉네임 변경</button>
+          )}
+          {isEditMode ? <button onClick={modifyUserHandle3}>취소하기</button> : null}
           {errMessage ? errMessage : null}
         </div>
 
