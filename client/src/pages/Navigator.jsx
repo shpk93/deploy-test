@@ -48,7 +48,7 @@ const ButtonStyle = styled.button`
 `;
 
 // 네이게이션바 구현 목록
-function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn }) {
+function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn, setGetPosts, getPosts }) {
   const [hide, setHide] = useState(false);
   const [pageY, setPageY] = useState(0);
   const documentRef = useRef(document);
@@ -104,7 +104,7 @@ function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn }) {
     <HeaderArea>
       <HeaderWrap className={hide && 'hide'}>
         <ImageLog src="../imageFile/mySubwayLog1.png" alt="" />
-        <Search />
+        <Search getPosts={getPosts} setGetPosts={setGetPosts} />
         {isLogIn ? (
           //마이페이지 버튼
           <ButtonStyle type="button" onClick={changeSideBar}>

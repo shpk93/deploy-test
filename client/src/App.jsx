@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import styled, { createGlobalStyle } from 'styled-components';
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';
 import Sidebar from './components/Sidebar';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -27,8 +27,8 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   const [sideBarOn, setSideBarOn] = useState(false);
   const [userInfo, setUserInfo] = useState('');
-
   const [isLogIn, setIsLogIn] = useState(false);
+  const [getPosts, setGetPosts] = useState([]);
 
   const openLogInIcon = () => {
     setIsLogIn(true);
@@ -42,6 +42,12 @@ function App() {
     setSideBarOn(!sideBarOn);
   };
 
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
+      setGetPosts(data.data.data);
+    });
+  }, []);
+
   return (
     <div>
       <GlobalStyle />
@@ -50,9 +56,11 @@ function App() {
         setUserInfo={setUserInfo}
         openLogInIcon={openLogInIcon}
         isLogIn={isLogIn}
+        getPosts={getPosts}
+        setGetPosts={setGetPosts}
       />
       {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
-      <Mainpage />
+      <Mainpage getPosts={getPosts} />
     </div>
   );
 }
