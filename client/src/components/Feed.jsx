@@ -47,15 +47,14 @@ function Feed({ data }) {
   const changeLike = () => {
     setLike(!like);
   };
-
   return (
     <Menu>
       <MenuImg src="../imageFile/dumImg.jpg" alt=""></MenuImg>
       <ContentArea>
         <div>{data.title}</div>
-        <div>{data.content}</div>
         <button onClick={changeLike}>
           {like ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
+          {data.likes}
         </button>
       </ContentArea>
     </Menu>
