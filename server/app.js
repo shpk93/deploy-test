@@ -5,15 +5,14 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(express.json());
-const port = 8000;
+const port = 80;
 
 app.use(
   cors({
-
     origin: true,
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-  })
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  }),
 );
 
 app.use(cookieParser());
@@ -31,19 +30,18 @@ app.put('/users', controllers.users.put);
 app.get('/posts', controllers.posts.get);
 app.get('/posts/:id', controllers.posts.getId);
 app.post('/posts', controllers.posts.post);
-app.delete('/posts/:id', controllers.posts.delete);
+app.delete('/posts', controllers.posts.delete);
 
 //menu router
 app.get('/menu', controllers.menu);
 
 //likes router
 app.post('/likes', controllers.likes.post);
-app.delete('/likes/:id', controllers.likes.delete);
+app.delete('/likes', controllers.likes.delete);
 
 app.get('/', (req, res) => {
   res.status(201).send('Welcome to My Subway API Server!');
 });
-
 
 app.listen(port, () => {
   console.log(`서버가 ${port}번에서 작동중입니다.`);

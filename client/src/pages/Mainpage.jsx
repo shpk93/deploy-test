@@ -5,6 +5,12 @@ import Carousel from '../components/Carousel';
 
 import SignUp from '../components/SignUp';
 
+const BodyArea = styled.div`
+  margin-top: 150px;
+  padding: 0;
+  height: 100%;
+`;
+
 const postMokdata = [
   {
     id: 1,
@@ -66,17 +72,19 @@ const images = [
 
 function Mainpage() {
   return (
-    <div>
-      <div>TOP5</div>
+    <BodyArea>
       <div>
-        <Carousel images={images} />
+        <div>TOP5</div>
+        <div>
+          <Carousel images={images} />
+        </div>
+        <hr></hr>
+        {postMokdata.map((el) => (
+          <Feed data={el} key={el.id} />
+        ))}
+        {/* <SignUp /> */}
       </div>
-      <hr></hr>
-      {postMokdata.map((el) => (
-        <Feed data={el} key={el.id} />
-      ))}
-      {/* <SignUp /> */}
-    </div>
+    </BodyArea>
   );
 }
 

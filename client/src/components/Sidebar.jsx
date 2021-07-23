@@ -14,6 +14,15 @@ const SideBar = styled.div`
   transition: 0.8s ease;
 `;
 
+const SideArea = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 998;
+  float: right;
+  height: 100vh;
+`;
+
 function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
   const changeStatus = () => {
     changeSideBar();
@@ -36,26 +45,28 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
   };
 
   return (
-    <SideBar
-      style={{
-        transform: `translatex(${-xPosition}px)`,
-        width: width,
-        minHeight: height,
-      }}>
-      <div>{userInfo.email}</div>
-      <div>
-        <div>{userInfo.username}</div>
-        <div>edit</div>
-      </div>
-      <div>내가 좋요한 게시물</div>
-      <div>내가 올린 게시물</div>
-      <div>
-        <button onClick={logOutHandle}>LogOut</button>
-      </div>
-      <div>
-        <button onClick={changeStatus}>x</button>
-      </div>
-    </SideBar>
+    <SideArea>
+      <SideBar
+        style={{
+          transform: `translatex(${-xPosition}px)`,
+          width: width,
+          minHeight: height,
+        }}>
+        <div>{userInfo.email}</div>
+        <div>
+          <div>{userInfo.username}</div>
+          <div>edit</div>
+        </div>
+        <div>내가 좋요한 게시물</div>
+        <div>내가 올린 게시물</div>
+        <div>
+          <button onClick={logOutHandle}>LogOut</button>
+        </div>
+        <div>
+          <button onClick={changeStatus}>x</button>
+        </div>
+      </SideBar>
+    </SideArea>
   );
 }
 

@@ -24,21 +24,6 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-const BodyArea = styled.div`
-  margin-top: 150px;
-  padding: 0;
-  height: 100%;
-`;
-
-const SideArea = styled.div`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 998;
-  float: right;
-  height: 100vh;
-`;
-
 function App() {
   const [sideBarOn, setSideBarOn] = useState(false);
   const [userInfo, setUserInfo] = useState('');
@@ -65,14 +50,8 @@ function App() {
         openLogInIcon={openLogInIcon}
         isLogIn={isLogIn}
       />
-      {sideBarOn ? (
-        <SideArea>
-          <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} />
-        </SideArea>
-      ) : null}
-      <BodyArea>
-        <Mainpage />
-      </BodyArea>
+      {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
+      <Mainpage />
     </div>
   );
 }
