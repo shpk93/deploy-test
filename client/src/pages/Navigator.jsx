@@ -98,7 +98,7 @@ function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn, setGetP
   useEffect(() => {
     documentRef.current.addEventListener('scroll', throttleScroll);
     return () => documentRef.current.removeEventListener('scroll', throttleScroll);
-  }, [pageY]);
+  }, [pageY, throttleScroll]);
 
   return (
     <HeaderArea>

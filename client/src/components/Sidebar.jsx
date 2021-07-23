@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import './Sidebar.css';
-import { ChangeHistoryRounded } from '@material-ui/icons';
+// import { ChangeHistoryRounded } from '@material-ui/icons';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -39,7 +39,7 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
 
   useEffect(() => {
     setX(0);
-  });
+  }, []);
 
   const logOutHandle = () => {
     // users/signout
@@ -48,12 +48,19 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
       closeLogInIcon();
     });
   };
-
+  const inputEl = useRef(null);
   const modifyUserHandle1 = () => {
+    setTimeout(() => {
+      inputEl.current.focus();
+    }, 50);
     setEditMode(!isEditMode);
   };
   const modifyUserHandle2 = (e) => {
     setUsername(e.target.value);
+  };
+  const modifyUserHandle3 = () => {
+    setUsername(userInfo.username);
+    setEditMode(false);
   };
   const putRequest = (e) => {
     axios
@@ -76,7 +83,12 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
         <div>{userInfo.email}</div>
         <div>
           {isEditMode ? (
-            <input type="text" value={username} onChange={modifyUserHandle2}></input>
+            <input
+              type="text"
+              value={username}
+              ref={inputEl}
+              onBlur={modifyUserHandle3}
+              onChange={modifyUserHandle2}></input>
           ) : (
             <div>{username}</div>
           )}

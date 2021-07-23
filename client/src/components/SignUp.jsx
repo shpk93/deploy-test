@@ -24,11 +24,6 @@ const SignUpArea = styled.div`
   align-items: center;
 `;
 
-const Form = styled.form`
-  width: 100%;
-  margin-bottom: 35px;
-`;
-
 const Input = styled.input`
   font-size: 1.1em;
   font-weight: normal;

@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';

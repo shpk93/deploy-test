@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Feed from '../components/Feed';
 import Carousel from '../components/Carousel';
 
-import SignUp from '../components/SignUp';
-
 const BodyArea = styled.div`
   margin-top: 150px;
   padding: 0;
