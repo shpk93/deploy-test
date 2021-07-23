@@ -1,17 +1,9 @@
-const {
-  user
-} = require('../../models');
-const {
-  generateAccessToken,
-  sendAccessToken
-} = require('../tokenFunctions');
+const { user } = require('../../models');
+const { generateAccessToken, sendAccessToken } = require('../tokenFunctions');
 
 module.exports = (req, res) => {
   let loginInfo = req.body;
-  let {
-    email,
-    password
-  } = loginInfo;
+  let { email, password } = loginInfo;
 
   user
     .findOne({

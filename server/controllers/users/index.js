@@ -1,10 +1,5 @@
-const {
-  user
-} = require('../../models');
-const {
-  generateAccessToken,
-  isAuthorized
-} = require('../tokenFunctions');
+const { user } = require('../../models');
+const { generateAccessToken, isAuthorized } = require('../tokenFunctions');
 
 module.exports = {
   get: (req, res) => {
@@ -28,39 +23,35 @@ module.exports = {
         .then((data) => {
           if (!data) {
             return res.status(200).json({
-              message: 'ok'
+              message: 'ok',
             });
           }
           return res.status(409).json({
-            message: '요청하신 정보는 이미 사용중입니다.'
+            message: '요청하신 정보는 이미 사용중입니다.',
           });
         });
     } else {
       //파라미터가 없을때 (상현)
       let userInfo = isAuthorized(req);
       if (userInfo) {
-        let {
-          email,
-          username
-        } = userInfo;
+        let { email, username } = userInfo;
         return res.json({
           data: {
             email,
-            username
+            username,
           },
-          message: 'ok'
+          message: 'ok',
         });
-      } else return res.json({
-        message: 'User not found'
-      });
+      } else
+        return res.json({
+          message: 'User not found',
+        });
     }
   },
   put: (req, res) => {
     // 이부분 api설명서 살짝 수정해야함 (상현)
     let userInfo = isAuthorized(req);
-    let {
-      id
-    } = userInfo;
+    let { id } = userInfo;
     let changeUsername = req.body.username;
     user
       .findOne({
@@ -70,46 +61,49 @@ module.exports = {
       })
       .then((data) => {
         if (!data) {
-          user.update({
-            username: changeUsername
-          }, {
-            where: {
-              id
-            }
-          });
+          user.update(
+            {
+              username: changeUsername,
+            },
+            {
+              where: {
+                id,
+              },
+            },
+          );
           return res.status(200).json({
-            message: 'ok'
+            message: 'ok',
           });
-        } else return res.status(409).json({
-          message: '요청하신 정보는 이미 사용중입니다.'
-        });
+        } else
+          return res.status(409).json({
+            message: '요청하신 정보는 이미 사용중입니다.',
+          });
       });
   },
 
   delete: (req, res) => {
     let userInfo = isAuthorized(req);
     if (userInfo) {
-      let {
-        id
-      } = userInfo;
+      let { id } = userInfo;
       user
         .destroy({
           where: {
-            id
-          }
+            id,
+          },
         })
         .then((del) => {
           res.cookie('jwt', '', {
             httpOnly: true,
-            maxAge: 1
+            maxAge: 1,
           });
           return res.status(200).json({
-            message: 'ok'
+            message: 'ok',
           });
         })
         .catch((err) => console.error(err));
-    } else return res.status(401).json({
-      message: 'Unauthorized request'
-    });
+    } else
+      return res.status(401).json({
+        message: 'Unauthorized request',
+      });
   },
 };
