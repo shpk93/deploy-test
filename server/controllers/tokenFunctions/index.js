@@ -1,5 +1,8 @@
 require('dotenv').config();
-const { sign, verify } = require('jsonwebtoken');
+const {
+  sign,
+  verify
+} = require('jsonwebtoken');
 
 module.exports = {
   generateAccessToken: (data) => {
@@ -16,7 +19,11 @@ module.exports = {
     }
   },
   sendAccessToken: async (res, accessToken) => {
-    res.cookie('jwt', accessToken, { httpOnly: true });
-    res.json({ message: 'ok' });
+    res.cookie('jwt', accessToken, {
+      httpOnly: true
+    });
+    res.json({
+      message: 'ok'
+    });
   },
 };

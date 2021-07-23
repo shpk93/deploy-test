@@ -1,4 +1,5 @@
 import { ChangeHistoryRounded } from '@material-ui/icons';
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import './Sidebar.css';
@@ -13,7 +14,7 @@ const SideBar = styled.div`
   transition: 0.8s ease;
 `;
 
-function Sidebar({ changeSideBar, userInfo }) {
+function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
   const changeStatus = () => {
     changeSideBar();
   };
@@ -26,12 +27,12 @@ function Sidebar({ changeSideBar, userInfo }) {
     setX(0);
   });
 
-  const toggleMenu = () => {
-    if (xPosition < 0) {
-      setX(0);
-    } else {
-      setX(-width);
-    }
+  const logOutHandle = () => {
+    // users/signout
+    axios.get(`${process.env.REACT_APP_API_URL}users/signout`).then((result) => {
+      changeSideBar();
+      closeLogInIcon();
+    });
   };
 
   return (
@@ -49,7 +50,7 @@ function Sidebar({ changeSideBar, userInfo }) {
       <div>내가 좋요한 게시물</div>
       <div>내가 올린 게시물</div>
       <div>
-        <button onClick={changeStatus}>LogOut</button>
+        <button onClick={logOutHandle}>LogOut</button>
       </div>
       <div>
         <button onClick={changeStatus}>x</button>
