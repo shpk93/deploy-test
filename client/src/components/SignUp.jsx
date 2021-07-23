@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+const url = process.env.REACT_APP_API_URL;
 
 const SignUpArea = styled.div`
   position: fixed;
@@ -134,39 +137,63 @@ const SignUpText = styled.div`
   font-weight: bold;
 `;
 
-function SignUp({ changeForm, closeModal }) {
+function SignUp({ changeForm, closeModal, openModal }) {
+  const [signUpInfo, setSignUpInfo] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+  const [errorMessage, setErrorMessage] = useState('');
+
+  //로그인 요청을 보낼 데이터
+  const handleInputValue = (key) => (e) => {
+    setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
+  };
+
+  const signUpHandle = () => {
+    axios
+      .post(`${url}users/signup`, signUpInfo)
+      .then((result) => {
+        closeModal();
+        openModal();
+      })
+      .catch((err) => {
+        setErrorMessage('이메일 혹은 비밀번호가 틀립니다.');
+      });
+  };
+
   return (
     <ModalArea>
       <SignUpArea>
         <SignUpText>회원가입</SignUpText>
-        <Form action="index.html" method="post">
+        <div>
+          <Input type="text" onChange={handleInputValue('username')} placeholder="닉네입을 입력해주세요" />
+        </div>
+        <div>
+          <Input type="email" onChange={handleInputValue('email')} placeholder="이메일을 입력해주세요" />
+        </div>
+        <div>
+          <Input type="password" onChange={handleInputValue('password')} placeholder="비밀번호를 입력해주세요" />
+        </div>
+        <div>
           <div>
-            <Input required type="text" name="name" placeholder="닉네입을 입력해주세요" />
+            <SignUpBtn type="submit" onClick={signUpHandle}>
+              Sign Up
+            </SignUpBtn>
           </div>
           <div>
-            <Input required type="email" name="email" placeholder="이메일을 입력해주세요" />
+            <SignInBtn
+              type="button"
+              onClick={() => {
+                changeForm();
+              }}>
+              Already a member?
+            </SignInBtn>
           </div>
           <div>
-            <Input required type="password" name="password" placeholder="비밀번호를 입력해주세요" />
+            <SocialSignInBtn type="button">Social LogUp</SocialSignInBtn>
           </div>
-          <div>
-            <div>
-              <SignUpBtn type="submit">Sign Up</SignUpBtn>
-            </div>
-            <div>
-              <SignInBtn
-                type="button"
-                onClick={() => {
-                  changeForm();
-                }}>
-                Already a member?
-              </SignInBtn>
-            </div>
-            <div>
-              <SocialSignInBtn type="button">Social LogUp</SocialSignInBtn>
-            </div>
-          </div>
-        </Form>
+        </div>
       </SignUpArea>
       <Modalback onClick={() => closeModal()}></Modalback>
     </ModalArea>
