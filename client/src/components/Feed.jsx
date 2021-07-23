@@ -49,31 +49,38 @@ const MenuImg = styled.img`
   height: 70%;
 `;
 
-function Feed({ data }) {
+function Feed({ data, isLogIn, openModal }) {
   const [liked, setLiked] = useState(data.liked);
   const [likes, setLikes] = useState(data.likes);
 
   const changeLikedHandler = async () => {
+    console.log('like button clicked! likes:', likes, ' liked:', liked, ' isLogIn:', isLogIn);
     if (!!liked) {
+      console.log('like button clicked! likes:', likes, ' liked:', liked);
       setLiked(0);
       setLikes(likes - 1);
       //delete likes api
-      await axios.delete(`${url}likes`, { post_id: data.id });
+      await axios.delete(`${url}likes/${data.id}`);
     } else {
-      setLiked(1);
-      setLikes(likes + 1);
-      //post likes api
-      await axios.post(`${url}likes`, { post_id: data.id });
+      if (isLogIn) {
+        setLiked(1);
+        setLikes(likes + 1);
+        console.log('like button clicked! likes:', likes, ' liked:', liked);
+        //post likes api
+        await axios.post(`${url}likes`, { post_id: data.id });
+      } else {
+        openModal();
+      }
     }
   };
   return (
     <Menu>
-      <MenuImg src="../imageFile/dumImg.jpg" alt=""></MenuImg>
+      <MenuImg src={data.img_url} alt=""></MenuImg>
       <ContentArea>
         <TitleDiv>{data.title}</TitleDiv>
         <LikesDiv>
           <LikeButton onClick={changeLikedHandler}>
-            {liked ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
+            {!!liked ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
             <div>{likes}</div>
           </LikeButton>
           <UsernameDiv>{data.username}</UsernameDiv>
