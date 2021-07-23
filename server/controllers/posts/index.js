@@ -5,15 +5,15 @@ const likes = require('../likes');
 
 module.exports = {
   get: async (req, res) => {
-    //전체 포스트 정보를 api형식에 맞춰서 받아올 쿼리
-
     let userInfo = isAuthorized(req);
+    //로그인 상태가 아니면 좋아요 클릭 여부는 무조건 false(0);
     let isLoginSELECTQuery = 0;
-    let isLoginHAVINGQuery = '';
+    //로그인 상태일때는 좋아요 클릭 여부를 조회하는 쿼리 추가;
     if (userInfo) {
-      isLoginSELECTQuery = 'IFNULL(is_liked.likes, 0)';
-      isLoginHAVINGQuery = 'HAVING user_id =' + userInfo.id;
+      isLoginSELECTQuery = `EXISTS(SELECT post_id, user_id FROM likes WHERE user_id = ${userInfo.id} AND post_id = posts.id)`;
     }
+
+    //전체 포스트 정보를 api형식에 맞춰서 받아올 쿼리
     const postInfo = await sequelize.query(
       `SELECT 
         posts.id, users.username, posts.title, ingredients.name as mainmenu, ingredients.img_url, IFNULL(like_count.likes, 0) as likes, ${isLoginSELECTQuery} as liked
@@ -22,15 +22,10 @@ module.exports = {
         RIGHT JOIN posts_ingredients as pi on posts.id =  pi.post_id 
         JOIN ingredients on pi.ingredient_id = ingredients.id 
         JOIN ingredientTypes on ingredientTypes.id = ingredients.type_id
-        LEFT JOIN (SELECT posts.id as post_id, COUNT(*) as likes FROM likes JOIN posts on likes.post_id = posts.id GROUP BY posts.id) as like_count on posts.id = like_count.post_id
-        LEFT JOIN (SELECT post_id, user_id, COUNT(*) as likes FROM likes GROUP BY user_id ${isLoginHAVINGQuery}) as is_liked on (users.id = is_liked.user_id AND posts.id = is_liked.post_id)
+        LEFT JOIN (SELECT post_id, COUNT(*) as likes FROM likes GROUP BY post_id) as like_count on posts.id = like_count.post_id
         WHERE ingredientTypes.name = 'main'`,
       { type: QueryTypes.SELECT },
     );
-    //얘가 좋아요를 했냐 안했냐 이포스트에
-    //좋아요 테이블을 찾을때
-    //
-    // IFNULL(liked.likes,false) as liked
 
     //쿼리 결과 데이터와 함께 response 전송
     res.status(200).json({ data: postInfo, message: 'ok' });
@@ -158,28 +153,26 @@ module.exports = {
       res.status(401).json({ message: 'Unauthorized request' });
     }
   },
-  delete: (req, res) => {
-    let id = Number(req.params.id);
+  delete: async (req, res) => {
+    let id = req.body.post_id;
     let userInfo = isAuthorized(req);
-
+    //유저가 로그인 상태일 때
     if (userInfo) {
-      post
-        .findOne({
-          where: {
-            id,
-          },
-        })
-        .then((data) => {
-          if (userInfo.id === data.dataValues.user_id) {
-            post
-              .destroy({
-                where: {
-                  id,
-                },
-              })
-              .then((del) => res.status(200).json({ message: 'ok' }));
-          } else return res.status(401).json({ message: 'Unauthorized request' });
-        });
-    } else return res.status(401).json({ message: 'Unauthorized request' });
+      //해당 포스트를 조회
+      let postInfo = await post.findOne({ where: { id } });
+      //해당 포스트의 작성자가 삭제 요청자인지 확인
+      if (userInfo.id === postInfo.user_id) {
+        //작성자와 요청자가 일치할 때 레코드 삭제
+        await post.destroy({ where: { id } });
+
+        res.status(200).json({ message: 'ok' });
+      } else {
+        //작성자와 요청자가 일치하지 않을 때
+        res.status(401).json({ message: 'Unauthorized request' });
+      }
+    } else {
+      //유저가 로그인 상태가 아닐 때
+      res.status(401).json({ message: 'Unauthorized request' });
+    }
   },
 };
