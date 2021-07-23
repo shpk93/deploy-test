@@ -28,6 +28,7 @@ module.exports = {
     );
 
     //쿼리 결과 데이터와 함께 response 전송
+    console.log(postInfo);
     res.status(200).json({ data: postInfo, message: 'ok' });
   },
   getId: async (req, res) => {
@@ -154,7 +155,7 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-    let id = req.body.post_id;
+    let id = Number(req.params.id);
     let userInfo = isAuthorized(req);
     //유저가 로그인 상태일 때
     if (userInfo) {
