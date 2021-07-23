@@ -71,7 +71,6 @@ const images = [
 ];
 
 function Mainpage({ getPosts }) {
-  console.log(getPosts);
   return (
     <BodyArea>
       <div>

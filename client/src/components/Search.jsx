@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 const FormArea = styled.form`
   display: flex;
@@ -27,7 +29,6 @@ const SearchArea = styled.input`
 function Search({ getPosts, setGetPosts }) {
   const [keyword, setKeyword] = useState('');
   const [option, setOption] = useState('제목');
-  const [data, setdata] = useState([]);
 
   const handleKeyword = (e) => {
     setKeyword(e.target.value);
@@ -35,22 +36,22 @@ function Search({ getPosts, setGetPosts }) {
   const getOption = (e) => {
     setOption(e.target.value);
   };
-  const onSearch = () => {
+  const onSearch = async () => {
+    let allPosts = await axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
+      return data.data.data;
+    });
     let result;
     if (option === '제목') {
-      result = data.filter((posts) => posts.title.includes(keyword));
+      result = allPosts.filter((posts) => posts.title.includes(keyword));
     }
     if (option === '메인메뉴') {
-      result = data.filter((posts) => posts.mainmenu.includes(keyword));
+      result = allPosts.filter((posts) => posts.mainmenu.includes(keyword));
     }
     if (option === '닉네임') {
-      result = data.filter((posts) => posts.username.includes(keyword));
+      result = allPosts.filter((posts) => posts.username.includes(keyword));
     }
     setGetPosts(result);
   };
-  useEffect(() => {
-    setdata(getPosts);
-  }, []);
 
   return (
     <FormArea onSubmit={(e) => e.preventDefault()}>
