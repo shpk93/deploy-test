@@ -42,7 +42,6 @@ const SideArea = styled.div`
 function App() {
   const [sideBarOn, setSideBarOn] = useState(false);
   const [userInfo, setUserInfo] = useState('');
-
   const [isLogIn, setIsLogIn] = useState(false);
 
   const openLogInIcon = () => {
