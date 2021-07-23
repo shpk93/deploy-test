@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 // import './Navigator.css';
 import styled from 'styled-components';
-import SearchIcon from '@material-ui/icons/Search';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import Search from '../components/Search';
 import SignUp from '../components/SignUp';
 
 import SignIn from '../components/SignIn';
@@ -39,35 +39,12 @@ const ImageLog = styled.img`
   margin-left: 20px;
 `;
 
-const Mypage = styled.div`
-  display: flex;
-  margin-right: 20px;
-  width: 5%;
-  height: 30%;
-`;
-
-const FormArea = styled.form`
-  display: flex;
-`;
-
-const LogInButton = styled.button`
+const ButtonStyle = styled.button`
   border: none;
   width: 32px;
   height: 32px;
   cursor: pointer;
   background-color: transparent;
-`;
-
-const SearchArea = styled.input`
-  background-color: transparent;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-color: white;
-
-  ::placeholder {
-    color: white;
-  }
 `;
 
 // 네이게이션바 구현 목록
@@ -82,6 +59,7 @@ function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn }) {
 
   const closeModal = () => {
     setModal(false);
+    SetIsOpenSignUp(false);
   };
 
   const openModal = () => {
@@ -126,35 +104,22 @@ function Navigator({ changeSideBar, setUserInfo, openLogInIcon, isLogIn }) {
     <HeaderArea>
       <HeaderWrap className={hide && 'hide'}>
         <ImageLog src="../imageFile/mySubwayLog1.png" alt="" />
-        <Mypage>
-          <div>
-            <FormArea action="/action_page.php">
-              <SearchArea type="text" placeholder="Search.." name="search" />
-              <LogInButton type="submit">
-                <SearchIcon style={{ color: 'white' }} />
-              </LogInButton>
-            </FormArea>
-          </div>
-          {isLogIn ? (
-            <LogInButton
-              type="button"
-              className="btn btn-demo"
-              data-toggle="modal"
-              data-target="#myModal2"
-              onClick={changeSideBar}>
-              <AccountCircleOutlinedIcon style={{ color: 'white' }} />
-            </LogInButton>
-          ) : (
-            //로그인 폼
-            <LogInButton type="button" onClick={openModal}>
-              <LockOpenOutlinedIcon style={{ color: 'white' }} />
-            </LogInButton>
-          )}
-        </Mypage>
+        <Search />
+        {isLogIn ? (
+          //마이페이지 버튼
+          <ButtonStyle type="button" onClick={changeSideBar}>
+            <AccountCircleOutlinedIcon style={{ color: 'white' }} />
+          </ButtonStyle>
+        ) : (
+          //로그인 버튼
+          <ButtonStyle type="button" onClick={openModal}>
+            <LockOpenOutlinedIcon style={{ color: 'white' }} />
+          </ButtonStyle>
+        )}
       </HeaderWrap>
       {isModal ? (
         isOpenSignUp ? (
-          <SignUp changeForm={changeForm} closeModal={closeModal} />
+          <SignUp changeForm={changeForm} closeModal={closeModal} openModal={openModal} />
         ) : (
           <SignIn
             isLogIn={isLogIn}
