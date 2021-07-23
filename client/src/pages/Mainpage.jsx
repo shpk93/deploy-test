@@ -70,7 +70,7 @@ const images = [
   { imgUrl: '../imageFile/pngwing.com5.png' },
 ];
 
-function Mainpage() {
+function Mainpage({ getPosts }) {
   return (
     <BodyArea>
       <div>
@@ -79,8 +79,8 @@ function Mainpage() {
           <Carousel images={images} />
         </div>
         <hr></hr>
-        {postMokdata.map((el) => (
-          <Feed data={el} key={el.id} />
+        {getPosts.map((el, index) => (
+          <Feed data={el} key={index} />
         ))}
         {/* <SignUp /> */}
       </div>
