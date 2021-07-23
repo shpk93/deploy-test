@@ -56,6 +56,8 @@ function App() {
         setUserInfo={setUserInfo}
         openLogInIcon={openLogInIcon}
         isLogIn={isLogIn}
+        getPosts={getPosts}
+        setGetPosts={setGetPosts}
       />
       {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
       <Mainpage getPosts={getPosts} />
