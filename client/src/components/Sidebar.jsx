@@ -54,12 +54,12 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon }) {
   };
   const modifyUserHandle2 = (e) => {
     setUsername(e.target.value);
-    // axios.put(`${process.env.REACT_APP_API_URL}users/`, {username:});
   };
   const putRequest = (e) => {
     axios
       .put(`${process.env.REACT_APP_API_URL}users/`, { username })
       .then((el) => {
+        axios.get();
         setEditMode(false);
       })
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));

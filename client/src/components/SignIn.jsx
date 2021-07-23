@@ -188,6 +188,11 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
     openModal();
     closeModal();
   };
+  const loginPressEnter = (e) => {
+    if (e.keyCode === 13) {
+      handleLogin();
+    }
+  };
 
   return (
     <ModalArea>
@@ -195,14 +200,24 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
         <MarginDiv>
           <ModalView>
             <h1>Sign In</h1>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <div>
               <div>
                 <span>이메일</span>
-                <Input type="email" onChange={handleInputValue('email')} placeholder="이메일을 입력해주세요" />
+                <Input
+                  type="email"
+                  onKeyUp={loginPressEnter}
+                  onChange={handleInputValue('email')}
+                  placeholder="이메일을 입력해주세요"
+                />
               </div>
               <div>
                 <span>비밀번호</span>
-                <Input type="password" onChange={handleInputValue('password')} placeholder="비밀번호를 입력해주세요" />
+                <Input
+                  type="password"
+                  onKeyUp={loginPressEnter}
+                  onChange={handleInputValue('password')}
+                  placeholder="비밀번호를 입력해주세요"
+                />
               </div>
               <div>
                 <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
@@ -218,7 +233,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
                   Social LogIn
                 </SocialSignInBtn>
               </div>
-            </form>
+            </div>
           </ModalView>
           <Modalback onClick={() => closeModal()}></Modalback>
         </MarginDiv>
