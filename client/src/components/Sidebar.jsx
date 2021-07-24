@@ -50,22 +50,32 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
   };
   const inputEl = useRef(null);
   const modifyUserHandle1 = () => {
+    // 수정하기 버튼을 눌렀을때 인풋 창 포커스
     setTimeout(() => {
       inputEl.current.focus();
     }, 50);
     setEditMode(!isEditMode);
   };
   const modifyUserHandle2 = (e) => {
+    // EditMode상태에서 닉네임 변경
     setUsername(e.target.value);
   };
   const modifyUserHandle3 = () => {
     setEditMode(false);
+    SetErrMessage('');
+    axios.get(`${process.env.REACT_APP_API_URL}users`).then((userInfo) => {
+      setUsername(userInfo.data.data.username);
+    });
   };
   const putRequest = (e) => {
+    // 수정하기 버튼을 눌렀을때 바뀐 닉네임 적용
     axios
       .put(`${process.env.REACT_APP_API_URL}users/`, { username })
       .then((el) => {
         setEditMode(false);
+        SetErrMessage('');
+        alert('수정되었습니다. 다시 로그인하세요');
+        logOutHandle();
       })
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));
   };

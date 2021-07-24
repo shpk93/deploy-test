@@ -67,6 +67,12 @@ function App() {
     axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
       setGetPosts(data.data.data);
     });
+    axios.get(`${process.env.REACT_APP_API_URL}users`).then((data) => {
+      if (data.data.data) {
+        setUserInfo(data.data.data);
+        openLogInIcon();
+      }
+    });
   }, [isLogIn]);
 
   return (

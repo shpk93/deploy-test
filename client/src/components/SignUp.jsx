@@ -144,6 +144,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
     setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
   };
 
+  //회원가입 버튼을 눌렀을때
   const signUpHandle = () => {
     let { username, email, password } = signUpInfo;
     if (username && email && password && !validateErr) {
@@ -156,17 +157,16 @@ function SignUp({ changeForm, closeModal, openModal }) {
           window.location.replace('/');
         })
         .catch((err) => {
-          // signup API 에서 이메일이 중복됬는지 닉네임이 중복됬는지 정보를 알려줘야함. 추후 수정하겠음(상현)
           console.log(err);
           setValidateErr('이미 가입된 중복된 정보가 있습니다. 확인 후 다시 시도 해주세요.');
         });
     }
   };
-
+  //유효성 검사 함수  //이거 따로 파일 빼는거도 괜찮을듯 (상현)
   const validateCheck = (inputName) => {
     const emailCheck =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const passwordCheck = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    const passwordCheck = /^.*(?=^.{6,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     let { email, password, username } = signUpInfo;
 
     if (inputName === 'username') {
@@ -180,10 +180,9 @@ function SignUp({ changeForm, closeModal, openModal }) {
       return !passwordCheck.test(password);
     }
   };
-
+  //유효성 검사 후 true면 데이터베이스 중복확인
   const checkedInfo = (inputName) => {
     let validate = validateCheck(inputName);
-    console.log(validate);
     let { email, username } = signUpInfo;
     if (validate) {
       if (inputName === 'username') {
@@ -224,7 +223,6 @@ function SignUp({ changeForm, closeModal, openModal }) {
             onBlur={() => {
               checkedInfo('username');
             }}
-            // onKeyUp={pressEnter}
             onChange={handleInputValue('username')}
             placeholder="닉네임을 입력해주세요"
           />
@@ -235,7 +233,6 @@ function SignUp({ changeForm, closeModal, openModal }) {
             onBlur={() => {
               checkedInfo('email');
             }}
-            // onKeyUp={pressEnter}
             onChange={handleInputValue('email')}
             placeholder="이메일을 입력해주세요"
           />
@@ -246,7 +243,6 @@ function SignUp({ changeForm, closeModal, openModal }) {
             onBlur={() => {
               checkedInfo('password');
             }}
-            // onKeyUp={pressEnter}
             onChange={handleInputValue('password')}
             placeholder="비밀번호를 입력해주세요"
           />
