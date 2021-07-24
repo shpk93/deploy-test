@@ -101,7 +101,15 @@ function App() {
           />
         )
       ) : null}
-      {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
+      {sideBarOn ? (
+        <Sidebar
+          changeSideBar={changeSideBar}
+          userInfo={userInfo}
+          getPosts={getPosts}
+          setGetPosts={setGetPosts}
+          closeLogInIcon={closeLogInIcon}
+        />
+      ) : null}
       <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} />
     </div>
   );

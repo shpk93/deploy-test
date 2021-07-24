@@ -79,6 +79,14 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
       })
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));
   };
+  const likeFilterHandle = () => {
+    let filterData = getPosts.filter((el) => el.liked !== 0);
+    setGetPosts(filterData);
+  };
+  const myPostfilterHandle = () => {
+    let filterData = getPosts.filter((el) => el.username === username);
+    setGetPosts(filterData);
+  };
   return (
     <SideArea>
       <SideBar
@@ -103,8 +111,14 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
           {errMessage ? errMessage : null}
         </div>
 
-        <div>내가 좋요한 게시물</div>
-        <div>내가 올린 게시물</div>
+        <div>
+          내가 좋요한 게시물<button onClick={likeFilterHandle}>클릭 !</button>
+        </div>
+
+        <div>
+          내가 올린 게시물<button onClick={myPostfilterHandle}>클릭!</button>
+        </div>
+
         <div>
           <button onClick={logOutHandle}>LogOut</button>
         </div>
