@@ -138,38 +138,120 @@ function SignUp({ changeForm, closeModal, openModal }) {
     email: '',
     password: '',
   });
-  const [errorMessage, setErrorMessage] = useState('');
-
+  const [validateErr, setValidateErr] = useState('');
   //로그인 요청을 보낼 데이터
   const handleInputValue = (key) => (e) => {
     setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
   };
 
   const signUpHandle = () => {
-    axios
-      .post(`${url}users/signup`, signUpInfo)
-      .then((result) => {
-        closeModal();
-        openModal();
-      })
-      .catch((err) => {
-        setErrorMessage('이메일 혹은 비밀번호가 틀립니다.');
-      });
+    let { username, email, password } = signUpInfo;
+    if (username && email && password && !validateErr) {
+      axios
+        .post(`${url}users/signup`, signUpInfo)
+        .then((result) => {
+          closeModal();
+          openModal();
+          alert('회원가입이 완료되었습니다');
+          window.location.replace('/');
+        })
+        .catch((err) => {
+          // signup API 에서 이메일이 중복됬는지 닉네임이 중복됬는지 정보를 알려줘야함. 추후 수정하겠음(상현)
+          console.log(err);
+          setValidateErr('이미 가입된 중복된 정보가 있습니다. 확인 후 다시 시도 해주세요.');
+        });
+    }
   };
 
+  const validateCheck = (inputName) => {
+    const emailCheck =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const passwordCheck = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    let { email, password, username } = signUpInfo;
+
+    if (inputName === 'username') {
+      return username.includes(' ') || username === '';
+    }
+    if (inputName === 'email') {
+      return !emailCheck.test(email);
+    }
+
+    if (inputName === 'password') {
+      return !passwordCheck.test(password);
+    }
+  };
+
+  const checkedInfo = (inputName) => {
+    let validate = validateCheck(inputName);
+    console.log(validate);
+    let { email, username } = signUpInfo;
+    if (validate) {
+      if (inputName === 'username') {
+        setValidateErr('닉네임에 공백이 있어선 안됩니다.');
+      }
+
+      if (inputName === 'email') {
+        setValidateErr('올바른 이메일 주소를 입력하세요');
+      }
+
+      if (inputName === 'password') {
+        setValidateErr('비밀번호는 숫자와 특수문자가 포함되어야 합니다.');
+      }
+    } else {
+      setValidateErr('');
+      if (inputName === 'username') {
+        axios
+          .get(`${url}users/?username=${username}`)
+          .then((ok) => setValidateErr(''))
+          .catch((err) => setValidateErr('중복된 닉네임 입니다.'));
+      }
+
+      if (inputName === 'email') {
+        axios
+          .get(`${url}users/?email=${email}`)
+          .then((ok) => setValidateErr(''))
+          .catch((err) => setValidateErr('중복된 이메일 입니다.'));
+      }
+    }
+  };
   return (
     <ModalArea>
       <SignUpArea>
         <SignUpText>회원가입</SignUpText>
         <div>
-          <Input type="text" onChange={handleInputValue('username')} placeholder="닉네입을 입력해주세요" />
+          <Input
+            type="text"
+            onBlur={() => {
+              checkedInfo('username');
+            }}
+            // onKeyUp={pressEnter}
+            onChange={handleInputValue('username')}
+            placeholder="닉네임을 입력해주세요"
+          />
         </div>
         <div>
-          <Input type="email" onChange={handleInputValue('email')} placeholder="이메일을 입력해주세요" />
+          <Input
+            type="email"
+            onBlur={() => {
+              checkedInfo('email');
+            }}
+            // onKeyUp={pressEnter}
+            onChange={handleInputValue('email')}
+            placeholder="이메일을 입력해주세요"
+          />
         </div>
         <div>
-          <Input type="password" onChange={handleInputValue('password')} placeholder="비밀번호를 입력해주세요" />
+          <Input
+            type="password"
+            onBlur={() => {
+              checkedInfo('password');
+            }}
+            // onKeyUp={pressEnter}
+            onChange={handleInputValue('password')}
+            placeholder="비밀번호를 입력해주세요"
+          />
         </div>
+        {validateErr}
         <div>
           <div>
             <SignUpBtn type="submit" onClick={signUpHandle}>
