@@ -5,11 +5,6 @@ const likes = require('../likes');
 
 module.exports = {
   get: async (req, res) => {
-<<<<<<< HEAD
-    //전체 포스트 정보를 api형식에 맞춰서 받아올 쿼리
-
-=======
->>>>>>> 55d30df73b043ecc16d221c5f42c61e88d960f31
     let userInfo = isAuthorized(req);
     //로그인 상태가 아니면 좋아요 클릭 여부는 무조건 false(0);
     let isLoginSELECTQuery = 0;
@@ -35,10 +30,8 @@ module.exports = {
     );
 
     //쿼리 결과 데이터와 함께 response 전송
-    res.status(200).json({
-      data: postInfo,
-      message: 'ok',
-    });
+    console.log(postInfo);
+    res.status(200).json({ data: postInfo, message: 'ok' });
   },
   getId: async (req, res) => {
     let id = Number(req.params.id);
@@ -124,15 +117,7 @@ module.exports = {
     }, responseData);
 
     //해당 포스트의 좋아요수 쿼리
-<<<<<<< HEAD
-    const likesInfo = await like.count({
-      where: {
-        post_id: id,
-      },
-    });
-=======
     const likesInfo = await like.count({ where: { post_id: id } });
->>>>>>> 55d30df73b043ecc16d221c5f42c61e88d960f31
 
     //좋아요 수에 대한 쿼리 값을 responseData의 likes 항목에 추가
     responseData.likes = likesInfo;
@@ -199,40 +184,9 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-    let id = req.body.post_id;
+    let id = Number(req.params.id);
     let userInfo = isAuthorized(req);
-<<<<<<< HEAD
 
-    if (userInfo) {
-      post
-        .findOne({
-          where: {
-            id,
-          },
-        })
-        .then((data) => {
-          if (userInfo.id === data.dataValues.user_id) {
-            post
-              .destroy({
-                where: {
-                  id,
-                },
-              })
-              .then((del) =>
-                res.status(200).json({
-                  message: 'ok',
-                }),
-              );
-          } else
-            return res.status(401).json({
-              message: 'Unauthorized request',
-            });
-        });
-    } else
-      return res.status(401).json({
-        message: 'Unauthorized request',
-      });
-=======
     //유저가 로그인 상태일 때
     if (userInfo) {
       //해당 포스트를 조회
@@ -251,6 +205,5 @@ module.exports = {
       //유저가 로그인 상태가 아닐 때
       res.status(401).json({ message: 'Unauthorized request' });
     }
->>>>>>> 55d30df73b043ecc16d221c5f42c61e88d960f31
   },
 };

@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import styled, { createGlobalStyle } from 'styled-components';
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';
 import Sidebar from './components/Sidebar';
+import axios from 'axios';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
+axios.defaults.withCredentials = true;
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -28,6 +30,9 @@ function App() {
   const [sideBarOn, setSideBarOn] = useState(false);
   const [userInfo, setUserInfo] = useState('');
   const [isLogIn, setIsLogIn] = useState(false);
+  const [getPosts, setGetPosts] = useState([]);
+  const [isModal, setModal] = useState(false);
+  const [isOpenSignUp, SetIsOpenSignUp] = useState(false);
 
   const openLogInIcon = () => {
     setIsLogIn(true);
@@ -41,6 +46,29 @@ function App() {
     setSideBarOn(!sideBarOn);
   };
 
+  //모달창 닫기
+  const closeModal = () => {
+    setModal(false);
+    SetIsOpenSignUp(false);
+  };
+
+  //모달창 열기
+  const openModal = () => {
+    setModal(true);
+  };
+
+  //회원가입 모달폼 오픈
+  const changeForm = () => {
+    SetIsOpenSignUp(!isOpenSignUp);
+    openModal();
+  };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
+      setGetPosts(data.data.data);
+    });
+  }, [isLogIn]);
+
   return (
     <div>
       <GlobalStyle />
@@ -49,9 +77,26 @@ function App() {
         setUserInfo={setUserInfo}
         openLogInIcon={openLogInIcon}
         isLogIn={isLogIn}
+        getPosts={getPosts}
+        setGetPosts={setGetPosts}
+        openModal={openModal}
       />
+      {isModal ? (
+        isOpenSignUp ? (
+          <SignUp changeForm={changeForm} closeModal={closeModal} openModal={openModal} />
+        ) : (
+          <SignIn
+            isLogIn={isLogIn}
+            openLogInIcon={openLogInIcon}
+            openModal={openModal}
+            setUserInfo={setUserInfo}
+            closeModal={closeModal}
+            changeForm={changeForm}
+          />
+        )
+      ) : null}
       {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
-      <Mainpage />
+      <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} />
     </div>
   );
 }
