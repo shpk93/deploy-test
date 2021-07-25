@@ -63,6 +63,10 @@ function App() {
     openModal();
   };
 
+  const handleSetPosts = (posts) => {
+    setGetPosts(posts);
+  };
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
       setGetPosts(data.data.data);
@@ -96,7 +100,7 @@ function App() {
         )
       ) : null}
       {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
-      <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} />
+      <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} handleSetPosts={handleSetPosts} />
     </div>
   );
 }

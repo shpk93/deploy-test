@@ -11,13 +11,35 @@ const Container = styled.div`
   margin-right: 10%;
   overflow: auto;
 `;
-function FeedContainer({ feeds, isLogIn, openModal }) {
+const OrderBy = styled.div`
+  margin: 1rem;
+`;
+const OrderByButton = styled.span`
+  cursor: pointer;
+`;
+
+function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts }) {
+  const orderByLikesHandler = () => {
+    let orderedFeeds = feeds.slice(0).sort((a, b) => b.likes - a.likes);
+    handleSetPosts(orderedFeeds);
+  };
+  const orderByCreatedAtHandler = () => {
+    let orderedFeeds = feeds.slice(0).sort((a, b) => b.id - a.id);
+    handleSetPosts(orderedFeeds);
+  };
   return (
-    <Container>
-      {feeds.map((el) => (
-        <Feed data={el} key={el.id} isLogIn={isLogIn} openModal={openModal} />
-      ))}
-    </Container>
+    <>
+      <Container>
+        <OrderBy>
+          <OrderByButton onClick={orderByLikesHandler}>좋아요순</OrderByButton>
+          <span> | </span>
+          <OrderByButton onClick={orderByCreatedAtHandler}>최신순</OrderByButton>
+        </OrderBy>
+        {feeds.map((el) => (
+          <Feed data={el} key={el.id} isLogIn={isLogIn} openModal={openModal} />
+        ))}
+      </Container>
+    </>
   );
 }
 
