@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createGlobalStyle } from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import Socialsignin from './components/Socialsignin';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';
 import Sidebar from './components/Sidebar';
@@ -78,6 +79,7 @@ function App() {
   return (
     <div>
       <GlobalStyle />
+      <Socialsignin closeLogInIcon={closeLogInIcon} />
       <Navigator
         changeSideBar={changeSideBar}
         setUserInfo={setUserInfo}
