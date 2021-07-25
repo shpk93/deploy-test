@@ -85,6 +85,7 @@ function App() {
         setGetPosts={setGetPosts}
         openModal={openModal}
       />
+
       {isModal ? (
         isOpenSignUp ? (
           <SignUp changeForm={changeForm} closeModal={closeModal} openModal={openModal} />
@@ -99,8 +100,9 @@ function App() {
           />
         )
       ) : null}
-      {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
+
       <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} handleSetPosts={handleSetPosts} />
+      {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
     </div>
   );
 }
