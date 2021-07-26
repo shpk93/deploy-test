@@ -3,7 +3,6 @@ import { createGlobalStyle } from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Link, useHistory } from 'react-router-dom';
 
-import Socialsignin from './components/Socialsignin';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';
 import Sidebar from './components/Sidebar';
@@ -88,7 +87,6 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <Socialsignin closeLogInIcon={closeLogInIcon} />
       <Navigator
         changeSideBar={changeSideBar}
         setUserInfo={setUserInfo}
@@ -97,6 +95,7 @@ function App() {
         getPosts={getPosts}
         setGetPosts={setGetPosts}
         openModal={openModal}
+        closeLogInIcon={closeLogInIcon}
       />
 
       {isModal ? (
