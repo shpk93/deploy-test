@@ -14,7 +14,7 @@ const ModalArea = styled.div`
   left: 0;
   height: 100%;
   text-align: center;
-  z-index: 100;
+  z-index: 997;
 `;
 
 const Modalback = styled.div`
@@ -53,12 +53,10 @@ const MarginDiv = styled.div`
 
 const MainImg = styled.img`
   width: 20vw;
-  height: 20vh;
 `;
 
 const MenuImg = styled.img`
   width: 10vw;
-  height: 10vh;
 `;
 const TitleDiv = styled.div`
   font-weight: bold;
@@ -79,13 +77,14 @@ const LikeButton = styled.button`
   cursor: pointer;
 `;
 
-function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked }) {
+function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked, isLogIn, userInfo }) {
   return (
     <ModalArea>
       <MarginDiv>
         <ModalView>
           <TitleDiv>{postDetail.title}</TitleDiv>
           <div>{postDetail.username}</div>
+          {}
           <div>
             <MainImg src={postDetail.menu.main[0].img_url} />
             <span>{postDetail.menu.main[0].name}</span>

@@ -31,7 +31,6 @@ const HeaderWrap = styled.div`
 `;
 
 const ImageLog = styled.img`
-  width: 10%;
   height: 50%;
   margin-left: 20px;
 `;
