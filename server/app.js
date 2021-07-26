@@ -18,7 +18,7 @@ app.use(
 app.use(cookieParser());
 
 //user router
-app.get('/posts/auth', controllers.auth);
+app.post('/users/auth', controllers.auth);
 app.post('/users/signup', controllers.signup);
 app.post('/users/signin', controllers.signin);
 app.get('/users/signout', controllers.signout);

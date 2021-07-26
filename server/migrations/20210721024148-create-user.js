@@ -19,6 +19,10 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      provider: {
+        type: Sequelize.STRING,
+        defaultValue: 'origin',
+      },
       createdAt: {
         allowNull: false,
         type: 'TIMESTAMP',
