@@ -184,7 +184,10 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
 
   //소셜 로그인 요청하는 곳
   const socialLoginHandler = () => {
-    // window.location.assign(this.GITHUB_LOGIN_URL)
+    window.location.assign(
+      `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=12e8d721afd32ce049f4f0ac195d8a0c&redirect_uri=http://localhost:3000`,
+    );
+
     openModal();
     closeModal();
   };
