@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const url = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
+const id = process.env.CLIENTID;
 
 const ModalArea = styled.div`
   position: relative;
@@ -168,13 +169,10 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
     axios
       .post(`${url}users/signin`, { email: loginInfo.email, password: loginInfo.password })
       .then((result) => {
-        // console.log(result);
-        // console.log(result);
         if (result.data.message === 'ok') {
           openModal();
           openLogInIcon();
           axios.get(`${url}users`).then((data) => setUserInfo(data.data.data));
-          // setUserInfo(userInfo);
         }
       })
       .catch((err) => {
@@ -184,8 +182,10 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
 
   //소셜 로그인 요청하는 곳
   const socialLoginHandler = () => {
+    let clientId = process.env.REACT_APP_CLIENT_ID;
+    let redirectUri = process.env.REACT_APP_REDIRECT_URI;
     window.location.assign(
-      `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}`,
+      `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`,
     );
 
     openModal();
