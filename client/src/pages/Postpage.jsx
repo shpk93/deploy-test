@@ -111,6 +111,7 @@ function Postpage() {
       content: content.content,
       menu,
     };
+    console.log(data);
     //완료시 리렌더링되게 바꿔야함
     axios.post(`${url}posts`, data).then((result) => history.push('/'));
   };
