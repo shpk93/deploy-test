@@ -78,7 +78,7 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal })
   useEffect(() => {
     documentRef.current.addEventListener('scroll', throttleScroll);
     return () => documentRef.current.removeEventListener('scroll', throttleScroll);
-  }, [pageY]);
+  }, [pageY, throttleScroll]);
 
   return (
     <HeaderArea>
