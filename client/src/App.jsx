@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createGlobalStyle } from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, Link, useHistory } from 'react-router-dom';
+
 import Socialsignin from './components/Socialsignin';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';
@@ -8,6 +10,8 @@ import Sidebar from './components/Sidebar';
 import axios from 'axios';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Postpage from './pages/Postpage';
+import PostButton from './components/PostButton';
 axios.defaults.withCredentials = true;
 
 const GlobalStyle = createGlobalStyle`
@@ -108,8 +112,15 @@ function App() {
           />
         )
       ) : null}
+      <Switch>
+        <Route exact={true} path="/">
+          <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} handleSetPosts={handleSetPosts} />
+        </Route>
+        <Route path="/post">
+          <Postpage />
+        </Route>
+      </Switch>
 
-      <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} handleSetPosts={handleSetPosts} />
       {sideBarOn ? (
         <Sidebar
           changeSideBar={changeSideBar}
@@ -119,6 +130,7 @@ function App() {
           closeLogInIcon={closeLogInIcon}
         />
       ) : null}
+      <PostButton />
     </div>
   );
 }
