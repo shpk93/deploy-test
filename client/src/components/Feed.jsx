@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PostDetail from './PostDetail';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbUpAltTwoToneIcon from '@material-ui/icons/ThumbUpAltTwoTone';
 import axios from 'axios';
@@ -37,6 +38,7 @@ const ContentArea = styled.div`
 
 const TitleDiv = styled.div`
   font-size: 150%;
+  cursor: pointer;
 `;
 const LikeButton = styled.button`
   background-color: transparent;
@@ -52,8 +54,17 @@ const MenuImg = styled.img`
 function Feed({ data, isLogIn, openModal }) {
   const [liked, setLiked] = useState(data.liked);
   const [likes, setLikes] = useState(data.likes);
+  const [isOpenPostDetail, setIsOpenPostDetail] = useState(false);
+  const [postDetail, setPostDetail] = useState({});
 
-  const changeLikedHandler = async () => {
+  const openPostDetail = () => {
+    setIsOpenPostDetail(true);
+  };
+  const closePostDetail = () => {
+    setIsOpenPostDetail(false);
+  };
+
+  const handleClickLike = async () => {
     console.log('like button clicked! likes:', likes, ' liked:', liked, ' isLogIn:', isLogIn);
     if (!!liked) {
       console.log('like button clicked! likes:', likes, ' liked:', liked);
@@ -73,20 +84,44 @@ function Feed({ data, isLogIn, openModal }) {
       }
     }
   };
+
+  const handleClickFeed = async (post_id) => {
+    let postDetailData = await axios.get(`${url}posts/${post_id}`);
+    setPostDetail(postDetailData.data.data);
+    openPostDetail();
+  };
+
   return (
-    <Menu>
-      <MenuImg src={data.img_url} alt=""></MenuImg>
-      <ContentArea>
-        <TitleDiv>{data.title}</TitleDiv>
-        <LikesDiv>
-          <LikeButton onClick={changeLikedHandler}>
-            {!!liked ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
-            <div>{likes}</div>
-          </LikeButton>
-          <UsernameDiv>{data.username}</UsernameDiv>
-        </LikesDiv>
-      </ContentArea>
-    </Menu>
+    <>
+      <Menu>
+        <MenuImg src={data.img_url} alt=""></MenuImg>
+        <ContentArea>
+          <TitleDiv
+            onClick={() => {
+              handleClickFeed(data.id);
+            }}>
+            {data.title}
+          </TitleDiv>
+          <LikesDiv>
+            <LikeButton onClick={handleClickLike}>
+              {!!liked ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
+              <div>{likes}</div>
+            </LikeButton>
+            <UsernameDiv>{data.username}</UsernameDiv>
+          </LikesDiv>
+        </ContentArea>
+      </Menu>
+
+      {isOpenPostDetail ? (
+        <PostDetail
+          postDetail={postDetail}
+          closePostDetail={closePostDetail}
+          liked={liked}
+          likes={likes}
+          handleClickLike={handleClickLike}
+        />
+      ) : null}
+    </>
   );
 }
 
