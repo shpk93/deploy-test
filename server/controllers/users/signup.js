@@ -1,4 +1,5 @@
 const { user } = require('../../models');
+const Sequelize = require('sequelize');
 const { generateAccessToken } = require('../tokenFunctions');
 
 module.exports = (req, res) => {
@@ -6,21 +7,22 @@ module.exports = (req, res) => {
   let { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    res.status(422).send('insufficient parameters supplied');
+    res.status(422).json({ message: 'insufficient parameters supplied' });
   }
   user
     .findOrCreate({
       where: {
-        email: email,
+        [Sequelize.Op.or]: [{ email }, { username }],
       },
       defaults: {
+        email,
         password,
         username,
       },
     })
-    .then(async ([user, created]) => {
+    .then(([user, created]) => {
       if (!created) {
-        return res.status(409).send({ message: 'this email has already been registered' }); // 닉네임도 중복되는 메세지로 바뀌어야할듯 /상현
+        return res.status(409).json({ message: 'this email or username has already been registered' }); // 닉네임도 중복되는 메세지로 바뀌어야할듯 /상현
       }
       delete user.dataValues.password;
       let token = generateAccessToken(user.dataValues);

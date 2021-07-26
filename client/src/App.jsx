@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import Navigator from './pages/Navigator';
 import Mainpage from './pages/Mainpage';
@@ -67,6 +67,12 @@ function App() {
     axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
       setGetPosts(data.data.data);
     });
+    axios.get(`${process.env.REACT_APP_API_URL}users`).then((data) => {
+      if (data.data.data) {
+        setUserInfo(data.data.data);
+        openLogInIcon();
+      }
+    });
   }, [isLogIn]);
 
   return (
@@ -95,7 +101,15 @@ function App() {
           />
         )
       ) : null}
-      {sideBarOn ? <Sidebar changeSideBar={changeSideBar} userInfo={userInfo} closeLogInIcon={closeLogInIcon} /> : null}
+      {sideBarOn ? (
+        <Sidebar
+          changeSideBar={changeSideBar}
+          userInfo={userInfo}
+          getPosts={getPosts}
+          setGetPosts={setGetPosts}
+          closeLogInIcon={closeLogInIcon}
+        />
+      ) : null}
       <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} />
     </div>
   );
