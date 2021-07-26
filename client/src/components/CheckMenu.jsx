@@ -32,11 +32,16 @@ const ImgStyle = styled.img`
   }
 `;
 
+const SelectSectionStyle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 function CheckMenu({ data, handleCheckBox }) {
   const name = Object.keys(data)[0];
   const menu = data[name];
   return (
-    <div>
+    <SelectSectionStyle>
       {menu.map((el) =>
         el.img_url ? (
           <CheckedStyle>
@@ -70,7 +75,7 @@ function CheckMenu({ data, handleCheckBox }) {
           </CheckedStyle>
         ),
       )}
-    </div>
+    </SelectSectionStyle>
   );
 }
 

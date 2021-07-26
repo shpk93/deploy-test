@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Switch, Route, Link, useHistory } from 'react-router-dom';
 
 const AsideStyled = styled.div`
   position: fixed;
@@ -23,7 +24,9 @@ function PostButton() {
 
   return (
     <AsideStyled>
-      <LogImg src="../imageFile/subway-Log.png" alt="log" onClick={openPost} />
+      <Link to="/post">
+        <LogImg src="../imageFile/subway-Log.png" alt="log" onClick={openPost} />
+      </Link>
     </AsideStyled>
   );
 }

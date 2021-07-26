@@ -32,11 +32,16 @@ const ImgStyle = styled.img`
   }
 `;
 
+const SelectSectionStyle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 function RadioMenu({ data, handleRadio }) {
   const name = Object.keys(data)[0];
   const menu = data[name];
   return (
-    <div>
+    <SelectSectionStyle>
       {menu.map((el) => (
         <CheckedStyle>
           <InputStyle
@@ -54,7 +59,7 @@ function RadioMenu({ data, handleRadio }) {
           </label>
         </CheckedStyle>
       ))}
-    </div>
+    </SelectSectionStyle>
   );
 }
 
