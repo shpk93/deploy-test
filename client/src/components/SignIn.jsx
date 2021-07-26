@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const url = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
-const id = process.env.CLIENTID;
 
 const ModalArea = styled.div`
   position: relative;

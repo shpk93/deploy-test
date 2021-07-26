@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Search from '../components/Search';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 // 스타일컴퍼넌트
 const HeaderArea = styled.div`
@@ -44,7 +46,7 @@ const ButtonStyle = styled.button`
 `;
 
 // 네이게이션바 구현 목록
-function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal }) {
+function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, closeLogInIcon }) {
   const [hide, setHide] = useState(false);
   const [pageY, setPageY] = useState(0);
   const documentRef = useRef(document);
@@ -79,6 +81,23 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal })
     return () => documentRef.current.removeEventListener('scroll', throttleScroll);
   }, [pageY, throttleScroll]);
 
+  const getAccessToken = async (authorizationCode) => {
+    let resp = await axios.post(`${process.env.REACT_APP_API_URL}users/auth`, { authorizationCode });
+    closeLogInIcon();
+    if (resp.status === 201) {
+      alert('회원가입 되었습니다. 마이페이지 창에서 닉네임을 변경해주세요');
+    }
+    window.location.replace('/'); // 단점 로딩을 두번함 .
+  };
+
+  useEffect(() => {
+    // 소셜로 부터 리디렉션 됬을때 접근코드를 서버에게보냄.
+    let url = new URL(window.location.href);
+    let authorizationCode = url.searchParams.get('code');
+    if (authorizationCode) {
+      getAccessToken(authorizationCode);
+    }
+  }, []);
   return (
     <HeaderArea>
       <HeaderWrap className={hide && 'hide'}>
