@@ -17,12 +17,18 @@ const images = [
   { imgUrl: '../imageFile/pngwing.com5.png' },
 ];
 
-function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts }) {
+function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo }) {
   return (
     <BodyArea>
       <div>TOP5</div>
       <Carousel images={images} />
-      <FeedContainer feeds={getPosts} isLogIn={isLogIn} openModal={openModal} handleSetPosts={handleSetPosts} />
+      <FeedContainer
+        feeds={getPosts}
+        isLogIn={isLogIn}
+        openModal={openModal}
+        handleSetPosts={handleSetPosts}
+        userInfo={userInfo}
+      />
     </BodyArea>
   );
 }

@@ -74,7 +74,8 @@ function App() {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
-      setGetPosts(data.data.data);
+      let orderedFeeds = data.data.data.slice(0).sort((a, b) => b.likes - a.likes);
+      setGetPosts(orderedFeeds);
     });
     axios.get(`${process.env.REACT_APP_API_URL}users`).then((data) => {
       if (data.data.data) {
@@ -114,7 +115,13 @@ function App() {
       ) : null}
       <Switch>
         <Route exact={true} path="/">
-          <Mainpage getPosts={getPosts} isLogIn={isLogIn} openModal={openModal} handleSetPosts={handleSetPosts} />
+          <Mainpage
+            getPosts={getPosts}
+            isLogIn={isLogIn}
+            openModal={openModal}
+            handleSetPosts={handleSetPosts}
+            userInfo={userInfo}
+          />
         </Route>
         <Route path="/post">
           <Postpage />

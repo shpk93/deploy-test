@@ -51,7 +51,7 @@ const MenuImg = styled.img`
   height: 70%;
 `;
 
-function Feed({ data, isLogIn, openModal }) {
+function Feed({ data, isLogIn, openModal, userInfo }) {
   const [liked, setLiked] = useState(data.liked);
   const [likes, setLikes] = useState(data.likes);
   const [isOpenPostDetail, setIsOpenPostDetail] = useState(false);
@@ -119,6 +119,8 @@ function Feed({ data, isLogIn, openModal }) {
           liked={liked}
           likes={likes}
           handleClickLike={handleClickLike}
+          userInfo={userInfo}
+          isLogIn={isLogIn}
         />
       ) : null}
     </>
