@@ -41,12 +41,13 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
     setX(0);
   }, []);
 
-  const logOutHandle = () => {
+  const logOutHandle = async () => {
     // users/signout
     axios.get(`${process.env.REACT_APP_API_URL}users/signout`).then((result) => {
       changeSideBar();
       closeLogInIcon();
     });
+    window.location.replace('/');
   };
   const inputEl = useRef(null);
   const modifyUserHandle1 = () => {
