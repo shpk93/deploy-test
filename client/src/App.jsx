@@ -20,15 +20,17 @@ const GlobalStyle = createGlobalStyle`
 }
   html {
     height: 100%;
+    width:100%;
   }
 	body {
 		padding: 0;
 		margin: 0;
     height: 100%;
-    background-color: #ffffff;
-;
     display:flex;
+    width:100%;
+    background-color: white;
 	}
+  
 `;
 
 function App() {

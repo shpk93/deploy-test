@@ -6,12 +6,12 @@ axios.defaults.withCredentials = true;
 const url = process.env.REACT_APP_API_URL;
 
 const Container = styled.div`
-  width: 80vw;
+  width: 60vw;
   height: 70vh;
   position: absolute;
   background-color: #f3f4f4;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 20%;
+  margin-right: 20%;
   overflow: auto;
 `;
 const OrderBy = styled.div`

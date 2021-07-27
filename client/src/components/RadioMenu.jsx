@@ -9,15 +9,18 @@ const InputStyle = styled.input`
 `;
 
 const CheckedStyle = styled.div`
+  position: relative;
   [type='radio']:checked + label > img {
     transform: scale(1.2);
   }
+  height: 315px;
 `;
 
 const ImgStyle = styled.img`
   width: 20vw;
   height: 20vw;
-  padding: 2vw;
+  margin: 0px;
+  padding: 0px;
   &:hover {
     opacity: 0.6;
     transition: transform 0.2s ease-out, color 0.2s ease;
@@ -32,9 +35,24 @@ const ImgStyle = styled.img`
   }
 `;
 
+const Caption = styled.div`
+  /* padding: 1em; */
+
+  /* line-height: 1; */
+  font-family: font-css;
+  text-align: center;
+  color: black;
+  z-index: 1;
+  /* top: -20%; */
+  /* bottom: auto; */
+`;
+
 const SelectSectionStyle = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: space-around;
+  width: 100vw;
 `;
 
 function RadioMenu({ data, handleRadio }) {
@@ -57,6 +75,7 @@ function RadioMenu({ data, handleRadio }) {
           <label for={el.id}>
             <ImgStyle src={el.img_url} />
           </label>
+          <Caption>{el.name}</Caption>
         </CheckedStyle>
       ))}
     </SelectSectionStyle>

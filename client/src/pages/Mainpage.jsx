@@ -6,7 +6,8 @@ import FeedContainer from '../components/FeedContainer';
 const BodyArea = styled.div`
   margin-top: 150px;
   padding: 0;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 `;
 
 const images = [
@@ -21,7 +22,7 @@ function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo }) {
   return (
     <BodyArea>
       <div>TOP5</div>
-      <Carousel images={images} />
+      <Carousel data={getPosts} isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />
       <FeedContainer
         feeds={getPosts}
         isLogIn={isLogIn}
