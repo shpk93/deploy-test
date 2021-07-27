@@ -9,15 +9,16 @@ const InputStyle = styled.input`
 `;
 
 const CheckedStyle = styled.div`
-  [type='radio']:checked + label > img {
-    transform: scale(1.2);
+  [type='checkbox']:checked + label > img {
+    transform: scale(1.3);
   }
 `;
 
 const ImgStyle = styled.img`
   width: 20vw;
   height: 20vw;
-  padding: 2vw;
+  margin: 0px;
+  padding: 0px;
   &:hover {
     opacity: 0.6;
     transition: transform 0.2s ease-out, color 0.2s ease;
@@ -32,9 +33,22 @@ const ImgStyle = styled.img`
   }
 `;
 
+const Caption = styled.div`
+  padding: 1em;
+  line-height: 1;
+  font-family: font-css;
+  text-align: center;
+  color: black;
+  top: 0;
+  bottom: auto;
+`;
+
 const SelectSectionStyle = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: space-around;
+  width: 100vw;
 `;
 
 function CheckMenu({ data, handleCheckBox }) {
@@ -72,6 +86,7 @@ function CheckMenu({ data, handleCheckBox }) {
               }}
             />
             <label for={el.id}>{el.name}</label>
+            {name === 'addmeat' ? null : <Caption>{el.name}</Caption>}
           </CheckedStyle>
         ),
       )}

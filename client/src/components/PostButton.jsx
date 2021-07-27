@@ -7,7 +7,7 @@ const AsideStyled = styled.div`
   bottom: 110px;
   left: 49%;
   margin: 0 0 0 635px;
-  z-index: 999;
+  z-index: 997;
 `;
 
 const LogImg = styled.img`

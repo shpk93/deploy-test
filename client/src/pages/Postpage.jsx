@@ -1,18 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import RadioMenu from '../components/RadioMenu';
-import CheckMenu from '../components/CheckMenu';
 import axios from 'axios';
 import Textbox from '../components/Textbox';
 import styled from 'styled-components';
+import Accordion from '../components/Accordion';
 
 const url = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 
 const PostAreaStyle = styled.div`
-  margin-top: 150px;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 180px auto;
+  padding: 100px;
   height: 100%;
+  background-color: #f3f4f4;
+  width: 90%;
+`;
+
+const H2Style = styled.h2`
+  width: 100%;
+  background-color: #018735;
+  margin: -3px;
+  z-index: 1;
+  border-top-left-radius: 6px 6px;
+  border-top-right-radius: 6px 6px;
+  text-align: center;
+  color: white;
+`;
+
+const ButtonStyle = styled.button`
+  margin-top: 12px;
+  background: hsl(134deg 100% 10%);
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  width: 30%;
+`;
+
+const ButtonFrontStyle = styled.button`
+  display: block;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: hsl(134deg 100% 25.3%);
+  color: white;
+  width: 100%;
+
+  transform: translateY(-6px);
+  :active {
+    transform: translateY(-2px);
+  }
 `;
 
 function Postpage() {
@@ -88,6 +130,14 @@ function Postpage() {
     const check = checkedItems.reduce((acc, cur) => {
       return [...acc, cur.name];
     }, []);
+    if (!title) {
+      setErrMessage('제목을 작성해주세요');
+      return;
+    }
+    if (!content) {
+      setErrMessage('설명을 작성해주세요');
+      return;
+    }
     if (!check.includes('main')) {
       setErrMessage('메인을 선택해주세요');
       return;
@@ -113,34 +163,27 @@ function Postpage() {
     };
     console.log(data);
     //완료시 리렌더링되게 바꿔야함
-    axios.post(`${url}posts`, data).then((result) => window.location.replace('/'));
+    axios.post(`${url}posts`, data).then((result) => history.push('/'));
   };
 
   return (
     allMenu && (
       <PostAreaStyle>
         <Textbox name="Title" textData={setTitle} />
+        <H2Style>Choice Your Favorite</H2Style>
         {allMenu.map((el) => {
           const name = Object.keys(el)[0];
           return name === 'main' || name === 'bread' || name === 'cheese' ? (
-            <div>
-              <h3>{name}</h3>
-              <hr></hr>
-              <RadioMenu data={el} handleRadio={handleRadio} />
-            </div>
+            <Accordion check="radio" data={el} handleFunc={handleRadio} checkedItems={checkedItems} />
           ) : (
-            <div>
-              <h3>{name}</h3>
-              <hr></hr>
-              <CheckMenu data={el} handleCheckBox={handleCheckBox} />
-            </div>
+            <Accordion check="check" data={el} handleFunc={handleCheckBox} checkedItems={checkedItems} />
           );
         })}
         <Textbox name="Contents" textData={setContent} />
-        <div>
-          {errMessage ? <div>{errMessage}</div> : null}
-          <button onClick={handlePostSend}>GO POST</button>
-        </div>
+        {errMessage ? <div>{errMessage}</div> : null}
+        <ButtonStyle className="back" onClick={handlePostSend}>
+          <ButtonFrontStyle className="front">P O S T</ButtonFrontStyle>
+        </ButtonStyle>
       </PostAreaStyle>
     )
   );
