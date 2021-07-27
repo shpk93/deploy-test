@@ -10,18 +10,10 @@ const BodyArea = styled.div`
   width: 100%;
 `;
 
-const images = [
-  { imgUrl: '../imageFile/pngwing.com1.png' },
-  { imgUrl: '../imageFile/pngwing.com2.png' },
-  { imgUrl: '../imageFile/pngwing.com3.png' },
-  { imgUrl: '../imageFile/pngwing.com4.png' },
-  { imgUrl: '../imageFile/pngwing.com5.png' },
-];
-
 function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo }) {
   return (
     <BodyArea>
-      <Carousel data={getPosts} isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />
+      <Carousel isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />
       <FeedContainer
         feeds={getPosts}
         isLogIn={isLogIn}
