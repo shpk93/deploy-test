@@ -80,12 +80,14 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
       })
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));
   };
-  const likeFilterHandle = () => {
-    let filterData = getPosts.filter((el) => el.liked !== 0);
+  const likeFilterHandle = async () => {
+    let allPosts = await axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => data.data.data);
+    let filterData = allPosts.filter((el) => el.liked !== 0);
     setGetPosts(filterData);
   };
-  const myPostfilterHandle = () => {
-    let filterData = getPosts.filter((el) => el.username === username);
+  const myPostfilterHandle = async () => {
+    let allPosts = await axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => data.data.data);
+    let filterData = allPosts.filter((el) => el.username === username);
     setGetPosts(filterData);
   };
   return (
@@ -96,7 +98,14 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
           width: width,
           minHeight: height,
         }}>
-        <div>{userInfo.email}</div>
+        <div>
+          <span>
+            <button onClick={changeStatus} style={{ marginRight: '20px', fontSize: '20px' }}>
+              x
+            </button>
+          </span>
+          {userInfo.email}
+        </div>
         <div>
           {isEditMode ? (
             <input type="text" value={username} ref={inputEl} onChange={modifyUserHandle2}></input>
@@ -111,20 +120,53 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
           {isEditMode ? <button onClick={modifyUserHandle3}>취소하기</button> : null}
           {errMessage ? errMessage : null}
         </div>
-
         <div>
           내가 좋요한 게시물<button onClick={likeFilterHandle}>클릭 !</button>
         </div>
-
         <div>
           내가 올린 게시물<button onClick={myPostfilterHandle}>클릭!</button>
         </div>
-
         <div>
           <button onClick={logOutHandle}>LogOut</button>
         </div>
+
+        <div>만든사람들</div>
+        <span>
+          김병민 - Frontend
+          <img
+            src="https://cdn.discordapp.com/attachments/836100670565908520/869275312968577054/gnb_sns_03.png"
+            alt=""
+            style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
+          <img
+            src="https://cdn.discordapp.com/attachments/836100670565908520/869275312805011506/gnb_sns_01.png"
+            alt=""
+            style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
+        </span>
         <div>
-          <button onClick={changeStatus}>x</button>
+          <span>
+            김상훈 - Backend
+            <img
+              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312968577054/gnb_sns_03.png"
+              alt=""
+              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
+            <img
+              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312805011506/gnb_sns_01.png"
+              alt=""
+              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
+          </span>
+        </div>
+        <div>
+          <span>
+            박상현 - Backend
+            <img
+              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312968577054/gnb_sns_03.png"
+              alt=""
+              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
+            <img
+              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312805011506/gnb_sns_01.png"
+              alt=""
+              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
+          </span>
         </div>
       </SideBar>
     </SideArea>

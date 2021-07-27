@@ -26,9 +26,9 @@ const GlobalStyle = createGlobalStyle`
 		padding: 0;
 		margin: 0;
     height: 100%;
+    display:flex;
     width:100%;
     background-color: white;
-  
 	}
   
 `;
