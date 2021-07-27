@@ -67,11 +67,11 @@ const PrevStyle = styled.div`
   /* font-size: 3em; */
 `;
 
-function Carousel({ data, isLogIn, openModal, userInfo }) {
+function Carousel({ isLogIn, openModal, userInfo }) {
   const [index, setIndex] = useState(0);
-  const [liked, setLiked] = useState(data.liked);
-  const [likes, setLikes] = useState(data.likes);
   const [postData, setPostData] = useState([]);
+  const [liked, setLiked] = useState(postData.liked);
+  const [likes, setLikes] = useState(postData.likes);
 
   const [isOpenPostDetail, setIsOpenPostDetail] = useState(false);
   const [postDetail, setPostDetail] = useState({});
@@ -105,14 +105,14 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
       setLiked(0);
       setLikes(likes - 1);
       //delete likes api
-      await axios.delete(`${url}likes/${data.id}`);
+      await axios.delete(`${url}likes/${postData.id}`);
     } else {
       if (isLogIn) {
         setLiked(1);
         setLikes(likes + 1);
         console.log('like button clicked! likes:', likes, ' liked:', liked);
         //post likes api
-        await axios.post(`${url}likes`, { post_id: data.id });
+        await axios.post(`${url}likes`, { post_id: postData.id });
       } else {
         openModal();
       }
