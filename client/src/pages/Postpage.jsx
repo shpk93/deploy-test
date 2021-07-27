@@ -12,12 +12,22 @@ const PostAreaStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 180px auto;
+  margin-top: 180px;
   padding: 100px;
   height: 100%;
   background-color: #f3f4f4;
-  width: 90%;
+  width: 80vw;
+  margin-left: 10%;
+  margin-right: 10%;
 `;
+
+// width: 60vw;
+// height: 70vh;
+// position: absolute;
+// background-color: #f3f4f4;
+// margin-left: 20%;
+// margin-right: 20%;
+// overflow: auto;
 
 const H2Style = styled.h2`
   width: 100%;
