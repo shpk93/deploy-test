@@ -21,7 +21,6 @@ const images = [
 function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo }) {
   return (
     <BodyArea>
-      <div>TOP5</div>
       <Carousel data={getPosts} isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />
       <FeedContainer
         feeds={getPosts}

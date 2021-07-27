@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CarouselBoot from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import PostDetail from './PostDetail';
 import axios from 'axios';
+
 axios.defaults.withCredentials = true;
 const url = process.env.REACT_APP_API_URL;
 
@@ -14,7 +15,7 @@ const CarouselBootStyle = styled(CarouselBoot)`
   align-items: center;
 
   /* position: absolute; */
-  /* width: 100%; */
+  width: 100vw;
   /* height: 100vh; */
   height: 523px;
   background-color: #018735;
@@ -28,6 +29,9 @@ const Image = styled.img`
   height: 55vh;
   /* margin-top: 10px; */
   object-fit: contain;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RankImg = styled.img`
@@ -54,41 +58,57 @@ const Caption = styled(CarouselBoot.Caption)`
   font-size: 100px;
   text-align: center;
   color: #fcbd05;
-  /* padding: 10%; */
   top: 0;
   bottom: auto;
+  white-space: nowrap;
+
+  text-shadow: 0px 0px 0 rgb(204, 142, 0), 0px -1px 0 rgb(156, 94, 0), 0px -2px 0 rgb(108, 46, 0),
+    0px -3px 2px rgba(0, 0, 0, 0.04), 0px -3px 1px rgba(0, 0, 0, 0.5), 0px 0px 2px rgba(0, 0, 0, 0.2);
 `;
 
-// const NextStyle = styled.div`
-//   background: linear-gradient(to right, rgb(250, 242, 214), rgb(211, 210, 210));
-//   z-index: 2;
-//   width: 100%;
-//   height: 100%;
-// `;
+const NextStyle = styled.div`
+  /* background: linear-gradient(to right, rgb(250, 242, 214), rgb(211, 210, 210)); */
+  z-index: 2;
+  color: white;
+  width: 20%;
+  height: 100%;
+  /* line-height: 34rem; */
+  /* font-size: 3em; */
+`;
 
-// const PrevStyle = styled.div`
-//   background: linear-gradient(to right, rgb(211, 210, 210), rgb(250, 242, 214));
-//   z-index: 2;
-//   width: 100%;
-//   height: 100%;
-// `;
+const PrevStyle = styled.div`
+  /* background: linear-gradient(to right, rgb(211, 210, 210), rgb(250, 242, 214)); */
+  z-index: 2;
+  color: white;
+  width: 20%;
+  height: 100%;
+  /* line-height: 34rem; */
+  /* font-size: 3em; */
+`;
+
+const BackgroundDiv = styled.div``;
 
 function Carousel({ data, isLogIn, openModal, userInfo }) {
-  //   console.log(data);
-  //   id: 7
-  // img_url: "https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/K%EB%B0%94%EB%B9%84%ED%81%90.jpg"
-  // liked: 0
-  // likes: 1
-  // mainmenu: "K-바비큐"
-  // title: "병민쓰 초이스 풀드포크"
-  // username: "상훈 카카오"
   const [index, setIndex] = useState(0);
   const [liked, setLiked] = useState(data.liked);
   const [likes, setLikes] = useState(data.likes);
+
   const [isOpenPostDetail, setIsOpenPostDetail] = useState(false);
   const [postDetail, setPostDetail] = useState({});
-  const [nextIcon, setNextIcon] = useState(<div></div>);
-  const [prevIcon, setPrevIcon] = useState(<div></div>);
+  const [nextIcon, setNextIcon] = useState(
+    <NextStyle aria-hidden="true" className="carousel-control-next-icon">
+      {/* &gt; */}
+    </NextStyle>,
+  );
+  const [prevIcon, setPrevIcon] = useState(
+    <PrevStyle aria-hidden="true" className="carousel-control-prev-icon">
+      {/* &lt; */}
+    </PrevStyle>,
+  );
+  const carouselData = data.slice(0, 5);
+
+  const colorProps = ['#018735;', '#e9500e', '#881841', '#FAF2D6', '#332771'];
+  const [back, setBack] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
@@ -102,7 +122,6 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
   };
 
   const handleClickLike = async () => {
-    console.log('like button clicked! likes:', likes, ' liked:', liked, ' isLogIn:', isLogIn);
     if (!!liked) {
       console.log('like button clicked! likes:', likes, ' liked:', liked);
       setLiked(0);
@@ -135,28 +154,33 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
         onSelect={handleSelect}
         nextIcon={nextIcon}
         prevIcon={prevIcon}
-        indicators="false"
+        indicators="true"
         nextLabel=""
-        prevLabel="">
-        {data.map((el, idx) => {
+        prevLabel=""
+        interval={3000}
+        pause="false">
+        {carouselData.map((el, idx) => {
           return (
-            <CarouselBoot.Item>
+            <CarouselBoot.Item
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: '523px',
+                backgroundColor: colorProps[idx],
+              }}>
               {/* <span aria-hidden="true" className="carousel-control-next-icon" /> */}
               <div>
                 <Image
                   className="d-block w-100"
-                  src={el.img_url}
+                  // src={el.img_url}
+                  src="../mock/로스트치킨.png"
                   alt=""
                   onClick={() => {
                     return handleClickFeed(el.id);
                   }}
                 />
+                <div></div>
               </div>
-              {/* , flexDirection: 'column', justifyContent: 'center', alignItems: 'center'  */}
-              {/* <FontDivStyle>
-                <div>Who is</div>
-                <div>The Fxxking best</div>
-              </FontDivStyle> */}
               <div styled={{ position: 'absolute' }}>
                 <Caption>
                   <p>{el.title}</p>

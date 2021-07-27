@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import AlertBox from './AlertBox';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -20,10 +20,10 @@ const Modalback = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
-  display: grid;
+
   place-items: center;
 `;
 
@@ -77,15 +77,12 @@ const SignInBtn = styled.button`
   height: auto;
   padding-top: 23px;
   padding-bottom: 23px;
-
   cursor: pointer;
-
   border: 0;
   border-top: 1px solid #eee;
   outline: 0;
   font-size: 1.2em;
   font-weight: bold;
-
   color: white;
   background: #8609e3;
 `;
@@ -122,25 +119,25 @@ const SignUpBtn = styled.button`
   background: white;
 `;
 
-const AlertBox = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+// const AlertBox = styled.div`
+//   position: absolute;
+//   left: 50%;
+//   transform: translateX(-50%);
 
-  background-color: mediumvioletred;
-  padding: 1em 2.4em;
-  border-radius: 4px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
-  color: white;
-  font-size: 1.2em;
-  font-weight: bold;
-  white-space: nowrap;
+//   background-color: mediumvioletred;
+//   padding: 1em 2.4em;
+//   border-radius: 4px;
+//   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+//   color: white;
+//   font-size: 1.2em;
+//   font-weight: bold;
+//   white-space: nowrap;
 
-  /* 경고 창은 화면 위쪽에 숨겨둔다. */
-  top: 250px;
-  transition-duration: 300ms;
-  z-index: 999;
-`;
+//   /* 경고 창은 화면 위쪽에 숨겨둔다. */
+//   top: 250px;
+//   transition-duration: 300ms;
+//   z-index: 999;
+// `;
 
 const MarginDiv = styled.div`
   display: flex;
@@ -152,6 +149,14 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [checkErr, setCheckErr] = useState(false);
+
+  const handleErr = () => {
+    setCheckErr(true);
+    setTimeout(() => {
+      setCheckErr(false);
+    }, 3000);
+  };
 
   //로그인 요청을 보낼 데이터
   const handleInputValue = (key) => (e) => {
@@ -162,6 +167,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
   const handleLogin = () => {
     if (!loginInfo.email || !loginInfo.password) {
       setErrorMessage('이메일과 비밀번호를 입력하세요');
+      handleErr();
       return;
     }
 
@@ -177,6 +183,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
       })
       .catch((err) => {
         setErrorMessage('이메일 혹은 비밀번호가 틀립니다.');
+        handleErr();
       });
   };
 
@@ -203,39 +210,39 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
         <MarginDiv>
           <ModalView>
             <h1>Sign In</h1>
+
             <div>
-              <div>
-                <span>이메일</span>
-                <Input
-                  type="email"
-                  onKeyUp={loginPressEnter}
-                  onChange={handleInputValue('email')}
-                  placeholder="이메일을 입력해주세요"
-                />
-              </div>
-              <div>
-                <span>비밀번호</span>
-                <Input
-                  type="password"
-                  onKeyUp={loginPressEnter}
-                  onChange={handleInputValue('password')}
-                  placeholder="비밀번호를 입력해주세요"
-                />
-              </div>
-              <div>
-                <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
-              </div>
-              {errorMessage ? <AlertBox>{errorMessage}</AlertBox> : null}
-              <div>
-                <SignInBtn className="btn btn-login" type="submit" onClick={handleLogin}>
-                  Sign In
-                </SignInBtn>
-              </div>
-              <div>
-                <SocialSignInBtn className="btn btn-login" type="submit" onClick={socialLoginHandler}>
-                  Social LogIn
-                </SocialSignInBtn>
-              </div>
+              <span>이메일</span>
+              <Input
+                type="email"
+                onKeyUp={loginPressEnter}
+                onChange={handleInputValue('email')}
+                placeholder="이메일을 입력해주세요"
+              />
+            </div>
+            <div>
+              <span>비밀번호</span>
+              <Input
+                type="password"
+                onKeyUp={loginPressEnter}
+                onChange={handleInputValue('password')}
+                placeholder="비밀번호를 입력해주세요"
+              />
+            </div>
+            <div>
+              <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
+            </div>
+            <div>
+              <SignInBtn className="btn btn-login" type="submit" onClick={handleLogin}>
+                Sign In
+              </SignInBtn>
+            </div>
+            {checkErr ? <AlertBox message={errorMessage} /> : null}
+
+            <div>
+              <SocialSignInBtn className="btn btn-login" type="submit" onClick={socialLoginHandler}>
+                Social LogIn
+              </SocialSignInBtn>
             </div>
           </ModalView>
           <Modalback onClick={() => closeModal()}></Modalback>
