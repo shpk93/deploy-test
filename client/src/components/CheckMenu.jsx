@@ -54,6 +54,7 @@ const SelectSectionStyle = styled.div`
 function CheckMenu({ data, handleCheckBox }) {
   const name = Object.keys(data)[0];
   const menu = data[name];
+  console.log(name, menu);
   return (
     <SelectSectionStyle>
       {menu.map((el) =>
@@ -72,6 +73,7 @@ function CheckMenu({ data, handleCheckBox }) {
             <label for={el.id}>
               <ImgStyle src={el.img_url} />
             </label>
+            <Caption>{el.name}</Caption>
           </CheckedStyle>
         ) : (
           <CheckedStyle>
@@ -86,7 +88,6 @@ function CheckMenu({ data, handleCheckBox }) {
               }}
             />
             <label for={el.id}>{el.name}</label>
-            {name === 'addmeat' ? null : <Caption>{el.name}</Caption>}
           </CheckedStyle>
         ),
       )}
