@@ -238,7 +238,6 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
               </SignInBtn>
             </div>
             {checkErr ? <AlertBox message={errorMessage} /> : null}
-
             <div>
               <SocialSignInBtn className="btn btn-login" type="submit" onClick={socialLoginHandler}>
                 Social LogIn
