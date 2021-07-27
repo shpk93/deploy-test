@@ -172,6 +172,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
           openModal();
           openLogInIcon();
           axios.get(`${url}users`).then((data) => setUserInfo(data.data.data));
+          window.location.replace('/');
         }
       })
       .catch((err) => {

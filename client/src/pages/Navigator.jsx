@@ -26,15 +26,23 @@ const HeaderWrap = styled.div`
   width: 100%;
   height: 150px;
   transition: 1.5s ease;
-  background-color: #018735;
+  background-color: #ffffff;
   &.hide {
     transform: translateY(-150px);
   }
 `;
 
+const InnerDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const ImageLog = styled.img`
-  height: 50%;
+  min-height: 50px;
+  height: 50px;
   margin-left: 20px;
+  cursor: pointer;
 `;
 
 const ButtonStyle = styled.button`
@@ -101,19 +109,27 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, c
   return (
     <HeaderArea>
       <HeaderWrap className={hide && 'hide'}>
-        <ImageLog src="../imageFile/mySubwayLog1.png" alt="" />
-        <Search getPosts={getPosts} setGetPosts={setGetPosts} />
-        {isLogIn ? (
-          //마이페이지 버튼
-          <ButtonStyle type="button" onClick={changeSideBar}>
-            <AccountCircleOutlinedIcon style={{ color: 'white' }} />
-          </ButtonStyle>
-        ) : (
-          //로그인 버튼
-          <ButtonStyle type="button" onClick={openModal}>
-            <LockOpenOutlinedIcon style={{ color: 'white' }} />
-          </ButtonStyle>
-        )}
+        <InnerDiv>
+          <ImageLog
+            src="../imageFile/mySubwayLog.png"
+            alt=""
+            onClick={() => {
+              window.location.replace('/');
+            }}
+          />
+          <Search getPosts={getPosts} setGetPosts={setGetPosts} />
+          {isLogIn ? (
+            //마이페이지 버튼
+            <ButtonStyle type="button" onClick={changeSideBar}>
+              <AccountCircleOutlinedIcon style={{ color: 'green' }} />
+            </ButtonStyle>
+          ) : (
+            //로그인 버튼
+            <ButtonStyle type="button" onClick={openModal}>
+              <LockOpenOutlinedIcon style={{ color: 'green' }} />
+            </ButtonStyle>
+          )}
+        </InnerDiv>
       </HeaderWrap>
     </HeaderArea>
   );

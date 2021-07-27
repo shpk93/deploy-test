@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { sign, verify } = require('jsonwebtoken');
 const axios = require('axios');
+axios.defaults.withCredentials = true;
 
 module.exports = {
   generateAccessToken: (data) => {
