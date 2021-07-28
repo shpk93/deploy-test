@@ -28,13 +28,14 @@ module.exports = {
 
   getKakaoToken: async (req) => {
     //카카오가 원하는 파라미터 가공
+    console.log(req.body);
     let parameters = {
       grant_type: 'authorization_code',
       client_id: process.env.CLIENT_ID, //***********************
       redirect_uri: process.env.REDIRECT_URI, //여기  환경변수로 만들어줘야함
       code: req.body.authorizationCode,
     };
-    let body = `grant_type=authorization_code&client_id=${parameters.client_id}&redirect_uri=${parameters.redirect_uri}&code=${parameters.authorizationCode}`;
+    let body = `grant_type=authorization_code&client_id=${parameters.client_id}&redirect_uri=${parameters.redirect_uri}&code=${parameters.code}`;
     console.log(body);
     // 카카오에게 토큰 요청
     let kakaoToken = await axios.post('https://kauth.kakao.com/oauth/token', body, {
