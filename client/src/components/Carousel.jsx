@@ -34,25 +34,6 @@ const Image = styled.img`
   }
 `;
 
-const RankImg = styled.img`
-  z-index: 1;
-  position: absolute;
-  top: 60px;
-  left: 80px;
-  width: 100px;
-  height: 80px;
-`;
-
-const FontDivStyle = styled.div`
-  font-family: font-css;
-  font-size: 100px;
-  /* position: absolute;
-  top: 2%;
-  left: 32%; */
-  /* margin: 0 auto; */
-  text-align: center;
-`;
-
 const Caption = styled(CarouselBoot.Caption)`
   font-family: font-css;
   font-size: 100px;
@@ -86,12 +67,11 @@ const PrevStyle = styled.div`
   /* font-size: 3em; */
 `;
 
-const BackgroundDiv = styled.div``;
-
-function Carousel({ data, isLogIn, openModal, userInfo }) {
+function Carousel({ isLogIn, openModal, userInfo }) {
   const [index, setIndex] = useState(0);
-  const [liked, setLiked] = useState(data.liked);
-  const [likes, setLikes] = useState(data.likes);
+  const [postData, setPostData] = useState([]);
+  const [liked, setLiked] = useState(postData.liked);
+  const [likes, setLikes] = useState(postData.likes);
 
   const [isOpenPostDetail, setIsOpenPostDetail] = useState(false);
   const [postDetail, setPostDetail] = useState({});
@@ -105,10 +85,8 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
       {/* &lt; */}
     </PrevStyle>,
   );
-  const carouselData = data.slice(0, 5);
 
   const colorProps = ['#018735;', '#e9500e', '#881841', '#FAF2D6', '#332771'];
-  const [back, setBack] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
@@ -127,14 +105,14 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
       setLiked(0);
       setLikes(likes - 1);
       //delete likes api
-      await axios.delete(`${url}likes/${data.id}`);
+      await axios.delete(`${url}likes/${postData.id}`);
     } else {
       if (isLogIn) {
         setLiked(1);
         setLikes(likes + 1);
         console.log('like button clicked! likes:', likes, ' liked:', liked);
         //post likes api
-        await axios.post(`${url}likes`, { post_id: data.id });
+        await axios.post(`${url}likes`, { post_id: postData.id });
       } else {
         openModal();
       }
@@ -146,6 +124,17 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
     setPostDetail(postDetailData.data.data);
     openPostDetail();
   };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => {
+      let orderedFeeds = data.data.data
+        .slice(0)
+        .sort((a, b) => b.likes - a.likes)
+        .slice(0, 5);
+
+      setPostData(orderedFeeds);
+    });
+  }, [isLogIn]);
 
   return (
     <>
@@ -159,7 +148,7 @@ function Carousel({ data, isLogIn, openModal, userInfo }) {
         prevLabel=""
         interval={3000}
         pause="false">
-        {carouselData.map((el, idx) => {
+        {postData.map((el, idx) => {
           return (
             <CarouselBoot.Item
               style={{
