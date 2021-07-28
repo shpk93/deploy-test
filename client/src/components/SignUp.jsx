@@ -54,6 +54,35 @@ const Input = styled.input`
   }
 `;
 
+const InputPassword = styled.input`
+  font-size: 1.1em;
+  font-weight: normal;
+  font-family: Arial;
+  display: block;
+
+  width: 85%;
+  margin-top: 2px;
+  margin-left: 25px;
+  height: 45px;
+
+  -webkit-transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s;
+  transition: 0.25s linear;
+  text-align: center;
+
+  color: #8609e3;
+  border: 0;
+  outline: 0;
+  background: #eee;
+  box-shadow: 0 0 0 2px transparent;
+
+  &:focus {
+    animation: boxShadow 0.3s backwards;
+
+    box-shadow: 0 0 0 2px #8609e3;
+  }
+`;
+
 const SignUpBtn = styled.button`
   margin-top: 15px;
   width: 100%;
@@ -230,7 +259,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
           />
         </div>
         <div>
-          <Input
+          <InputPassword
             type="password"
             onBlur={() => {
               checkedInfo('password');

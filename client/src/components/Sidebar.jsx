@@ -1,18 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import EditIcon from '@material-ui/icons/Edit';
+import CancelIcon from '@material-ui/icons/Cancel';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
+import PowerSettingsNewOutlinedIcon from '@material-ui/icons/PowerSettingsNewOutlined';
 import './Sidebar.css';
 // import { ChangeHistoryRounded } from '@material-ui/icons';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const SideBar = styled.div`
-  height: 100vh !important;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  height: 100% !important;
+  /* display: flex; */
+  /* padding-top: 1.5vh; */
   flex-direction: column;
-  background-color: red;
+  background-color: #f3f4f4;
   transition: 0.8s ease;
+  border: 5px solid #ffbc0d;
+  border-right: 0px;
+  /* margin-top: 1.5vh; */
+  border-radius: 15px 0px 0px 0px;
+  font-family: font-css;
 `;
 
 const SideArea = styled.div`
@@ -21,7 +30,69 @@ const SideArea = styled.div`
   right: 0;
   z-index: 998;
   float: right;
-  height: 100vh;
+  height: 100%;
+  /* display: flex; */
+`;
+
+const SideBarHeaderStyle = styled.div`
+  /* display: flex; */
+  display: relative;
+  flex-direction: column;
+  padding-left: 5px;
+  height: 150px;
+  /* background-color: #018735; */
+  /* border: 5px solid #ffbc0d; */
+  border-radius: 10px 0px 0px 0px;
+  background-image: url('../../imageFile/header.jpg');
+  /* background-size: contain; */
+`;
+
+const UserImgStyle = styled.div`
+  display: flex;
+  /* justify-content:center; */
+  align-items: center;
+`;
+
+const CloseButtonStyle = styled.button`
+  border: none;
+  margin-left: 10px;
+  margin-top: 5px;
+  background-color: transparent;
+  padding: 0px;
+`;
+
+const EditButtonStyle = styled.button`
+  :hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const SideBarNickStyle = styled.div`
+  height: 100px;
+  background-color: transparent;
+  :hover {
+    box-shadow: inset 100% 0 0 0 #ffbc0d;
+  }
+`;
+
+const PostButtonStyle = styled.div`
+  width: 100%;
+  height: 90px;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 23px;
+  border-top: 1px solid;
+`;
+
+const PostSpanStyle = styled.span`
+  font-size: 20px;
+`;
+
+const LogOutStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 45vh;
 `;
 
 function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPosts }) {
@@ -98,76 +169,59 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
           width: width,
           minHeight: height,
         }}>
-        <div>
-          <span>
-            <button onClick={changeStatus} style={{ marginRight: '20px', fontSize: '20px' }}>
-              x
-            </button>
-          </span>
-          {userInfo.email}
-        </div>
-        <div>
-          {isEditMode ? (
-            <input type="text" value={username} ref={inputEl} onChange={modifyUserHandle2}></input>
-          ) : (
-            <div>{username}</div>
-          )}
-          {isEditMode ? (
-            <button onClick={putRequest}>수정하기</button>
-          ) : (
-            <button onClick={modifyUserHandle1}>닉네임 변경</button>
-          )}
-          {isEditMode ? <button onClick={modifyUserHandle3}>취소하기</button> : null}
-          {errMessage ? errMessage : null}
-        </div>
-        <div>
-          내가 좋요한 게시물<button onClick={likeFilterHandle}>클릭 !</button>
-        </div>
-        <div>
-          내가 올린 게시물<button onClick={myPostfilterHandle}>클릭!</button>
-        </div>
-        <div>
-          <button onClick={logOutHandle}>LogOut</button>
-        </div>
+        <SideBarHeaderStyle>
+          <div></div>
+          <CloseButtonStyle
+            onClick={changeStatus}
+            style={{ marginRight: '20px', fontSize: '20px', position: 'absolute', left: '-65px' }}>
+            <KeyboardArrowRightIcon style={{ fontWeight: 'bold', fontSize: '50px' }} />
+          </CloseButtonStyle>
+          <UserImgStyle></UserImgStyle>
+        </SideBarHeaderStyle>
 
-        <div>만든사람들</div>
-        <span>
-          김병민 - Frontend
-          <img
-            src="https://cdn.discordapp.com/attachments/836100670565908520/869275312968577054/gnb_sns_03.png"
-            alt=""
-            style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
-          <img
-            src="https://cdn.discordapp.com/attachments/836100670565908520/869275312805011506/gnb_sns_01.png"
-            alt=""
-            style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
-        </span>
+        <SideBarNickStyle>
+          {isEditMode ? (
+            <div>
+              <input type="text" value={username} ref={inputEl} onChange={modifyUserHandle2}></input>
+              <div>
+                <EditButtonStyle onClick={putRequest}>
+                  <EditIcon />
+                  수정하기
+                </EditButtonStyle>
+                <EditButtonStyle onClick={modifyUserHandle3}>
+                  <CancelIcon />
+                  취소하기
+                </EditButtonStyle>
+              </div>
+            </div>
+          ) : (
+            <div style={{ paddingLeft: '30px' }}>
+              <span style={{ fontSize: '35px' }}>{username}</span>
+              <button onClick={modifyUserHandle1} style={{ border: 'none', backgroundColor: 'transparent' }}>
+                <EditIcon />
+              </button>
+              {errMessage ? errMessage : null}
+              {userInfo.email}
+            </div>
+          )}
+        </SideBarNickStyle>
         <div>
-          <span>
-            김상훈 - Backend
-            <img
-              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312968577054/gnb_sns_03.png"
-              alt=""
-              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
-            <img
-              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312805011506/gnb_sns_01.png"
-              alt=""
-              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
-          </span>
+          <PostButtonStyle onClick={likeFilterHandle}>
+            <ThumbUpAltOutlinedIcon style={{ fontSize: '36px', marginBottom: '8px' }} />
+            <PostSpanStyle>내가 좋요한 게시물</PostSpanStyle>
+          </PostButtonStyle>
         </div>
         <div>
-          <span>
-            박상현 - Backend
-            <img
-              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312968577054/gnb_sns_03.png"
-              alt=""
-              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
-            <img
-              src="https://cdn.discordapp.com/attachments/836100670565908520/869275312805011506/gnb_sns_01.png"
-              alt=""
-              style={{ width: '40px', height: '40px', marginRight: `20px` }}></img>
-          </span>
+          <PostButtonStyle onClick={myPostfilterHandle} style={{ borderBottom: '1px solid' }}>
+            <img src="../../imageFile/postIcon.png" alt="" />
+            <PostSpanStyle>내가 올린 게시물</PostSpanStyle>
+          </PostButtonStyle>
         </div>
+        <LogOutStyle>
+          {/* <button onClick={logOutHandle} style={{ color: 'red' }}></button> */}
+
+          <img src="../../imageFile/power.png" alt="" onClick={logOutHandle} style={{ cursor: 'pointer' }} />
+        </LogOutStyle>
       </SideBar>
     </SideArea>
   );

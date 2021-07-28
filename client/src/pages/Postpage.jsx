@@ -91,7 +91,7 @@ function Postpage() {
 
   useEffect(async () => {
     //주소 수정해주세요
-    const data = await axios.get('https://api.mysubway.ml/menu').then((result) => {
+    const data = await axios.get(`${url}menu`).then((result) => {
       const arr = [];
       const name = Object.keys(result.data.data);
       const value = Object.values(result.data.data);
