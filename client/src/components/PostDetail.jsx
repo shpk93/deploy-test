@@ -79,7 +79,7 @@ const IngredientDivOdd = styled.div`
   height: 11.6%;
   background-color: #cccccc;
   font-size: 80%;
-  overflow-x: scroll;
+  overflow-x: auto;
 `;
 
 const IngredientDivEven = styled.div`
@@ -87,7 +87,7 @@ const IngredientDivEven = styled.div`
   justify-content: space-evenly;
   height: 12%;
   font-size: 80%;
-  overflow-x: scroll;
+  overflow-x: auto;
 `;
 const MainDiv = styled.div`
   height: 30%;

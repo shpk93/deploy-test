@@ -159,8 +159,7 @@ function Carousel({ isLogIn, openModal, userInfo }) {
 
               <Image
                 className="d-block w-100"
-                // src={el.img_url}
-                src="../mock/로스트치킨.png"
+                src={el.img_url}
                 alt=""
                 onClick={() => {
                   return handleClickFeed(el.id);
