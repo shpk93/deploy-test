@@ -22,7 +22,6 @@ const ImgStyle = styled.img`
   &:hover {
     opacity: 0.6;
     transition: transform 0.2s ease-out, color 0.2s ease;
-    /* transition: all 0.2s ease-in-out; */
     transform: scale(1.2);
     cursor: pointer;
   }
@@ -34,13 +33,10 @@ const ImgStyle = styled.img`
 `;
 
 const Caption = styled.div`
-  padding: 1em;
-  line-height: 1;
   font-family: font-css;
   text-align: center;
   color: black;
-  top: 0;
-  bottom: auto;
+  z-index: 1;
 `;
 
 const SelectSectionStyle = styled.div`
@@ -49,6 +45,7 @@ const SelectSectionStyle = styled.div`
   justify-content: space-around;
   align-items: space-around;
   width: 100vw;
+  height: 100%;
 `;
 
 function CheckMenu({ data, handleCheckBox }) {

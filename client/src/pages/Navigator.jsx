@@ -33,6 +33,7 @@ const HeaderWrap = styled.div`
 `;
 
 const InnerDiv = styled.div`
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,14 +42,21 @@ const InnerDiv = styled.div`
 const ImageLog = styled.img`
   min-height: 50px;
   height: 50px;
-  margin-left: 20px;
+  margin-left: 22%;
   cursor: pointer;
+`;
+
+const DivStyle = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 22%;
 `;
 
 const ButtonStyle = styled.button`
   border: none;
-  width: 32px;
-  height: 32px;
+  /* width: 300px;
+  height: 300px; */
+  margin-left: 15px;
   cursor: pointer;
   background-color: transparent;
 `;
@@ -117,18 +125,20 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, c
               window.location.replace('/');
             }}
           />
-          <Search getPosts={getPosts} setGetPosts={setGetPosts} />
-          {isLogIn ? (
-            //마이페이지 버튼
-            <ButtonStyle type="button" onClick={changeSideBar}>
-              <AccountCircleOutlinedIcon style={{ color: 'green' }} />
-            </ButtonStyle>
-          ) : (
-            //로그인 버튼
-            <ButtonStyle type="button" onClick={openModal}>
-              <LockOpenOutlinedIcon style={{ color: 'green' }} />
-            </ButtonStyle>
-          )}
+          <DivStyle>
+            <Search getPosts={getPosts} setGetPosts={setGetPosts} />
+            {isLogIn ? (
+              //마이페이지 버튼
+              <ButtonStyle type="button" onClick={changeSideBar}>
+                <AccountCircleOutlinedIcon style={{ color: 'green', fontSize: '50px' }} />
+              </ButtonStyle>
+            ) : (
+              //로그인 버튼
+              <ButtonStyle type="button" onClick={openModal}>
+                <LockOpenOutlinedIcon style={{ color: 'green', fontSize: '50px' }} />
+              </ButtonStyle>
+            )}
+          </DivStyle>
         </InnerDiv>
       </HeaderWrap>
     </HeaderArea>

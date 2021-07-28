@@ -13,7 +13,6 @@ const CheckedStyle = styled.div`
   [type='radio']:checked + label > img {
     transform: scale(1.2);
   }
-  height: 315px;
 `;
 
 const ImgStyle = styled.img`
@@ -24,7 +23,6 @@ const ImgStyle = styled.img`
   &:hover {
     opacity: 0.6;
     transition: transform 0.2s ease-out, color 0.2s ease;
-    /* transition: all 0.2s ease-in-out; */
     transform: scale(1.2);
     cursor: pointer;
   }
@@ -36,15 +34,10 @@ const ImgStyle = styled.img`
 `;
 
 const Caption = styled.div`
-  /* padding: 1em; */
-
-  /* line-height: 1; */
   font-family: font-css;
   text-align: center;
   color: black;
   z-index: 1;
-  /* top: -20%; */
-  /* bottom: auto; */
 `;
 
 const SelectSectionStyle = styled.div`
@@ -53,6 +46,7 @@ const SelectSectionStyle = styled.div`
   justify-content: space-around;
   align-items: space-around;
   width: 100vw;
+  height: 100%;
 `;
 
 function RadioMenu({ data, handleRadio }) {

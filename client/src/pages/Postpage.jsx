@@ -4,6 +4,7 @@ import axios from 'axios';
 import Textbox from '../components/Textbox';
 import styled from 'styled-components';
 import Accordion from '../components/Accordion';
+import AlertBox from '../components/AlertBox';
 
 const url = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -17,8 +18,9 @@ const PostAreaStyle = styled.div`
   height: 100%;
   background-color: #f3f4f4;
   width: 80vw;
-  margin-left: 10%;
+  margin-left: 12%;
   margin-right: 10%;
+  position: relative;
 `;
 
 // width: 60vw;
@@ -67,13 +69,24 @@ const ButtonFrontStyle = styled.button`
   }
 `;
 
+const AlterBox = styled.div`
+  position: relative;
+`;
+
 function Postpage() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [allMenu, setAllMenu] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [errMessage, setErrMessage] = useState(false);
+  const [checkErr, setCheckErr] = useState(false);
 
+  const handleErr = () => {
+    setCheckErr(true);
+    setTimeout(() => {
+      setCheckErr(false);
+    }, 3000);
+  };
   const history = useHistory();
 
   useEffect(async () => {
@@ -142,20 +155,25 @@ function Postpage() {
     }, []);
     if (!title) {
       setErrMessage('제목을 작성해주세요');
+      handleErr();
       return;
     }
     if (!content) {
       setErrMessage('설명을 작성해주세요');
+      handleErr();
       return;
     }
     if (!check.includes('main')) {
       setErrMessage('메인을 선택해주세요');
+      handleErr();
       return;
     } else if (!check.includes('bread')) {
       setErrMessage('빵을 선택해주세요');
+      handleErr();
       return;
     } else if (!check.includes('cheese')) {
       setErrMessage('치즈를 선택해주세요');
+      handleErr();
       return;
     }
 
@@ -190,10 +208,10 @@ function Postpage() {
           );
         })}
         <Textbox name="Contents" textData={setContent} />
-        {errMessage ? <div>{errMessage}</div> : null}
         <ButtonStyle className="back" onClick={handlePostSend}>
           <ButtonFrontStyle className="front">P O S T</ButtonFrontStyle>
         </ButtonStyle>
+        {checkErr ? <AlertBox message={errMessage} /> : null}
       </PostAreaStyle>
     )
   );
