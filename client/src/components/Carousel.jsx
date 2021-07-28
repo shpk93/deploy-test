@@ -162,6 +162,7 @@ function Carousel({ isLogIn, openModal, userInfo }) {
                 <Image
                   className="d-block w-100"
                   // src={el.img_url}
+                  // 바꿔야해
                   src="../mock/로스트치킨.png"
                   alt=""
                   onClick={() => {
