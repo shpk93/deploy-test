@@ -7,7 +7,7 @@ const url = process.env.REACT_APP_API_URL;
 
 const Container = styled.div`
   width: 60vw;
-  height: 70vh;
+  height: 100%;
   position: absolute;
   background-color: #f3f4f4;
   margin-left: 20%;

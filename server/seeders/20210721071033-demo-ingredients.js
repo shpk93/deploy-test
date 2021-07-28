@@ -7,7 +7,7 @@ module.exports = {
         type_id: 1, //메인메뉴
         name: '페퍼 치킨 슈니첼',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%ED%8E%98%ED%8D%BC%EC%B9%98%ED%82%A8%EC%8A%88%EB%8B%88%EC%B2%BC.png',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%91%E1%85%A6%E1%84%91%E1%85%A5%E1%84%8E%E1%85%B5%E1%84%8F%E1%85%B5%E1%86%AB%E1%84%89%E1%85%B2%E1%84%82%E1%85%B5%E1%84%8E%E1%85%A6%E1%86%AF.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -15,7 +15,7 @@ module.exports = {
         type_id: 1,
         name: '스테이크 & 치즈',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%81%AC%EC%95%A4%EC%B9%98%EC%A6%88.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%B3%E1%84%8B%E1%85%A2%E1%86%AB%E1%84%8E%E1%85%B5%E1%84%8C%E1%85%B3.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23,7 +23,7 @@ module.exports = {
         type_id: 1,
         name: '터키 베이컨 아보카도',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%ED%84%B0%ED%82%A4%EB%B2%A0%EC%9D%B4%EC%BB%A8%EC%95%84%EB%B3%B4%EC%B9%B4%EB%8F%84.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%90%E1%85%A5%E1%84%8F%E1%85%B5%E1%84%87%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A5%E1%86%AB%E1%84%8B%E1%85%A1%E1%84%87%E1%85%A9%E1%84%8F%E1%85%A1%E1%84%83%E1%85%A9.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -31,7 +31,7 @@ module.exports = {
         type_id: 1,
         name: 'K-바비큐',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/K%EB%B0%94%EB%B9%84%ED%81%90.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/K%E1%84%87%E1%85%A1%E1%84%87%E1%85%B5%E1%84%8F%E1%85%B2.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -39,7 +39,7 @@ module.exports = {
         type_id: 1,
         name: '로스트 치킨',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EB%A1%9C%EC%8A%A4%ED%8A%B8%EC%B9%98%ED%82%A8.png',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%85%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%B3%E1%84%8E%E1%85%B5%E1%84%8F%E1%85%B5%E1%86%AB.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -47,7 +47,7 @@ module.exports = {
         type_id: 1,
         name: '로티세리 바비큐 치킨',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EB%A1%9C%ED%8B%B0%EC%84%B8%EB%A6%AC%EB%B0%94%EB%B9%84%ED%81%90%EC%B9%98%ED%82%A8.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%85%E1%85%A9%E1%84%90%E1%85%B5%E1%84%89%E1%85%A6%E1%84%85%E1%85%B5%E1%84%87%E1%85%A1%E1%84%87%E1%85%B5%E1%84%8F%E1%85%B2%E1%84%8E%E1%85%B5%E1%84%8F%E1%85%B5%E1%86%AB.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -55,7 +55,7 @@ module.exports = {
         type_id: 1,
         name: '풀드 포크 바비큐',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%ED%8F%B4%EB%93%9C%ED%8F%AC%ED%81%AC%EB%B0%94%EB%B9%84%ED%81%90.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%91%E1%85%A9%E1%86%AF%E1%84%83%E1%85%B3%E1%84%91%E1%85%A9%E1%84%8F%E1%85%B3%E1%84%87%E1%85%A1%E1%84%87%E1%85%B5%E1%84%8F%E1%85%B2.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -63,7 +63,7 @@ module.exports = {
         type_id: 1,
         name: '써브웨이 클럽',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%84%9C%EB%B8%8C%EC%9B%A8%EC%9D%B4%ED%81%B4%EB%9F%BD.png',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%89%E1%85%A5%E1%84%87%E1%85%B3%E1%84%8B%E1%85%B0%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A5%E1%86%B8.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -71,7 +71,7 @@ module.exports = {
         type_id: 1,
         name: '쉬림프',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%89%AC%EB%A6%BC%ED%94%84.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%89%E1%85%B1%E1%84%85%E1%85%B5%E1%86%B7%E1%84%91%E1%85%B3.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -79,7 +79,7 @@ module.exports = {
         type_id: 1,
         name: '스파이시 이탈리안',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%8A%A4%ED%8C%8C%EC%9D%B4%EC%8B%9C%EC%9D%B4%ED%83%88%EB%A6%AC%EC%95%88.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%89%E1%85%B3%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%89%E1%85%B5%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A1%E1%86%AB.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -87,7 +87,7 @@ module.exports = {
         type_id: 1,
         name: '치킨 데리야끼',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%B9%98%ED%82%A8%EB%8D%B0%EB%A6%AC%EC%95%BC%EB%81%BC.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%8E%E1%85%B5%E1%84%8F%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A6%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A3%E1%84%81%E1%85%B5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -95,7 +95,7 @@ module.exports = {
         type_id: 1,
         name: '비엘티',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EB%B9%84%EC%97%98%ED%8B%B0.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%87%E1%85%B5%E1%84%8B%E1%85%A6%E1%86%AF%E1%84%90%E1%85%B5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -103,7 +103,7 @@ module.exports = {
         type_id: 1,
         name: '이탈리안비엠티',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%9D%B4%ED%83%88%EB%A6%AC%EC%95%88%EB%B9%84%EC%97%A0%ED%8B%B0.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%8B%E1%85%B5%E1%84%90%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%87%E1%85%B5%E1%84%8B%E1%85%A6%E1%86%B7%E1%84%90%E1%85%B5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -111,28 +111,31 @@ module.exports = {
         type_id: 1,
         name: '미트볼',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EB%AF%B8%ED%8A%B8%EB%B3%BC.png',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%86%E1%85%B5%E1%84%90%E1%85%B3%E1%84%87%E1%85%A9%E1%86%AF.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         type_id: 1,
         name: '터키',
-        img_url: 'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%ED%84%B0%ED%82%A4.jpg',
+        img_url:
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%90%E1%85%A5%E1%84%8F%E1%85%B5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         type_id: 1,
         name: '참치',
-        img_url: 'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%B0%B8%EC%B9%98.jpg',
+        img_url:
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%8E%E1%85%A1%E1%86%B7%E1%84%8E%E1%85%B5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         type_id: 1,
         name: '햄',
-        img_url: 'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%ED%96%84.jpg',
+        img_url:
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%92%E1%85%A2%E1%86%B7.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -140,14 +143,15 @@ module.exports = {
         type_id: 1,
         name: '에그마요',
         img_url:
-          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EC%97%90%EA%B7%B8%EB%A7%88%EC%9A%94.jpg',
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%8B%E1%85%A6%E1%84%80%E1%85%B3%E1%84%86%E1%85%A1%E1%84%8B%E1%85%AD.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         type_id: 1,
         name: '베지',
-        img_url: 'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%EB%B2%A0%EC%A7%80.jpg',
+        img_url:
+          'https://my-subway-resources.s3.ap-northeast-2.amazonaws.com/images/main/%E1%84%87%E1%85%A6%E1%84%8C%E1%85%B5.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
