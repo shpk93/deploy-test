@@ -30,15 +30,18 @@ const Modalback = styled.div`
 
 const ModalView = styled.div`
   z-index: 999;
-  width: 300px;
+  width: 18vw;
+  min-width: 300px;
   height: 42vh;
+  min-height: 400px;
   margin: 0px;
   background: white;
   box-shadow: 0 0 15px #333;
   position: fixed;
-  margin: 180px auto;
+  margin: 15vh auto;
   left: 0;
   right: 0;
+  overflow: hidden;
 `;
 
 const Input = styled.input`
@@ -72,12 +75,40 @@ const Input = styled.input`
   }
 `;
 
-const SignInBtn = styled.button`
+const InputPassword = styled.input`
+  font-size: 1.1em;
+  font-weight: normal;
+  font-family: Arial;
+  display: block;
+
+  width: 85%;
+  margin-top: 2px;
+  margin-left: 25px;
+  height: 45px;
+
+  -webkit-transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s;
+  transition: 0.25s linear;
+  text-align: center;
+
+  color: #8609e3;
+  border: 0;
+  outline: 0;
+  background: #eee;
+  box-shadow: 0 0 0 2px transparent;
+
+  &:focus {
+    animation: boxShadow 0.3s backwards;
+
+    box-shadow: 0 0 0 2px #8609e3;
+  }
+`;
+
+const SignInBtn = styled.div`
   margin-top: 2px;
   width: 100%;
-  height: auto;
-  padding-top: 23px;
-  padding-bottom: 23px;
+  height: 18%;
+
   cursor: pointer;
   border: 0;
   border-top: 1px solid #eee;
@@ -96,11 +127,10 @@ const SignInBtn = styled.button`
   }
 `;
 
-const SocialSignInBtn = styled.button`
+const SocialSignInBtn = styled.div`
   width: 100%;
-  height: 100%;
-  padding-top: 23px;
-  padding-bottom: 50px;
+  height: 18%;
+
   cursor: pointer;
   border: 0;
   border-top: 1px solid #eee;
@@ -109,8 +139,7 @@ const SocialSignInBtn = styled.button`
   font-weight: bold;
   background-color: #fee518;
   color: white;
-  background-image: url('../imageFile/kakaoButton.png');
-  background-size: cover;
+
   /* object-fit: contain; */
 `;
 
@@ -220,38 +249,38 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
       {isLogIn ? null : (
         <MarginDiv>
           <ModalView>
-            <h1>SIGN IN</h1>
+            <div style={{ height: '64%' }}>
+              <h1>SIGN IN</h1>
+              <div>
+                <span>이메일</span>
+                <Input
+                  type="email"
+                  onKeyUp={loginPressEnter}
+                  onChange={handleInputValue('email')}
+                  placeholder="이메일을 입력해주세요"
+                />
+              </div>
+              <div>
+                <span>비밀번호</span>
+                <InputPassword
+                  type="password"
+                  onKeyUp={loginPressEnter}
+                  onChange={handleInputValue('password')}
+                  placeholder="비밀번호를 입력해주세요"
+                />
+              </div>
+              <div>
+                <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
+              </div>
+            </div>
 
-            <div>
-              <span>이메일</span>
-              <Input
-                type="email"
-                onKeyUp={loginPressEnter}
-                onChange={handleInputValue('email')}
-                placeholder="이메일을 입력해주세요"
-              />
-            </div>
-            <div>
-              <span>비밀번호</span>
-              <Input
-                type="password"
-                onKeyUp={loginPressEnter}
-                onChange={handleInputValue('password')}
-                placeholder="비밀번호를 입력해주세요"
-              />
-            </div>
-            <div>
-              <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
-            </div>
-            <div>
-              <SignInBtn onClick={handleLogin}>Sign In</SignInBtn>
-            </div>
+            <SignInBtn onClick={handleLogin}>Sign In</SignInBtn>
+
             {checkErr ? <AlertBox message={errorMessage} /> : null}
-            <div>
-              <SocialSignInBtn onClick={socialLoginHandler}>
-                {/* <img src="../imageFile/kakaoButton.png" alt="login" /> */}
-              </SocialSignInBtn>
-            </div>
+
+            <SocialSignInBtn onClick={socialLoginHandler}>
+              <img src="../imageFile/kakaoButton.png" alt="login" style={{ width: '100%' }} />
+            </SocialSignInBtn>
           </ModalView>
           <Modalback onClick={() => closeModal()}></Modalback>
         </MarginDiv>
