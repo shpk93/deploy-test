@@ -18,8 +18,6 @@ const CarouselBootStyle = styled(CarouselBoot)`
   /* height: 100vh; */
   height: 70%;
   background-color: #018735;
-
-  margin: 3px 0 30px 0;
 `;
 
 const Image = styled.img`
