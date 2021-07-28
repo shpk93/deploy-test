@@ -11,11 +11,12 @@ const Menu = styled.div`
   background: #fff;
   border-radius: 2px;
   display: inline-block;
-  height: 300px;
-  margin: 1rem;
+  height: 17vw;
+  margin: 1.5vw;
   position: relative;
-  width: 300px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 2%;
+  width: 17vw;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 1px 6px rgba(0, 0, 0, 0.23);
   &:hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
@@ -23,22 +24,20 @@ const Menu = styled.div`
 const LikesDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  text-align: center;
+  align-items: center;
   font-weight: bold;
-`;
-const UsernameDiv = styled.div``;
-
-const ContentArea = styled.div`
-  position: relative;
-  font-weight: bold;
-  text-align: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 7%;
+  margin-right: 7%;
+  height: 20%;
 `;
 
 const TitleDiv = styled.div`
-  font-size: 150%;
-  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2vw;
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 15%;
 `;
 const LikeButton = styled.button`
   background-color: transparent;
@@ -48,7 +47,10 @@ const LikeButton = styled.button`
 
 const MenuImg = styled.img`
   width: 100%;
-  height: 70%;
+`;
+const HeaderDiv = styled.div`
+  height: 80%;
+  cursor: pointer;
 `;
 
 function Feed({ data, isLogIn, openModal, userInfo }) {
@@ -56,7 +58,6 @@ function Feed({ data, isLogIn, openModal, userInfo }) {
   const [likes, setLikes] = useState(data.likes);
   const [isOpenPostDetail, setIsOpenPostDetail] = useState(false);
   const [postDetail, setPostDetail] = useState({});
-
   const openPostDetail = () => {
     setIsOpenPostDetail(true);
   };
@@ -94,22 +95,24 @@ function Feed({ data, isLogIn, openModal, userInfo }) {
   return (
     <>
       <Menu>
-        <MenuImg src={data.img_url} alt=""></MenuImg>
-        <ContentArea>
-          <TitleDiv
-            onClick={() => {
-              handleClickFeed(data.id);
-            }}>
-            {data.title}
-          </TitleDiv>
-          <LikesDiv>
-            <LikeButton onClick={handleClickLike}>
-              {!!liked ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
-              <div>{likes}</div>
-            </LikeButton>
-            <UsernameDiv>{data.username}</UsernameDiv>
-          </LikesDiv>
-        </ContentArea>
+        <HeaderDiv
+          onClick={() => {
+            handleClickFeed(data.id);
+          }}>
+          <MenuImg src={data.img_url} alt=""></MenuImg>
+          <TitleDiv>{data.title}</TitleDiv>
+        </HeaderDiv>
+        <LikesDiv>
+          <LikeButton onClick={handleClickLike}>
+            {!!liked ? (
+              <ThumbUpAltTwoToneIcon style={{ color: 'red', fontSize: '1.5vw' }} />
+            ) : (
+              <ThumbUpAltOutlinedIcon style={{ fontSize: '1.5vw' }} />
+            )}
+            <span style={{ marginLeft: '0.3vw', fontSize: '1.1vw' }}>{likes}</span>
+          </LikeButton>
+          <span style={{ fontSize: '1.1vw' }}>{data.username}</span>
+        </LikesDiv>
       </Menu>
 
       {isOpenPostDetail ? (

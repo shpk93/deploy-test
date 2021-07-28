@@ -13,14 +13,11 @@ const CarouselBootStyle = styled(CarouselBoot)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   /* position: absolute; */
   width: 100vw;
   /* height: 100vh; */
-  height: 523px;
+  height: 70%;
   background-color: #018735;
-
-  margin: 3px 0 30px 0;
 `;
 
 const Image = styled.img`
@@ -36,13 +33,13 @@ const Image = styled.img`
 
 const Caption = styled(CarouselBoot.Caption)`
   font-family: font-css;
-  font-size: 100px;
+  font-size: 5vw;
   text-align: center;
   color: #fcbd05;
-  top: 0;
+  top: 1vw;
   bottom: auto;
   white-space: nowrap;
-
+  position: absolute;
   text-shadow: 0px 0px 0 rgb(204, 142, 0), 0px -1px 0 rgb(156, 94, 0), 0px -2px 0 rgb(108, 46, 0),
     0px -3px 2px rgba(0, 0, 0, 0.04), 0px -3px 1px rgba(0, 0, 0, 0.5), 0px 0px 2px rgba(0, 0, 0, 0.2);
 `;
@@ -152,31 +149,27 @@ function Carousel({ isLogIn, openModal, userInfo }) {
           return (
             <CarouselBoot.Item
               style={{
+                alignItems: 'center',
                 position: 'relative',
                 width: '100%',
-                height: '523px',
+                height: '100%',
                 backgroundColor: colorProps[idx],
               }}>
               {/* <span aria-hidden="true" className="carousel-control-next-icon" /> */}
-              <div>
-                <Image
-                  className="d-block w-100"
-                  // src={el.img_url}
-                  // 바꿔야해
-                  src="../mock/로스트치킨.png"
-                  alt=""
-                  onClick={() => {
-                    return handleClickFeed(el.id);
-                  }}
-                />
-                <div></div>
-              </div>
-              <div styled={{ position: 'absolute' }}>
-                <Caption>
-                  <p>{el.title}</p>
-                  {/* <p >The Fxxking best</p> */}
-                </Caption>
-              </div>
+
+              <Image
+                className="d-block w-100"
+                // src={el.img_url}
+                src="../mock/로스트치킨.png"
+                alt=""
+                onClick={() => {
+                  return handleClickFeed(el.id);
+                }}
+              />
+              <Caption>
+                <p>{el.title}</p>
+                {/* <p >The Fxxking best</p> */}
+              </Caption>
             </CarouselBoot.Item>
           );
         })}

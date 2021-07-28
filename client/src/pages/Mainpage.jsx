@@ -4,6 +4,7 @@ import Carousel from '../components/Carousel';
 import FeedContainer from '../components/FeedContainer';
 
 const BodyArea = styled.div`
+  font-family: 'font-css';
   margin-top: 150px;
   padding: 0;
   height: 100%;
