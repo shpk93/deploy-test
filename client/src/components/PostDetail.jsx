@@ -219,6 +219,7 @@ function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked
               {isLogIn ? (
                 postDetail.username === userInfo.username ? (
                   <div
+                    style={{ cursor: 'pointer' }}
                     onClick={() => {
                       handleDeletePost(postDetail.id);
                     }}>
