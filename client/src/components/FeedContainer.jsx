@@ -15,7 +15,9 @@ const Container = styled.div`
   overflow: auto;
 `;
 const OrderBy = styled.div`
-  margin: 1rem;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  font-size: 1.5rem;
 `;
 const OrderByButton = styled.span`
   cursor: pointer;

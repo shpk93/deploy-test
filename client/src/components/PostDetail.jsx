@@ -51,11 +51,6 @@ const MarginDiv = styled.div`
   display: flex;
 `;
 
-const MainImg = styled.img`
-  height: 80%;
-  margin-bottom: -5%;
-`;
-
 const MenuImg = styled.img`
   height: 70%;
   margin-bottom: -5%;
@@ -69,33 +64,40 @@ const LikeButton = styled.button`
 const MenuDiv = styled.div`
   float: left;
   height: 100%;
-  width: 50%;
+  width: 60%;
   border-right: 0.2px solid #cccccc;
   text-align: center;
+`;
+const TextDiv = styled.div`
+  float: right;
+  height: 100%;
+  width: 40%;
+  font-size: 120%;
+`;
+
+const MainImg = styled.img`
+  height: 80%;
+  margin-bottom: -3%;
+`;
+const MainDiv = styled.div`
+  height: 30%;
+  font-size: 220%;
 `;
 const IngredientDivOdd = styled.div`
   display: flex;
   justify-content: space-evenly;
   height: 11.6%;
   background-color: #cccccc;
-  font-size: 80%;
   overflow-x: auto;
+  font-size: 120%;
 `;
 
 const IngredientDivEven = styled.div`
   display: flex;
   justify-content: space-evenly;
-  height: 12%;
-  font-size: 80%;
+  height: 11.6%;
   overflow-x: auto;
-`;
-const MainDiv = styled.div`
-  height: 30%;
-`;
-const TextDiv = styled.div`
-  float: right;
-  height: 100%;
-  width: 50%;
+  font-size: 120%;
 `;
 const TitleDiv = styled.div`
   text-align: center;
@@ -112,21 +114,23 @@ const UsernameDiv = styled.div`
   align-items: center;
   padding-left: 5%;
   padding-right: 5%;
-  font-size: 90%;
+  font-size: 1.2vw;
 `;
 
 const ContentDiv = styled.div`
-  height: 58.8%;
+  height: 58.1%;
   padding: 5%;
   border-top: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
+  font-size: 1.3vw;
 `;
 
 const LikeDiv = styled.div`
-  height: 11.2%;
+  height: 11.9%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2vw;
 `;
 
 function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked, isLogIn, userInfo }) {
@@ -206,7 +210,7 @@ function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked
                   );
                 })
               ) : (
-                <div>고기추가 선택 안합</div>
+                <div>고기추가 선택 안함</div>
               )}
             </IngredientDivEven>
           </MenuDiv>
@@ -231,7 +235,11 @@ function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked
             <ContentDiv>{postDetail.content}</ContentDiv>
             <LikeDiv>
               <LikeButton onClick={handleClickLike}>
-                {!!liked ? <ThumbUpAltTwoToneIcon style={{ color: 'red' }} /> : <ThumbUpAltOutlinedIcon />}
+                {!!liked ? (
+                  <ThumbUpAltTwoToneIcon style={{ color: 'red', fontSize: '3vh' }} />
+                ) : (
+                  <ThumbUpAltOutlinedIcon style={{ fontSize: '3vh' }} />
+                )}
                 <span style={{ marginLeft: '0.3vw' }}>{likes}</span>
               </LikeButton>
             </LikeDiv>
