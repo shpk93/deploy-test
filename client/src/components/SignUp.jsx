@@ -196,13 +196,18 @@ function SignUp({ changeForm, closeModal, openModal }) {
       return !passwordCheck.test(password);
     }
     if (inputName === 'confirmPassword') {
-      return !passwordCheck.test(password) && confirmPassword === password;
+      if (!passwordCheck.test(password)) {
+        return '비밀번호는 숫자와 특수문자가 포함되어야 합니다.';
+      }
+      if (passwordCheck.test(password) && password !== confirmPassword) {
+        return '비밀번호가 일치하지 않습니다';
+      }
     }
   };
   //유효성 검사 후 true면 데이터베이스 중복확인
   const checkedInfo = (inputName) => {
     let validate = validateCheck(inputName);
-    let { email, username } = signUpInfo;
+    let { email, username, password, confirmPassword } = signUpInfo;
     if (validate) {
       if (inputName === 'username') {
         setValidateErr('닉네임에 공백이 있어선 안됩니다.');
@@ -213,11 +218,14 @@ function SignUp({ changeForm, closeModal, openModal }) {
       }
 
       if (inputName === 'confirmPassword') {
-        setValidateErr('비밀번호가 일치하지 않습니다.');
+        setValidateErr(validate);
       }
 
       if (inputName === 'password') {
         setValidateErr('비밀번호는 숫자와 특수문자가 포함되어야 합니다.');
+        if (password === '') {
+          return setValidateErr('');
+        }
       }
     } else {
       setValidateErr('');
@@ -233,6 +241,12 @@ function SignUp({ changeForm, closeModal, openModal }) {
           .get(`${url}users/?email=${email}`)
           .then((ok) => setValidateErr(''))
           .catch((err) => setValidateErr('중복된 이메일 입니다.'));
+      }
+      if (inputName === 'password') {
+        if (password !== confirmPassword && confirmPassword !== '') {
+          return setValidateErr('비밀번호가 일치하지 않습니다');
+        }
+        setValidateErr('');
       }
     }
   };
