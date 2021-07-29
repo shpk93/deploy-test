@@ -6,8 +6,8 @@ const AsideStyled = styled.div`
   position: fixed;
   bottom: 15%;
   left: 49%;
-  margin: 0 0 0 35%;
-  z-index: 997;
+  margin: 0 0 0 635px;
+  z-index: 996;
 `;
 
 const LogImg = styled.img`
