@@ -11,7 +11,7 @@ const ModalArea = styled.div`
   height: 100%;
   text-align: center;
   z-index: 999;
-  font-family: font-css;
+  font-family: 'font-css';
 `;
 const Modalback = styled.div`
   z-index: -1;
@@ -30,31 +30,28 @@ const Modalback = styled.div`
 
 const ModalView = styled.div`
   z-index: 999;
-  width: 18vw;
-  min-width: 300px;
-  height: 42vh;
+  width: 40vmin;
+  height: 50vmin;
   min-height: 400px;
-  margin: 0px;
   background: white;
   box-shadow: 0 0 15px #333;
   position: fixed;
   margin: 15vh auto;
+  padding-top: 1vh;
   left: 0;
   right: 0;
   overflow: hidden;
 `;
 
 const Input = styled.input`
-  font-size: 1.1em;
+  font-size: 1.1rem;
   font-weight: normal;
-
   display: block;
 
-  width: 85%;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-left: 23px;
-
+  width: 80%;
+  margin-bottom: 0.5rem;
+  margin-left: 10%;
+  margin-right: 10%;
   height: 45px;
 
   -webkit-transition: box-shadow 0.3s;
@@ -62,7 +59,7 @@ const Input = styled.input`
   transition: 0.25s linear;
   text-align: center;
 
-  color: #8609e3;
+  color: black;
   border: 0;
   outline: 0;
   background: #eee;
@@ -71,19 +68,23 @@ const Input = styled.input`
   &:focus {
     animation: boxShadow 0.3s backwards;
 
-    box-shadow: 0 0 0 2px #8609e3;
+    box-shadow: 0 0 0 2px #008e43;
   }
 `;
 
 const InputPassword = styled.input`
-  font-size: 1.1em;
-  font-weight: normal;
-  font-family: Arial;
+  font-size: 1.1rem;
   display: block;
+  font-family: Arial;
+  ::placeholder {
+    font-family: 'font-css';
+  }
 
-  width: 85%;
-  margin-top: 2px;
-  margin-left: 25px;
+  width: 80%;
+  margin-bottom: 0.5rem;
+  margin-left: 10%;
+  margin-right: 10%;
+
   height: 45px;
 
   -webkit-transition: box-shadow 0.3s;
@@ -91,7 +92,7 @@ const InputPassword = styled.input`
   transition: 0.25s linear;
   text-align: center;
 
-  color: #8609e3;
+  color: black;
   border: 0;
   outline: 0;
   background: #eee;
@@ -100,30 +101,24 @@ const InputPassword = styled.input`
   &:focus {
     animation: boxShadow 0.3s backwards;
 
-    box-shadow: 0 0 0 2px #8609e3;
+    box-shadow: 0 0 0 2px #008e43;
   }
 `;
 
 const SignInBtn = styled.div`
-  margin-top: 2px;
   width: 100%;
   height: 18%;
-  padding-top: 20px;
+  padding-top: 4%;
   cursor: pointer;
-  /* border: 0;
-  border-top: 1px solid #eee;
-  border-radius: 0px; */
-  outline: 0;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: white;
-  background: #8609e3;
+  font-size: 2rem;
+  color: black;
+  background: #008e43;
+  :hover {
+    border: 2px solid #008e43;
+  }
 
   :focus {
     outline: none;
-  }
-  :hover {
-    color: black;
   }
 `;
 
@@ -132,37 +127,25 @@ const SocialSignInBtn = styled.div`
   height: 18%;
 
   cursor: pointer;
-  border: 0;
-  border-top: 1px solid #eee;
-  outline: 0;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: bold;
-  background-color: #fee518;
   color: white;
-
   /* object-fit: contain; */
+  :hover {
+    border: 2px solid #fee518;
+  }
 `;
 
-const SignUpBtn = styled.button`
+const SignUpBtn = styled.div`
   width: 100%;
-  height: auto;
+  height: 18%;
   padding-top: 23px;
   padding-bottom: 23px;
   cursor: pointer;
-
-  border: 0;
-  border-top: 1px solid #eee;
-  outline: 0;
-
-  font-size: 0.9em;
+  font-size: 1.2rem;
   color: #333;
   background: white;
 `;
-
-// const AlertBox = styled.div`
-//   position: absolute;
-//   left: 50%;
-//   transform: translateX(-50%);
 
 //   background-color: mediumvioletred;
 //   padding: 1em 2.4em;
@@ -249,7 +232,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
       {isLogIn ? null : (
         <MarginDiv>
           <ModalView>
-            <div style={{ height: '64%' }}>
+            <div style={{ height: '46%' }}>
               <h1>SIGN IN</h1>
               <div>
                 <span>이메일</span>
@@ -269,17 +252,19 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
                   placeholder="비밀번호를 입력해주세요"
                 />
               </div>
-              <div>
-                <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
-              </div>
             </div>
 
+            <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
             <SignInBtn onClick={handleLogin}>Sign In</SignInBtn>
 
-            {checkErr ? <AlertBox message={errorMessage} setCheckErr={setCheckErr} /> : null}
+            {checkErr ? <AlertBox message={errorMessage} /> : null}
 
             <SocialSignInBtn onClick={socialLoginHandler}>
-              <img src="../imageFile/kakaoButton.png" alt="login" style={{ width: '100%' }} />
+              <img
+                src="../imageFile/kakaoButton.png"
+                alt="login"
+                style={{ position: 'relative', width: '100%', top: '-9%', zIndex: '-1', backgroundColor: '#fee518' }}
+              />
             </SocialSignInBtn>
           </ModalView>
           <Modalback onClick={() => closeModal()}></Modalback>

@@ -227,8 +227,12 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
         </div>
         <LogOutStyle>
           {/* <button onClick={logOutHandle} style={{ color: 'red' }}></button> */}
-
-          <img src="../../imageFile/power.png" alt="" onClick={logOutHandle} style={{ cursor: 'pointer' }} />
+          <PostButtonStyle style={{ border: 'none', cursor: 'auto' }}>
+            <PostSpanStyle onClick={logOutHandle} style={{ cursor: 'pointer' }}>
+              <img src="../../imageFile/profile.png" style={{ height: '60px' }} />
+              <div>Logout</div>
+            </PostSpanStyle>
+          </PostButtonStyle>
         </LogOutStyle>
       </SideBar>
     </SideArea>
