@@ -122,6 +122,7 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
     axios.get(`${process.env.REACT_APP_API_URL}users/signout`).then((result) => {
       changeSideBar();
       closeLogInIcon();
+      window.location.replace('/');
     });
   };
   const inputEl = useRef(null);

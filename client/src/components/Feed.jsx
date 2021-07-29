@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 const url = process.env.REACT_APP_API_URL;
 
 const Menu = styled.div`
-  background: #fff;
+  background: #f4f4f4;
   border-radius: 2px;
   display: inline-block;
   height: 16vw;

@@ -9,16 +9,14 @@ const Container = styled.div`
   width: 60vw;
   height: 100%;
   position: absolute;
-  background-color: #f3f4f4;
   margin-left: 20%;
   margin-right: 20%;
-  overflow: auto;
   ::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
 `;
 const OrderBy = styled.div`
-  margin-left: 2rem;
+  margin-left: 2.5rem;
   margin-top: 2rem;
   font-size: 1.5rem;
 `;
@@ -41,31 +39,38 @@ const NoSearchStyle = styled.div`
 
 function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo, text1 }) {
   const [keyword, setKeyword] = useState('');
+  const [isOrderByLikes, setIsOrderByLikes] = useState(true);
 
   useEffect(() => {
     const searchKeyword = document.querySelector('#SearchBox').value;
     setKeyword(searchKeyword);
   }, [feeds]);
 
-  const orderByLikesHandler = async () => {
-    let posts = await axios.get(`${url}posts`);
-    posts = posts.data.data;
-    let orderedFeeds = posts.slice(0).sort((a, b) => b.likes - a.likes);
+  const orderByLikesHandler = () => {
+    setIsOrderByLikes(true);
+    let orderedFeeds = feeds.slice(0).sort((a, b) => b.likes - a.likes);
     handleSetPosts(orderedFeeds);
   };
-  const orderByCreatedAtHandler = async () => {
-    let posts = await axios.get(`${url}posts`);
-    posts = posts.data.data;
-    let orderedFeeds = posts.slice(0).sort((a, b) => b.id - a.id);
+  const orderByCreatedAtHandler = () => {
+    setIsOrderByLikes(false);
+    let orderedFeeds = feeds.slice(0).sort((a, b) => b.id - a.id);
     handleSetPosts(orderedFeeds);
   };
   return (
     <>
       <Container>
         <OrderBy>
-          <OrderByButton onClick={orderByLikesHandler}>좋아요순</OrderByButton>
+          <OrderByButton
+            onClick={orderByLikesHandler}
+            style={isOrderByLikes ? { color: '#fec52d', fontWeight: 'bold' } : {}}>
+            좋아요순
+          </OrderByButton>
           <span> | </span>
-          <OrderByButton onClick={orderByCreatedAtHandler}>최신순</OrderByButton>
+          <OrderByButton
+            onClick={orderByCreatedAtHandler}
+            style={!isOrderByLikes ? { color: '#fec52d', fontWeight: 'bold' } : {}}>
+            최신순
+          </OrderByButton>
         </OrderBy>
         {feeds.length === 0 ? (
           <NoSearchStyle>
@@ -87,7 +92,7 @@ function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo, te
         ) : (
           feeds.map((el) => <Feed data={el} key={el.id} isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />)
         )}
-        <div style={{ marginTop: '10%' }}></div>
+        <div style={{ height: '15vh' }}></div>
       </Container>
     </>
   );
