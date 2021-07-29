@@ -9,7 +9,7 @@ const url = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 
 const ModalArea = styled.div`
-  font-family: 'font-css';
+  font-family: font-css;
   position: fixed;
   top: 0%;
   left: 0;
