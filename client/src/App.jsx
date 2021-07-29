@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   const [sideBarOn, setSideBarOn] = useState(false);
   const [userInfo, setUserInfo] = useState('');
-  const [isLogIn, setIsLogIn] = useState(true);
+  const [isLogIn, setIsLogIn] = useState(false);
   const [getPosts, setGetPosts] = useState([]);
   const [isModal, setModal] = useState(false);
   const [isOpenSignUp, SetIsOpenSignUp] = useState(false);
