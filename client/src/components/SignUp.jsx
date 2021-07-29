@@ -119,9 +119,9 @@ const SignInBtn = styled.div`
 
   color: black;
   :hover {
-    border: 2px solid #ffc52c;
+    border: 2px solid #fee518;
   }
-  background: #ffc52c;
+  background: #fee518;
 `;
 
 const Modalback = styled.div`
