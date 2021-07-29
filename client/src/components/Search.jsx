@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -108,7 +109,7 @@ const SearchArea = styled.input`
 //   border-bottom: black solid 2px;
 //   outline: none;
 // } */
-function Search({ getPosts, setGetPosts }) {
+function Search({ getPosts, setGetPosts, setText }) {
   const [keyword, setKeyword] = useState('');
   const [option, setOption] = useState('제목');
 
@@ -120,6 +121,7 @@ function Search({ getPosts, setGetPosts }) {
   };
   const onSearch = async (e) => {
     // if (e.keyCode === 13) {
+    setText('');
     let allPosts = await axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => data.data.data);
     let result;
     if (option === '제목') {
@@ -157,9 +159,11 @@ function Search({ getPosts, setGetPosts }) {
         onChange={handleKeyword}
         onKeyUp={onSearchEnter}
       />
-      <ButtonStyle type="submit" onClick={onSearch}>
-        <SearchIcon style={{ color: 'green', fontSize: '50px' }} onClick={onSearch} />
-      </ButtonStyle>
+      <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+        <ButtonStyle type="submit" onClick={onSearch}>
+          <SearchIcon style={{ color: 'green', fontSize: '50px' }} onClick={onSearch} />
+        </ButtonStyle>
+      </Link>
     </FormArea>
   );
 }

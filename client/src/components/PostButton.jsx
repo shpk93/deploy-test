@@ -4,7 +4,7 @@ import { Switch, Route, Link, useHistory } from 'react-router-dom';
 
 const AsideStyled = styled.div`
   position: fixed;
-  bottom: 110px;
+  bottom: 15%;
   left: 49%;
   margin: 0 0 0 635px;
   z-index: 996;
@@ -17,17 +17,17 @@ const LogImg = styled.img`
   overflow: hidden;
 `;
 
-function PostButton() {
-  const openPost = () => {
-    console.log('열려라 참깨');
-  };
-
+function PostButton({ isLogIn }) {
   return (
-    <AsideStyled>
-      <Link to="/post">
-        <LogImg src="../imageFile/subway-Log.png" alt="log" onClick={openPost} />
-      </Link>
-    </AsideStyled>
+    <div>
+      {isLogIn ? (
+        <AsideStyled>
+          <Link to="/post">
+            <LogImg src="../imageFile/subway-Log.png" alt="log" />
+          </Link>
+        </AsideStyled>
+      ) : null}
+    </div>
   );
 }
 

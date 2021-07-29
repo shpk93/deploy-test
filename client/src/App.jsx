@@ -40,6 +40,7 @@ function App() {
   const [getPosts, setGetPosts] = useState([]);
   const [isModal, setModal] = useState(false);
   const [isOpenSignUp, SetIsOpenSignUp] = useState(false);
+  const [text, setText] = useState('');
 
   const openLogInIcon = () => {
     setIsLogIn(true);
@@ -99,6 +100,7 @@ function App() {
         setGetPosts={setGetPosts}
         openModal={openModal}
         closeLogInIcon={closeLogInIcon}
+        setText={setText}
       />
 
       {isModal ? (
@@ -123,6 +125,7 @@ function App() {
             openModal={openModal}
             handleSetPosts={handleSetPosts}
             userInfo={userInfo}
+            text={text}
           />
         </Route>
         <Route path="/post">
@@ -136,9 +139,9 @@ function App() {
           getPosts={getPosts}
           setGetPosts={setGetPosts}
           closeLogInIcon={closeLogInIcon}
+          setText={setText}
         />
       ) : null}
-      <PostButton />
 
       <Footer />
     </div>

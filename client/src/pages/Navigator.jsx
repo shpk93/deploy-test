@@ -62,7 +62,7 @@ const ButtonStyle = styled.button`
 `;
 
 // 네이게이션바 구현 목록
-function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, closeLogInIcon }) {
+function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, closeLogInIcon, setText }) {
   const [hide, setHide] = useState(false);
   const [pageY, setPageY] = useState(0);
   const documentRef = useRef(document);
@@ -126,7 +126,7 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, c
             }}
           />
           <DivStyle>
-            <Search getPosts={getPosts} setGetPosts={setGetPosts} />
+            <Search getPosts={getPosts} setGetPosts={setGetPosts} setText={setText} />
             {isLogIn ? (
               //마이페이지 버튼
               <ButtonStyle type="button" onClick={changeSideBar}>
