@@ -8,6 +8,7 @@ import PowerSettingsNewOutlinedIcon from '@material-ui/icons/PowerSettingsNewOut
 import { Link } from 'react-router-dom';
 // import { ChangeHistoryRounded } from '@material-ui/icons';
 import axios from 'axios';
+import PopUp from './PopUp';
 axios.defaults.withCredentials = true;
 
 const SideBar = styled.div`
@@ -99,6 +100,8 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
   const [isEditMode, setEditMode] = useState(false);
   const [errMessage, SetErrMessage] = useState('');
   const [username, setUsername] = useState(userInfo.username);
+  const [successSignUp, setSuccessSignUp] = useState(false);
+
   const width = 300;
   const height = '100vh';
   const [xPosition, setX] = useState(-width);
@@ -120,7 +123,6 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
       changeSideBar();
       closeLogInIcon();
     });
-    window.location.replace('/');
   };
   const inputEl = useRef(null);
   const modifyUserHandle1 = () => {
@@ -148,8 +150,8 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
       .then((el) => {
         setEditMode(false);
         SetErrMessage('');
-        alert('수정되었습니다. 다시 로그인하세요');
-        logOutHandle();
+        axios.get(`${process.env.REACT_APP_API_URL}users/signout`);
+        setSuccessSignUp(true);
       })
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));
   };
@@ -211,6 +213,7 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
                   취소하기
                 </EditButtonStyle>
               </div>
+              {errMessage ? errMessage : null}
             </div>
           ) : (
             <div style={{ paddingLeft: '30px' }}>
@@ -250,6 +253,8 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
           </PostButtonStyle>
         </LogOutStyle>
       </SideBar>
+
+      {successSignUp ? <PopUp text={`수정되었습니다. 다시 로그인해주세요.`} /> : null}
     </SideArea>
   );
 }

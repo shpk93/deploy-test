@@ -10,7 +10,8 @@ const InputStyle = styled.input`
 
 const CheckedStyle = styled.div`
   [type='checkbox']:checked + label > img {
-    transform: scale(1.3);
+    background-color: #019935;
+    border-radius: 10% 40% 10% 10%;
   }
 `;
 

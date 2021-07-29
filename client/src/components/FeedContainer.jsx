@@ -73,6 +73,10 @@ function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo, te
             <div>
               {text1 ? (
                 text1
+              ) : keyword === '' ? (
+                <div>
+                  <span>게시물이 없습니다......</span>
+                </div>
               ) : (
                 <div>
                   <span style={{ color: 'red' }}>"{keyword}"</span> <span>에 대한 결과가 없습니다.</span>

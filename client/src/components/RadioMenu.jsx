@@ -11,7 +11,8 @@ const InputStyle = styled.input`
 const CheckedStyle = styled.div`
   position: relative;
   [type='radio']:checked + label > img {
-    transform: scale(1.2);
+    background-color: #019935;
+    border-radius: 10% 40% 10% 10%;
   }
 `;
 
