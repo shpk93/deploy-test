@@ -26,8 +26,15 @@ const AlterBoxStyle = styled.div`
   z-index: 999;
 `;
 
-function AlertBox({ message }) {
-  return <AlterBoxStyle>{message}</AlterBoxStyle>;
+function AlertBox({ message, setCheckErr = () => {} }) {
+  return (
+    <AlterBoxStyle
+      onClick={() => {
+        setCheckErr(false);
+      }}>
+      {message}
+    </AlterBoxStyle>
+  );
 }
 
 export default AlertBox;

@@ -31,13 +31,10 @@ const NoSearchStyle = styled.div`
     font-family: font-css;
     margin-top: 20px;
     font-size: 1.4rem;
-    > span {
-      color: red;
-    }
   }
 `;
 
-function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo }) {
+function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo, text1 }) {
   const [keyword, setKeyword] = useState('');
 
   useEffect(() => {
@@ -69,7 +66,13 @@ function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo }) 
           <NoSearchStyle>
             <img src="../imageFile/noresult.png" alt="" />
             <div>
-              "<span>{keyword}</span>"에 대한 검색결과가 없습니다.
+              {text1 ? (
+                text1
+              ) : (
+                <div>
+                  <span style={{ color: 'red' }}>"{keyword}"</span> <span>에 대한 결과가 없습니다.</span>
+                </div>
+              )}
             </div>
           </NoSearchStyle>
         ) : (

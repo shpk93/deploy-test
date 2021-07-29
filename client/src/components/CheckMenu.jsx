@@ -51,7 +51,6 @@ const SelectSectionStyle = styled.div`
 function CheckMenu({ data, handleCheckBox }) {
   const name = Object.keys(data)[0];
   const menu = data[name];
-  console.log(name, menu);
   return (
     <SelectSectionStyle>
       {menu.map((el) =>

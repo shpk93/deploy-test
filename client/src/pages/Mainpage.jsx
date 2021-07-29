@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Carousel from '../components/Carousel';
 import FeedContainer from '../components/FeedContainer';
+import PostButton from '../components/PostButton';
 
 const BodyArea = styled.div`
   font-family: 'font-css';
@@ -11,7 +12,7 @@ const BodyArea = styled.div`
   width: 100%;
 `;
 
-function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo }) {
+function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo, text }) {
   // document.querySelector("#SearchBox")
 
   return (
@@ -23,7 +24,9 @@ function Mainpage({ getPosts, isLogIn, openModal, handleSetPosts, userInfo }) {
         openModal={openModal}
         handleSetPosts={handleSetPosts}
         userInfo={userInfo}
+        text1={text}
       />
+      <PostButton isLogIn={isLogIn} />
     </BodyArea>
   );
 }
