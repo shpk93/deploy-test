@@ -13,6 +13,9 @@ const Container = styled.div`
   margin-left: 20%;
   margin-right: 20%;
   overflow: auto;
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 const OrderBy = styled.div`
   margin-left: 2rem;
@@ -84,6 +87,7 @@ function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo, te
         ) : (
           feeds.map((el) => <Feed data={el} key={el.id} isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />)
         )}
+        <div style={{ marginTop: '10%' }}>어디있니</div>
       </Container>
     </>
   );
