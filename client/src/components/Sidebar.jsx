@@ -6,7 +6,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import PowerSettingsNewOutlinedIcon from '@material-ui/icons/PowerSettingsNewOutlined';
 import { Link } from 'react-router-dom';
-import './Sidebar.css';
 // import { ChangeHistoryRounded } from '@material-ui/icons';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
@@ -100,14 +99,16 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
   const [isEditMode, setEditMode] = useState(false);
   const [errMessage, SetErrMessage] = useState('');
   const [username, setUsername] = useState(userInfo.username);
-
-  const changeStatus = () => {
-    changeSideBar();
-  };
-
   const width = 300;
   const height = '100vh';
   const [xPosition, setX] = useState(-width);
+
+  const changeStatus = () => {
+    setX(-300);
+    setTimeout(() => {
+      changeSideBar();
+    }, 800);
+  };
 
   useEffect(() => {
     setX(0);
@@ -164,6 +165,11 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
     let filterData = allPosts.filter((el) => el.username === username);
     setGetPosts(filterData);
   };
+
+  const widthChange = () => {
+    setX(300);
+  };
+
   return (
     <SideArea>
       <SideBar
@@ -174,11 +180,20 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
         }}>
         <SideBarHeaderStyle>
           <div></div>
-          <CloseButtonStyle
-            onClick={changeStatus}
-            style={{ marginRight: '20px', fontSize: '20px', position: 'absolute', left: '-65px' }}>
-            <KeyboardArrowRightIcon style={{ fontWeight: 'bold', fontSize: '50px' }} />
-          </CloseButtonStyle>
+          {xPosition === -300 ? (
+            <CloseButtonStyle
+              onClick={changeStatus}
+              style={{ marginRight: '20px', fontSize: '20px', position: 'absolute', left: '-65px', display: 'none' }}>
+              <KeyboardArrowRightIcon style={{ fontWeight: 'bold', fontSize: '50px' }} />
+            </CloseButtonStyle>
+          ) : (
+            <CloseButtonStyle
+              onClick={changeStatus}
+              style={{ marginRight: '20px', fontSize: '20px', position: 'absolute', left: '-65px' }}>
+              <KeyboardArrowRightIcon style={{ fontWeight: 'bold', fontSize: '50px' }} />
+            </CloseButtonStyle>
+          )}
+
           <UserImgStyle></UserImgStyle>
         </SideBarHeaderStyle>
 
