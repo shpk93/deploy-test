@@ -180,6 +180,9 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
       setCheckErr(false);
     }, 3000);
   };
+  const clickErrBox = () => {
+    setCheckErr(false);
+  };
 
   //로그인 요청을 보낼 데이터
   const handleInputValue = (key) => (e) => {
@@ -257,7 +260,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
             <SignUpBtn onClick={() => changeForm()}>아직 아이디가 없으신가요?</SignUpBtn>
             <SignInBtn onClick={handleLogin}>Sign In</SignInBtn>
 
-            {checkErr ? <AlertBox message={errorMessage} /> : null}
+            {checkErr ? <AlertBox message={errorMessage} setCheckErr={clickErrBox} /> : null}
 
             <SocialSignInBtn onClick={socialLoginHandler}>
               <img
