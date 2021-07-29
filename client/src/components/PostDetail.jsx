@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbUpAltTwoToneIcon from '@material-ui/icons/ThumbUpAltTwoTone';
-
+import PopUp from './PopUp';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -246,6 +246,8 @@ function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked
           </TextDiv>
         </ModalView>
         <Modalback onClick={() => closePostDetail()}></Modalback>
+        {/* {successSignUp ? <PopUp text={`회원가입에 성공하셨습니다.`} type= /> : null} */}
+        {/* <PopUp text={`회원가입에 성공하셨습니다.`} /> */}
       </MarginDiv>
     </ModalArea>
   );

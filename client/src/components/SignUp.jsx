@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import PopUp from './PopUp';
+import AlertBox from './AlertBox';
 axios.defaults.withCredentials = true;
 const url = process.env.REACT_APP_API_URL;
 
@@ -158,8 +160,11 @@ function SignUp({ changeForm, closeModal, openModal }) {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
   const [validateErr, setValidateErr] = useState('');
+  const [successSignUp, setSuccessSignUp] = useState(false);
+
   //로그인 요청을 보낼 데이터
   const handleInputValue = (key) => (e) => {
     setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
@@ -172,10 +177,11 @@ function SignUp({ changeForm, closeModal, openModal }) {
       axios
         .post(`${url}users/signup`, signUpInfo)
         .then((result) => {
-          closeModal();
-          openModal();
-          alert('회원가입이 완료되었습니다');
-          window.location.replace('/');
+          setSuccessSignUp(true);
+          // closeModal();
+          // openModal();
+          // alert('회원가입이 완료되었습니다');
+          // window.location.replace('/');
         })
         .catch((err) => {
           console.log(err);
@@ -188,7 +194,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
     const emailCheck =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const passwordCheck = /^.*(?=^.{6,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-    let { email, password, username } = signUpInfo;
+    let { email, password, username, confirmPassword } = signUpInfo;
 
     if (inputName === 'username') {
       return username.includes(' ') || username === '';
@@ -199,6 +205,9 @@ function SignUp({ changeForm, closeModal, openModal }) {
 
     if (inputName === 'password') {
       return !passwordCheck.test(password);
+    }
+    if (inputName === 'confirmPassword') {
+      return confirmPassword !== password;
     }
   };
   //유효성 검사 후 true면 데이터베이스 중복확인
@@ -212,6 +221,10 @@ function SignUp({ changeForm, closeModal, openModal }) {
 
       if (inputName === 'email') {
         setValidateErr('올바른 이메일 주소를 입력하세요');
+      }
+
+      if (inputName === 'confirmPassword') {
+        setValidateErr('비밀번호가 일치하지 않습니다.');
       }
 
       if (inputName === 'password') {
@@ -234,6 +247,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
       }
     }
   };
+
   return (
     <ModalArea>
       <SignUpArea>
@@ -268,6 +282,16 @@ function SignUp({ changeForm, closeModal, openModal }) {
             placeholder="비밀번호를 입력해주세요"
           />
         </div>
+        <div>
+          <InputPassword
+            type="password"
+            onBlur={() => {
+              checkedInfo('confirmPassword');
+            }}
+            onChange={handleInputValue('confirmPassword')}
+            placeholder="비밀번호를 다시 입력해주세요"
+          />
+        </div>
         <div style={{ color: 'red' }}>{validateErr}</div>
         <div>
           <div>
@@ -285,6 +309,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
         </div>
       </SignUpArea>
       <Modalback onClick={() => closeModal()}></Modalback>
+      {successSignUp ? <PopUp text={`회원가입에 성공하셨습니다.`} /> : null}
     </ModalArea>
   );
 }
