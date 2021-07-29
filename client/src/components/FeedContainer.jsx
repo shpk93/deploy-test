@@ -87,7 +87,7 @@ function FeedContainer({ feeds, isLogIn, openModal, handleSetPosts, userInfo, te
         ) : (
           feeds.map((el) => <Feed data={el} key={el.id} isLogIn={isLogIn} openModal={openModal} userInfo={userInfo} />)
         )}
-        <div style={{ marginTop: '10%' }}>어디있니</div>
+        <div style={{ marginTop: '10%' }}></div>
       </Container>
     </>
   );
