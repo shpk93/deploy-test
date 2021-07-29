@@ -6,36 +6,40 @@ import AlertBox from './AlertBox';
 axios.defaults.withCredentials = true;
 const url = process.env.REACT_APP_API_URL;
 
-const SignUpArea = styled.div`
-  position: fixed;
-  margin: 30px auto;
-  left: 0;
-  right: 0;
+const ModalArea = styled.div`
+  position: relative;
+  height: 100%;
+  text-align: center;
   z-index: 999;
+  font-family: 'font-css';
+`;
 
-  width: 300px;
-  max-width: 400px;
-  height: 300px;
-  /* padding: 60px 0; */
-
+const SignUpArea = styled.div`
+  z-index: 999;
+  width: 40vmin;
+  height: 50vmin;
+  min-height: 400px;
   background: white;
   box-shadow: 0 0 15px #333;
-  font-family: font-css;
-
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
+  position: fixed;
+  margin: -0.9vh auto;
+  padding-top: 1vh;
+  left: 0;
+  right: 0;
 `;
 
 const Input = styled.input`
+  ::placeholder {
+    font-size: 1.1rem;
+  }
   font-size: 1.1em;
   font-weight: normal;
-
   display: block;
 
-  width: 85%;
-  margin-top: 2px;
-  margin-left: 25px;
+  width: 80%;
+  margin-bottom: 0.5rem;
+  margin-left: 10%;
+  margin-right: 10%;
   height: 45px;
 
   -webkit-transition: box-shadow 0.3s;
@@ -43,7 +47,7 @@ const Input = styled.input`
   transition: 0.25s linear;
   text-align: center;
 
-  color: #8609e3;
+  color: black;
   border: 0;
   outline: 0;
   background: #eee;
@@ -52,7 +56,7 @@ const Input = styled.input`
   &:focus {
     animation: boxShadow 0.3s backwards;
 
-    box-shadow: 0 0 0 2px #8609e3;
+    box-shadow: 0 0 0 2px #008e43;
   }
 `;
 
@@ -61,10 +65,14 @@ const InputPassword = styled.input`
   font-weight: normal;
   font-family: Arial;
   display: block;
+  ::placeholder {
+    font-family: 'font-css';
+  }
 
-  width: 85%;
-  margin-top: 2px;
-  margin-left: 25px;
+  width: 80%;
+  margin-bottom: 0.5rem;
+  margin-left: 10%;
+  margin-right: 10%;
   height: 45px;
 
   -webkit-transition: box-shadow 0.3s;
@@ -72,7 +80,7 @@ const InputPassword = styled.input`
   transition: 0.25s linear;
   text-align: center;
 
-  color: #8609e3;
+  color: black;
   border: 0;
   outline: 0;
   background: #eee;
@@ -81,58 +89,39 @@ const InputPassword = styled.input`
   &:focus {
     animation: boxShadow 0.3s backwards;
 
-    box-shadow: 0 0 0 2px #8609e3;
+    box-shadow: 0 0 0 2px #008e43;
   }
 `;
 
-const SignUpBtn = styled.button`
+const SignUpBtn = styled.div`
   margin-top: 15px;
   width: 100%;
-  height: auto;
-  padding-top: 23px;
-  padding-bottom: 23px;
-  border-radius: 0px;
+  height: 18%;
+  padding-top: 4%;
+  font-size: 2rem;
 
   cursor: pointer;
 
-  border: none;
-  /* border-top: 1px solid #eee; */
-  outline: none;
-  font-size: 1.2em;
-  font-weight: bold;
+  color: black;
 
-  color: white;
-  background: #8609e3;
-  :focus {
-    outline: none;
-  }
+  background: #008e43;
   :hover {
-    color: black;
+    border: 2px solid #008e43;
   }
 `;
 
-const SignInBtn = styled.button`
+const SignInBtn = styled.div`
   width: 100%;
-  height: auto;
-  padding-top: 23px;
-  padding-bottom: 23px;
+  height: 18%;
+  padding-top: 4%;
   cursor: pointer;
-  border-radius: 0px;
+  font-size: 2rem;
 
-  border: 0;
-  /* border-top: 1px solid #eee; */
-  outline: 0;
-  color: white;
-  font-size: 1.2em;
-  font-weight: bold;
-  background: #ff2d03;
-`;
-
-const ModalArea = styled.div`
-  position: relative;
-  height: 100%;
-  text-align: center;
-  z-index: 999;
+  color: black;
+  :hover {
+    border: 2px solid #fee518;
+  }
+  background: #fee518;
 `;
 
 const Modalback = styled.div`
@@ -253,6 +242,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
       <SignUpArea>
         <h1>SIGN UP</h1>
         <div>
+          <span>닉네임</span>
           <Input
             type="text"
             onBlur={() => {
@@ -263,6 +253,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
           />
         </div>
         <div>
+          <span>이메일</span>
           <Input
             type="email"
             onBlur={() => {
@@ -273,6 +264,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
           />
         </div>
         <div>
+          <span>비밀번호 / 확인</span>
           <InputPassword
             type="password"
             onBlur={() => {
@@ -293,20 +285,15 @@ function SignUp({ changeForm, closeModal, openModal }) {
           />
         </div>
         <div style={{ color: 'red' }}>{validateErr}</div>
-        <div>
-          <div>
-            <SignUpBtn onClick={signUpHandle}>Sign Up</SignUpBtn>
-          </div>
-          <div>
-            <SignInBtn
-              className="btn btn-login"
-              onClick={() => {
-                changeForm();
-              }}>
-              Already a member?
-            </SignInBtn>
-          </div>
-        </div>
+
+        <SignUpBtn onClick={signUpHandle}>Sign Up</SignUpBtn>
+
+        <SignInBtn
+          onClick={() => {
+            changeForm();
+          }}>
+          Already a member?
+        </SignInBtn>
       </SignUpArea>
       <Modalback onClick={() => closeModal()}></Modalback>
       {successSignUp ? <PopUp text={`회원가입에 성공하셨습니다.`} /> : null}
