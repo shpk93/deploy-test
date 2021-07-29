@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import PowerSettingsNewOutlinedIcon from '@material-ui/icons/PowerSettingsNewOutlined';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 // import { ChangeHistoryRounded } from '@material-ui/icons';
 import axios from 'axios';
@@ -17,11 +18,11 @@ const SideBar = styled.div`
   flex-direction: column;
   background-color: #f3f4f4;
   transition: 0.8s ease;
-  border: 5px solid #ffbc0d;
-  border-right: 0px;
+  border: none;
+  /* border-right: 0px; */
   /* margin-top: 1.5vh; */
-  border-radius: 15px 0px 0px 0px;
   font-family: font-css;
+  box-shadow: rgba(100, 100, 100, 0.7) -1px 0px 5px 1px;
 `;
 
 const SideArea = styled.div`
@@ -42,7 +43,7 @@ const SideBarHeaderStyle = styled.div`
   height: 150px;
   /* background-color: #018735; */
   /* border: 5px solid #ffbc0d; */
-  border-radius: 10px 0px 0px 0px;
+  /* border-radius: 10px 0px 0px 0px; */
   background-image: url('../../imageFile/header.jpg');
   /* background-size: contain; */
 `;
@@ -95,7 +96,7 @@ const LogOutStyle = styled.div`
   height: 45vh;
 `;
 
-function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPosts }) {
+function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPosts, setText }) {
   const [isEditMode, setEditMode] = useState(false);
   const [errMessage, SetErrMessage] = useState('');
   const [username, setUsername] = useState(userInfo.username);
@@ -152,11 +153,13 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
       .catch((err) => SetErrMessage('중복된 닉네임입니다. 확인 후 다시 시도하세요'));
   };
   const likeFilterHandle = async () => {
+    setText('내가 좋아요한 게시물이 없습니다.');
     let allPosts = await axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => data.data.data);
     let filterData = allPosts.filter((el) => el.liked !== 0);
     setGetPosts(filterData);
   };
   const myPostfilterHandle = async () => {
+    setText('내가 작성한 게시물이 없습니다.');
     let allPosts = await axios.get(`${process.env.REACT_APP_API_URL}posts`).then((data) => data.data.data);
     let filterData = allPosts.filter((el) => el.username === username);
     setGetPosts(filterData);
@@ -206,16 +209,21 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
           )}
         </SideBarNickStyle>
         <div>
-          <PostButtonStyle onClick={likeFilterHandle}>
-            <ThumbUpAltOutlinedIcon style={{ fontSize: '36px', marginBottom: '8px' }} />
-            <PostSpanStyle>내가 좋요한 게시물</PostSpanStyle>
-          </PostButtonStyle>
+          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+            <PostButtonStyle onClick={likeFilterHandle}>
+              <ThumbUpAltOutlinedIcon style={{ fontSize: '36px', marginBottom: '8px' }} />
+
+              <PostSpanStyle>내가 좋아요한 게시물</PostSpanStyle>
+            </PostButtonStyle>
+          </Link>
         </div>
         <div>
-          <PostButtonStyle onClick={myPostfilterHandle} style={{ borderBottom: '1px solid' }}>
-            <img src="../../imageFile/postIcon.png" alt="" />
-            <PostSpanStyle>내가 올린 게시물</PostSpanStyle>
-          </PostButtonStyle>
+          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+            <PostButtonStyle onClick={myPostfilterHandle} style={{ borderBottom: '1px solid' }}>
+              <img src="../../imageFile/postIcon.png" alt="" />
+              <PostSpanStyle>내가 올린 게시물</PostSpanStyle>
+            </PostButtonStyle>
+          </Link>
         </div>
         <LogOutStyle>
           {/* <button onClick={logOutHandle} style={{ color: 'red' }}></button> */}
