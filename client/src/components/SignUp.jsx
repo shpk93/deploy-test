@@ -161,8 +161,8 @@ function SignUp({ changeForm, closeModal, openModal }) {
 
   //회원가입 버튼을 눌렀을때
   const signUpHandle = () => {
-    let { username, email, password } = signUpInfo;
-    if (username && email && password && !validateErr) {
+    let { username, email, password, confirmPassword } = signUpInfo;
+    if (username && email && password && !validateErr && confirmPassword === password) {
       axios
         .post(`${url}users/signup`, signUpInfo)
         .then((result) => {
@@ -196,7 +196,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
       return !passwordCheck.test(password);
     }
     if (inputName === 'confirmPassword') {
-      return confirmPassword !== password;
+      return !passwordCheck.test(password) && confirmPassword === password;
     }
   };
   //유효성 검사 후 true면 데이터베이스 중복확인

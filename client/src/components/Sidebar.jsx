@@ -202,7 +202,12 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
         <SideBarNickStyle>
           {isEditMode ? (
             <div>
-              <input type="text" value={username} ref={inputEl} onChange={modifyUserHandle2}></input>
+              <input
+                style={{ fontSize: '30px', marginBottom: '8px' }}
+                type="text"
+                value={username}
+                ref={inputEl}
+                onChange={modifyUserHandle2}></input>
               <div>
                 <EditButtonStyle onClick={putRequest}>
                   <EditIcon />
@@ -222,7 +227,7 @@ function Sidebar({ changeSideBar, userInfo, closeLogInIcon, setGetPosts, getPost
                 <EditIcon />
               </button>
               {errMessage ? errMessage : null}
-              {userInfo.email}
+              <div>{userInfo.email}</div>
             </div>
           )}
         </SideBarNickStyle>
