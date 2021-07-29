@@ -268,7 +268,7 @@ function SignUp({ changeForm, closeModal, openModal }) {
             placeholder="비밀번호를 입력해주세요"
           />
         </div>
-        <div>{validateErr}</div>
+        <div style={{ color: 'red' }}>{validateErr}</div>
         <div>
           <div>
             <SignUpBtn onClick={signUpHandle}>Sign Up</SignUpBtn>
