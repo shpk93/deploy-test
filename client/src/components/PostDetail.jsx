@@ -134,10 +134,11 @@ const LikeDiv = styled.div`
 `;
 
 function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked, isLogIn, userInfo }) {
+  const [successSignUp, setSuccessSignUp] = useState(false);
+
   const handleDeletePost = async (id) => {
     await axios.delete(`${url}posts/${id}`);
-    alert('포스트가 삭제되었습니다!');
-    window.location.replace('/');
+    setSuccessSignUp(true);
   };
   return (
     <ModalArea>
@@ -246,8 +247,7 @@ function PostDetail({ postDetail, closePostDetail, handleClickLike, likes, liked
           </TextDiv>
         </ModalView>
         <Modalback onClick={() => closePostDetail()}></Modalback>
-        {/* {successSignUp ? <PopUp text={`회원가입에 성공하셨습니다.`} type= /> : null} */}
-        {/* <PopUp text={`회원가입에 성공하셨습니다.`} /> */}
+        {successSignUp ? <PopUp text={`삭제가 완료되었습니다.`} /> : null}
       </MarginDiv>
     </ModalArea>
   );

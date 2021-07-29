@@ -5,6 +5,7 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import Search from '../components/Search';
 import axios from 'axios';
+import PopUp from '../components/PopUp';
 axios.defaults.withCredentials = true;
 
 // 스타일컴퍼넌트
@@ -65,6 +66,7 @@ const ButtonStyle = styled.button`
 function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, closeLogInIcon, setText }) {
   const [hide, setHide] = useState(false);
   const [pageY, setPageY] = useState(0);
+  const [successSignUp, setSuccessSignUp] = useState(false);
   const documentRef = useRef(document);
 
   // functions
@@ -100,10 +102,12 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, c
   const getAccessToken = async (authorizationCode) => {
     let resp = await axios.post(`${process.env.REACT_APP_API_URL}users/auth`, { authorizationCode });
     closeLogInIcon();
+
     if (resp.status === 201) {
-      alert('회원가입 되었습니다. 마이페이지 창에서 닉네임을 변경해주세요');
+      setSuccessSignUp(true);
+    } else {
+      window.location.replace('/');
     }
-    window.location.replace('/'); // 단점 로딩을 두번함 .
   };
 
   useEffect(() => {
@@ -140,6 +144,7 @@ function Navigator({ changeSideBar, isLogIn, setGetPosts, getPosts, openModal, c
             )}
           </DivStyle>
         </InnerDiv>
+        {successSignUp ? <PopUp text={`회원가입에 성공하셨습니다. 마이페이지 창에서 닉네임을 변경해주세요'`} /> : null}
       </HeaderWrap>
     </HeaderArea>
   );
