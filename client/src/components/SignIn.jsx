@@ -108,11 +108,11 @@ const SignInBtn = styled.div`
   margin-top: 2px;
   width: 100%;
   height: 18%;
-
+  padding-top: 20px;
   cursor: pointer;
-  border: 0;
+  /* border: 0;
   border-top: 1px solid #eee;
-  border-radius: 0px;
+  border-radius: 0px; */
   outline: 0;
   font-size: 1.2em;
   font-weight: bold;
@@ -276,7 +276,7 @@ function SignIn({ isLogIn, openLogInIcon, openModal, setUserInfo, closeModal, ch
 
             <SignInBtn onClick={handleLogin}>Sign In</SignInBtn>
 
-            {checkErr ? <AlertBox message={errorMessage} /> : null}
+            {checkErr ? <AlertBox message={errorMessage} setCheckErr={setCheckErr} /> : null}
 
             <SocialSignInBtn onClick={socialLoginHandler}>
               <img src="../imageFile/kakaoButton.png" alt="login" style={{ width: '100%' }} />
